@@ -19,6 +19,9 @@ public interface ItemsDAO {
 	
 	public abstract ArrayList<Items> getAllItems() throws SQLException;
 	
+	//get list of items by input title
+	public abstract ArrayList<Items> searchItemByTitle(String title)throws SQLException;
+	
 	//get list of items by input title with selected item type (Book, CD, etc..) by student
 	public abstract ArrayList<Items> searchItemsByCriteria(String title, int i) throws SQLException;
 	

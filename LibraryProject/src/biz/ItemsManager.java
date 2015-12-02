@@ -60,7 +60,16 @@ public class ItemsManager {
 		}
 		return null;
 	}
-	
+	public ArrayList<Items> searchItemsByTitle(String title){
+		
+		try {
+			return itmdao.searchItemByTitle(title);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
+	}
 	public ArrayList<Items> searchItemsByCriteria(String title, int i) {
 		
 		try {
