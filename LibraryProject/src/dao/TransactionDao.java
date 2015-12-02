@@ -13,4 +13,5 @@ public interface TransactionDao {
 	public int updateTransaction(Transcation t)throws Exception;
 	public int insertTransaction(Transcation t)throws Exception;
 	public int overdueTransaction(int transsationID)throws Exception;
+	public ArrayList<Transcation> findTransactionByCondition(int itemType, int satus, Date from, Date to)throws Exception;
 }

@@ -3,6 +3,7 @@ package biz;
 import java.sql.Date;
 import java.util.ArrayList;
 
+import dao.DAOFactory;
 import dao.TransactionDao;
 import dao.tfactory;
 import dto.Transcation;
@@ -10,7 +11,7 @@ import dto.Transcation;
 public class TransactionManager {
 	public TransactionManager() {		
 	}
-	tfactory f =new tfactory();
+	DAOFactory f =new DAOFactory();
 	TransactionDao transactionDao=f.geTransactionDao();
 	public ArrayList<Transcation> findAllTranscation()throws Exception{
 		return transactionDao.findAllTranscation();
@@ -38,6 +39,10 @@ public class TransactionManager {
 	
 	public int overdueTransaction(int transsationID)throws Exception{
 		return transactionDao.overdueTransaction(transsationID);
+	}
+	
+	public ArrayList<Transcation> findTransactionByCondition(int itemType, int satus, Date from, Date to)throws Exception{
+		return transactionDao.findTransactionByCondition(itemType, satus, from, to);
 	}
 	
 }
