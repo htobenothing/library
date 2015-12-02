@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" href="../css/loginstyle.css" type="text/css">
+<title>Home Page</title>
+</head>
+
+<body>
+
+<div class="container" >
+ <div class="header">
+ <img src="../img/BigLogo.png" alt="Insert Logo Here" name="Insert_logo" width="180" height="90" id="Insert_logo" style="background-color: lightgrey; float:left" />
+ <a href="#" style="float:right; ">Log In</a>
+   <div style="clear:both; height:10px;"></div>
+    <!-- end .header --></div>
+  
+  <div style="clear:both; height:10px;"></div>
+  <div id="mainview" style="height:1000px; background:white;">
+  	<div class="homesearchbar">
+    <form>
+      <label>Student Detail</label>
+      <table>
+        <tr>
+            <td>Student ID</td>
+            <td>${item.id}</td>
+        </tr>
+        <tr>
+            <td>Student name</td>
+            <td><input type="text" name="studentName"></td>
+        </tr>
+        
+        <tr>
+            <td>ContactNumber</td>
+            <td><input type="text" name="studentName"></td>
+        </tr>
+        
+        <tr>
+            <td>Address</td>
+            <td><textarea rows="3" ></textarea></td>
+        </tr>
+        
+        <tr>
+            <td>status</td>
+            <td><select>
+            <option>active</option>
+            <option>unactive</option>
+            </select></td>
+        </tr>
+        <tr>
+            <td>Password</td>
+            <td><a href="#">Change</a></td>
+        </tr>
+     
+      </table>
+      <button type="submit" >Confirm</button>
+      </form>
+	</div>
+  </div>
+  <div class="footer">
+    <p>People Who Like Books, Like Sun Rise In the World.</p>
+    <p>Sun Rise Library</p>
+    <!-- end .footer --></div>
+  <!-- end .container --></div>
+</body>
+</html>
