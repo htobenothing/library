@@ -6,10 +6,11 @@ public class MySQLConstants {
     public static final String PASSWORD = "password";
     public static final String DRIVER_CLASS = "com.mysql.jdbc.Driver";
     
+    public static final String SELECT_QRY = "SELECT * FROM ";
     public static final String INSERT_QRY = "INSERT INTO ";
     public static final String UPDATE_QRY = "UPDATE ";
     
-    public static final String ITEMS_TABLE_NAME = "library.items";
+    public static final String ITEMS_TABLE_NAME = "library.items ";
     public static final String ITEMS_COL_ITEMNUMBER = "itemNumber";
     public static final String ITEMS_COL_TITLE = "title";
     public static final String ITEMS_COL_AUTHOR = "author";

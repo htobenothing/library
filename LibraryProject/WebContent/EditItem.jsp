@@ -14,42 +14,38 @@
 	<%
 		Items itm = (Items)session.getAttribute("itmobj");
 	%>
-		<%=itm.getItemNumber()%>
+		Item Number
+		<input type="text" name="itemNumber" readonly="readonly" value="<%=itm.getItemNumber()%>"/>
+	<br/>
      	Title     	
 		<input type="text" name="title" value="<%=itm.getTitle()%>"/>
-     <br/>
+    <br/>
      	Author
 		<input type="text" name="author" value="<%=itm.getAuthor()%>"/>
-     <br/>
+    <br/>
      	Publisher
 		<input type="text" name="publisher" value="<%=itm.getPublisher()%>"/>
-     <br/>
+    <br/>
      	Year
 		<input type="text" name="year" value="<%=itm.getYear()%>"/>
-     <br/>
+    <br/>
      	Description
 		<textarea name="description" rows="10" cols="30">
 		<%=itm.getDescription()%>
 		</textarea>
-     <br/>
+    <br/>
      	ISBN
 		<input type="text" name="isbn" value="<%=itm.getIsbn()%>"/>
-     <br/>
+    <br/>
      	Item Type
-		<select name="itemtypeID">
-        <option value="1">Book</option>
-        <option value="2">CD</option>
-        <option value="3">Casettes</option>
-        <option value="4">Kits</option>
-        <option value="5">Manuscripts</option>
-        <option value="6">Journals</option>
-     	</select>
-     <br/>
+		<input type="text" name="itemtypeID" readonly="readonly" value="<%=itm.getItemtypeID()%>"/>
+    <br/>
      	Item Status
      	<select name="itemstatus">
         <option value="1">Available</option>
         <option value="0">Unavailable</option>
      	</select>
+     	
      	<input type="submit" value="SUBMIT"/>
      	<input type="reset" value="RESET"/>
      	

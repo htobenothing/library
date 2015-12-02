@@ -20,7 +20,8 @@
   <div class="homesearchbar">
   <form>
       <label>Return Item Detail</label>
-      <table>
+      <input type="hidden" value=${transaction.id} name="transactionid">
+      <table class="stable">
         <tr>
             <td>Item ID</td>
             <td>${item.id}</td>
@@ -50,7 +51,7 @@
         </tr>
      
       </table>
-      <button type="submit" >Return</button>
+      <button type="submit" >Confirm</button>
       </form>
   </div>
   </div>

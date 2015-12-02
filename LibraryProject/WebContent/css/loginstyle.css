@@ -10,28 +10,31 @@ body {
 }
 
 
-table, th, td{
-	margin:5px;
+.stable{
+	margin-top: 20px;
 	border-collapse:collapse;
 	border:1px solid black;
-	
+	margin-bottom:10px;
 	}
-th{
+table.stable th{
 	background:rgb(51,153,255);
-	
+	border:1px solid black;
 	}
-table{
+.stable{
 	border: 1px solid black;
 	width:98%;
 	text-align:center;
 	}
-td{
+table.stable td{
 	border: 1px solid black;
 	}
 
-tr{
+table.stable tr{
 	border: 1px solid black;
 }
+table.stable caption{
+	text-align:left;
+	}
 /* ~~ Element/tag selectors ~~ */
 ul, ol, dl { /* Due to variations between browsers, it's best practices to zero padding and margin on lists. For consistency, you can either specify the amounts you want here, or on the list items (LI, DT, DD) they contain. Remember that what you do here will cascade to the .nav list unless you write a more specific selector. */
 	padding: 0;
@@ -157,17 +160,16 @@ ul.nav a:hover, ul.nav a:active, ul.nav a:focus { /* this changes the background
 	}
 .homesearchbar{
 	margin: 100px auto;
-	text-align:center;
 	width:480px;
 	border: 1px solid black;
 	border-radius:5px;
 
 	
 	}
-#searchform{
-	margin: 30px;
+.searchform{
+	margin: 40px;
 	font-size:24px;
-	
+	text-align:center;
 	}	
 .logintable{
 	border-collapse:collapse;
@@ -211,4 +213,10 @@ form{
 	width:800px;
 	border:1px solid black;
 	border-radius:5px;
+	}
+.searchtable{
+	margin:5px;
+	border:opx;
+	width:50%;
+	text-align:left;
 	}
