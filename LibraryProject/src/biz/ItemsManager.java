@@ -8,10 +8,10 @@ import dao.ItemsDAO;
 import dto.Items;
 
 public class ItemsManager {
-	
+
 	ItemsDAO itmdao = DAOFactory.getItemsDAO();
-	
-	public int createItems(Items itm){
+
+	public int createItems(Items itm) {
 		try {
 			return itmdao.createItems(itm);
 		} catch (SQLException e) {
@@ -20,8 +20,8 @@ public class ItemsManager {
 		}
 		return 0;
 	}
-	
-	public Items getOneItems(int i){
+
+	public Items getOneItems(int i) {
 		try {
 			return itmdao.getOneItems(i);
 		} catch (SQLException e) {
@@ -30,8 +30,8 @@ public class ItemsManager {
 		}
 		return null;
 	}
-	
-	public int updateItems(Items itm){
+
+	public int updateItems(Items itm) {
 		try {
 			return itmdao.updateItems(itm);
 		} catch (SQLException e) {
@@ -40,18 +40,9 @@ public class ItemsManager {
 		}
 		return 0;
 	}
-	public ArrayList<Items> getItemByStatus(int i) {
-		try {
-			return itmdao.getItemByStatus(i);
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return null;
-	}
-	
+
 	public ArrayList<Items> getAllItems() {
-		
+
 		try {
 			return itmdao.getAllItems();
 		} catch (SQLException e) {
@@ -60,8 +51,19 @@ public class ItemsManager {
 		}
 		return null;
 	}
-	public ArrayList<Items> searchItemsByTitle(String title){
-		
+
+	public ArrayList<Items> searchItemByStatus(String itemstatus) {
+		try {
+			return itmdao.searchItemByStatus(itemstatus);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	public ArrayList<Items> searchItemsByTitle(String title) {
+
 		try {
 			return itmdao.searchItemByTitle(title);
 		} catch (SQLException e) {
@@ -70,10 +72,33 @@ public class ItemsManager {
 		}
 		return null;
 	}
-	public ArrayList<Items> searchItemsByCriteria(String title, int i) {
-		
+	
+	public ArrayList<Items> searchItembyTitleStatus(String title, String itemstatus) {
+
 		try {
-			return itmdao.searchItemsByCriteria(title, i);
+			return itmdao.searchItembyTitleStatus(title, itemstatus);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
+	public ArrayList<Items> searchItembyTitleItemType(String title, int itemTypeID) {
+
+		try {
+			return itmdao.searchItembyTitleItemType(title, itemTypeID);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	public ArrayList<Items> searchItemsByFullCriteria(String title, int itemTypeID, String itemstatus) {
+
+		try {
+			return itmdao.searchItemsByFullCriteria(title, itemTypeID, itemstatus);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

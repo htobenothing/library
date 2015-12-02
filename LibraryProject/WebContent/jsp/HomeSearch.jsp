@@ -17,16 +17,16 @@
   <div class="content">
   <div style="margin:10px;">
   
-<form class="searchbar">
+<form class="searchbar" action="/library/items/searchresult" method="post">
     <table class="searchtable">
     <tr  class="str">
     	<td >Item Title</td>
-        <td ><input type="text" name="keyword" /></td>
+        <td ><input type="text" name="title" /></td>
     </tr>
      <tr>
     	<td>ItemType</td>
         <td >
-        <select name="itemtype">
+        <select name="itemtypeID">
         	<option value="-1" selected="selected">All</option>
         	<option value="1" >Book</option>
             <option value="2">CD</option>
@@ -43,7 +43,7 @@
         <td> 
         <select name="itemstatus">
         	<option value="-1" selected="selected">All</option>
-        	<option value="1">Avaiable</option>
+        	<option value="1">Available</option>
         </select>
         </td>
     </tr>
