@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" href="../css/loginstyle.css" type="text/css">
+<title>Untitled Document</title>
+</head>
+
+<body>
+
+<div class="container" >
+  <div class="header"><a href="#"><img src="../img/BigLogo.png" alt="Insert Logo Here" name="Insert_logo" width="180" height="90" id="Insert_logo" style="background-color: lightgrey; display:block;" /></a> 
+    <!-- end .header --></div>
+  <div class="sidebar1">
+    <ul class="nav">
+      <li><a href="#">Serach Item</a></li>
+      <li><a href="#">Transaction History</a></li>
+      <li><a href="#">Return Item</a></li>
+    </ul>
+    <!-- end .sidebar1 --></div>
+  <div class="content">
+ <div style="margin:10px;">
+ 	<form class="searchbar">
+    	<label >Search</label>
+        <input type="text"  />
+        <input type="submit" name="go" />
+    </form>
+   <form>
+   <div style="height:740px;">
+  	<label>Search Result</label>
+  	<table>
+    	<tr>
+            <th>SN</th>
+            <th>Title</th>
+            <th>Author</th>
+            <th>Publisher</th>
+            <th>Status</th>
+            <th>Borrow</th> 
+        </tr>
+    	<tr>
+        	<td>0001</td>
+            <td>Java</td>
+            <td>2015-05-06</td>
+            <td>null</td>
+            <td>2015-06-06</td>
+            <td><input type="checkbox" name="borrow" value=${item.id}></td>
+        </tr>
+    </table>
+    </div>
+    <button type="submit" >Borrow</button>
+    </form>
+  </div>
+  </div>
+  <div class="footer">
+    <p>People Who Like Books, Like Sun Rise In the World.</p>
+    <p>Sun Rise Library</p>
+    <!-- end .footer --></div>
+  <!-- end .container --></div>
+</body>
+</html>
