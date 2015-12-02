@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" href="../css/loginstyle.css" type="text/css">
+<title>Untitled Document</title>
+</head>
+
+<body>
+
+<div class="container" >
+  <div class="header"><a href="#"><img src="../img/BigLogo.png" alt="Insert Logo Here" name="Insert_logo" width="180" height="90" id="Insert_logo" style="background-color: lightgrey; display:block;" /></a> 
+    <!-- end .header --></div>
+  <div class="sidebar1">
+    <ul class="nav">
+      <li><a href="#">Serach Item</a></li>
+      <li><a href="#">Transaction History</a></li>
+      <li><a href="#">Return Item</a></li>
+    </ul>
+  </div>
+  <div class="content">
+   <label>Current Onloan</label>
+  <div style="height:300px; ">
+ 
+  <table style="border-collapse: collapse;border: 1px solid black; border-spacing:10px 5px;">
+    	<tr style="background: #09F;border: 1px solid black;">
+            <th>ItemID</th>
+            <th>Title</th>
+            <th>BorrowDate</th>
+            <th>ReturnDate</th>
+            <th>DueDate</th>
+            <th>Status</th>
+            <th>Renew</th> 
+        </tr>
+        
+    	<tr style="border: 1px solid black;">
+        <form>
+        	<input type="hidden" name="trid" value="111">
+        	
+        	<td>0001</td>
+            <td>Java</td>
+            <td >2015-05-06</td>
+            <td>null</td>
+            <td>2015-06-06</td>
+            <td>onloan</td>
+            <td><button type="submit">Renew</button></td>
+        </form> 
+        </tr>
+      
+    </table>
+ </div> 
+  
+  
+  <div>
+  	<form>
+  	<label>Transaction History</label>
+    <br>
+    <label>From:</label>
+    <input type="date" name="startdate" >
+    <label> To:</label>
+    <input type="date" name="enddate" >
+    <button type="submit">search</button>
+    </form>
+  </div>
+  <div style="margin:10px; overflow:auto; height:450px;">
+  	
+  	<table style="border-collapse: collapse;border: 1px solid black; border-spacing:10px 5px;">
+    	<tr style="background: #09F;border: 1px solid black;">
+            <th>ItemID</th>
+            <th>Title</th>
+            <th>BorrowDate</th>
+            <th>ReturnDate</th>
+            <th>DueDate</th>
+			<th>Status</th>
+        </tr>
+    	<tr style="border: 1px solid black;">
+        	<td>0001</td>
+            <td>Java</td>
+            <td >2015-05-06</td>
+            <td>null</td>
+            <td>2015-06-06</td>
+           	<td>return</td>
+        </tr>
+    </table>
+  </div>
+  	
+  </div>
+  <div class="footer">
+    <div class="footer">
+      <p>People Who Like Books, Like Sun Rise In the World.</p>
+      <p>Sun Rise Library</p>
+      <!-- end .footer -->
+    </div>
+    <p>&nbsp;</p>
+  </div>
+  <!-- end .container --></div>
+</body>
+</html>

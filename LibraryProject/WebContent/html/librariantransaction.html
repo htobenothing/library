@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" href="../css/loginstyle.css" type="text/css">
+<title>Untitled Document</title>
+</head>
+
+<body>
+
+<div class="container" >
+  <div class="header"><a href="#"><img src="../img/BigLogo.png" alt="Insert Logo Here" name="Insert_logo" width="180" height="90" id="Insert_logo" style="background-color: lightgrey; display:block;" /></a> 
+    <!-- end .header --></div>
+  <div class="sidebar1">
+    <ul class="nav">
+      <li><a href="#">Serach Item</a></li>
+      <li><a href="#">Transaction History</a></li>
+      <li><a href="#">Return Item</a></li>
+      <li><a href="#">Maintain Item</a>
+      <li><a href="#">Maintain Student</a></li>
+    </ul>
+  </div>
+  <div class="content">
+  <div>
+  	<form>
+  	<label>Transaction History</label>
+    <br>
+    <table class="searchtransaction">
+    	<tr>
+        	<td>Date:</td>
+            <td>
+            <label>From:</label>
+            <input type="date" name="startdate" >
+            <label> To:</label>
+            <input type="date" name="enddate" >
+            </td>
+        </tr>
+        <tr>
+        	<td>Item Type:</td>
+            <td>
+                <select name="Item Type">
+                <option>ALL</option>
+                <option>Book</option>
+                <option>CD</option>
+                <option>Casseette</option>
+                </select>
+            </td>
+        </tr>
+ 		<tr>
+        	<td>Status:</td>
+            <td>
+                <select name="Status">
+                <option>All</option>
+                <option>Onloan</option>
+                <option>OverDue</option>
+               
+                </select>
+            </td>
+        </tr>
+   
+       </table>
+    <button type="submit">Search</button>
+    </form>
+
+  </div>
+  <div style="margin:10px;  ">
+  	
+  	<table style="border-collapse: collapse;border: 1px solid black; border-spacing:10px 5px;">
+    	<tr style="background: #09F;border: 1px solid black;">
+            <th>ItemID</th>
+            <th>Title</th>
+            <th>Borrower</th>
+            <th>BorrowDate</th>
+            <th>ReturnDate</th>
+			<th>Status</th>
+        </tr>
+    	<tr style="border: 1px solid black;">
+        	<td>0001</td>
+            <td>Java</td>
+            <td>James</td>
+            <td >2015-05-06</td>
+            <td>2015-05-16</td>
+           	<td>return</td>
+        </tr>
+    </table>
+  </div>
+  	
+  </div>
+  <div class="footer">
+    <div class="footer">
+      <p>People Who Like Books, Like Sun Rise In the World.</p>
+      <p>Sun Rise Library</p>
+      <!-- end .footer -->
+    </div>
+    <p>&nbsp;</p>
+  </div>
+  <!-- end .container --></div>
+</body>
+</html>
