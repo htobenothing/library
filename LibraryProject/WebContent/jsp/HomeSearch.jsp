@@ -1,20 +1,23 @@
-<!DOCTYPE html>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <link rel="stylesheet" href="../css/loginstyle.css" type="text/css">
-<title>SearchResult</title>
+<title>Insert title here</title>
 </head>
-
 <body>
-
 <div class="container" >
   <div class="header"><a href="#"><img src="../img/BigLogo.png" alt="Insert Logo Here" name="Insert_logo" width="180" height="90" id="Insert_logo" style="background-color: lightgrey; display:block;" /></a> 
     <!-- end .header --></div>
- 
+     
   <div class="content">
   <div style="margin:10px;">
- 	<form class="searchbar">
+  
+<form class="searchbar">
     <table class="searchtable">
     <tr  class="str">
     	<td >Item Title</td>
@@ -40,7 +43,7 @@
         <td> 
         <select name="itemstatus">
         	<option value="-1" selected="selected">All</option>
-        	<option value="0">Avaiable</option>
+        	<option value="1">Avaiable</option>
         </select>
         </td>
     </tr>
@@ -49,27 +52,31 @@
     </tr>
       </table>
     </form>
+    
+    <!-- search result table -->
    <form>
    <div style="height:740px;">
-  	
-  	<table class="stable">
-    	<caption class="scaptain" >Search Result</caption>
-    	<tr class="str">
-            <th class="sth">SN</th>
-            <th class="sth">Title</th>
-            <th class="sth">Author</th>
-            <th class="sth">Publisher</th>
-            <th class="sth">Status</th>
-            <th class="sth">Borrow</th> 
+  	<label>Search Result</label>
+  	<table>
+    	<tr>
+            <th>SN</th>
+            <th>Title</th>
+            <th>Author</th>
+            <th>Publisher</th>
+            <th>Status</th>
+            <th>Borrow</th> 
         </tr>
-    	<tr class="str">
-        	<td class="std">0001</td>
-            <td class="std">Java</td>
-            <td class="std">2015-05-06</td>
-            <td class="std">null</td>
-            <td class="std">2015-06-06</td>
-            <td class="std"><input type="checkbox" name="borrow" value=${item.id}></td>
-        </tr>
+        
+        <c:forEach items="${itmlist}" var="items" varStatus="i">
+			<tr> 
+			    <td>${i.index+1}</td>
+            	<td>${items.title}</td>
+				<td>${items.author}</td>
+				<td>${items.publisher}</td>
+            	<td>${items.itemstatus}</td>            	          
+            	<td><input type="checkbox" name="borrow" value=${items.itemNumber}></td>
+        	</tr>        
+        </c:forEach> 
     </table>
     </div>
     <button type="submit" >Borrow</button>

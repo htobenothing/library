@@ -44,6 +44,13 @@ public class ItemsController extends HttpServlet {
 		RequestDispatcher rd = null;
 		Items itm; int result=0;
 		switch (path) {
+		case "/searchbytitle":
+			ArrayList<Items> itmlist = mgr.searchItemsByTitle(request.getParameter("title"));
+			request.setAttribute("itmlist", itmlist);
+			System.out.println(request.getParameter("title"));
+			rd = request.getRequestDispatcher("../jsp/HomeSearch.jsp");
+			rd.forward(request, response);	
+			break;
 		case "/list":
 			ArrayList<Items> list = mgr.getAllItems();
 			request.setAttribute("itmlist", list);
@@ -60,7 +67,7 @@ public class ItemsController extends HttpServlet {
 			break;
 		case "/update":
 			itm = new Items();
-			//itm.setItemNumber(Integer.parseInt(request.getParameter("itemnumber")));
+			itm.setItemNumber(Integer.parseInt(request.getParameter("itemNumber")));
 			itm.setTitle(request.getParameter("title"));
 			itm.setAuthor(request.getParameter("author"));
 			itm.setPublisher(request.getParameter("publisher"));

@@ -3,7 +3,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <link rel="stylesheet" href="../css/loginstyle.css" type="text/css">
-<title>Untitled Document</title>
+<title>Search</title>
 </head>
 
 <body>
@@ -11,45 +11,64 @@
 <div class="container" >
   <div class="header"><a href="#"><img src="../img/BigLogo.png" alt="Insert Logo Here" name="Insert_logo" width="180" height="90" id="Insert_logo" style="background-color: lightgrey; display:block;" /></a> 
     <!-- end .header --></div>
-  <div class="sidebar1">
-    <ul class="nav">
-       <ul class="nav">Item Category
-      	<li><a href="#">Books</a></li>
-      	<li><a href="#">CD</a></li>
-      	<li><a href="#">Kits</a></li>
-      </ul>
-      <ul class="nav">Status
-      	<li><a href="#">Avaiable</a></li>
-        <li><a href="#">Unavaiable</a></li>
-      </ul>
-    </ul>
-    <!-- end .sidebar1 --></div>
+ 
   <div class="content">
   <div style="margin:10px;">
  	<form class="searchbar">
-    	<label >Search</label>
-        <input type="text"  />
-        <input type="submit" name="go" />
+    <table class="searchtable">
+    <tr  class="str">
+    	<td >Item Title</td>
+        <td ><input type="text" name="keyword" /></td>
+    </tr>
+     <tr>
+    	<td>ItemType</td>
+        <td >
+        <select name="itemtype">
+        	<option value="-1" selected="selected">All</option>
+        	<option value="1" >Book</option>
+            <option value="2">CD</option>
+            <option value="3">Casettes</option>
+            <option value="4">Kits</option>
+            <option value="5">Manuscripts</option>
+            <option value="6">Magazines</option>
+            <option value="7">Journals</option>
+        </select>
+        </td>
+    </tr>
+     <tr >
+    	<td>ItemStatus</td>
+        <td> 
+        <select name="itemstatus">
+        	<option value="-1" selected="selected">All</option>
+        	<option value="0">Avaiable</option>
+        </select>
+        </td>
+    </tr>
+    <tr >
+    	<td colspan="3" ><button type="submit">Search</button></td>
+    </tr>
+      </table>
     </form>
    <form>
    <div style="height:740px;">
-  	<label>Search Result</label>
-  	<table>
-    	<tr>
-            <th>SN</th>
-            <th>Title</th>
-            <th>Author</th>
-            <th>Publisher</th>
-            <th>Status</th>
-            <th>Borrow</th> 
+  	
+  	<table class="stable">
+    	<caption class="scaptain" >Search Result</caption>
+    	<tr class="str">
+            <th class="sth">SN</th>
+            <th class="sth">Title</th>
+            <th class="sth">Author</th>
+            <th class="sth">Publisher</th>
+            <th class="sth">Status</th>
+            <th class="sth">Borrow</th> 
         </tr>
-    	<tr>
-        	<td>0001</td>
-            <td>Java</td>
-            <td>2015-05-06</td>
-            <td>null</td>
-            <td>2015-06-06</td>
-            <td><input type="checkbox" name="borrow" value=${item.id}></td>
+    	<tr class="str">
+        	<td class="std">0001</td>
+            <td class="std">Java</td>
+            <td class="std">2015-05-06</td>
+            <td class="std">null</td>
+            <td class="std">2015-06-06</td>
+            <td class="std"><input type="checkbox" name="borrow" value=${item.id}></td>
         </tr>
     </table>
     </div>
