@@ -6,5 +6,9 @@ public class DAOFactory {
 		ItemsDAO itmDAO = new ItemsDataAccess();
 		return itmDAO;
 	}
+	public static TransactionDao geTransactionDao()
+	{
+		return new TransactionDataAccess();
+	}
 
 }
