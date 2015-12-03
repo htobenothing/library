@@ -21,10 +21,14 @@ public interface ItemsDAO {
 	public abstract ArrayList<Items> searchItemByStatus(String itemstatus) throws SQLException;
 	//get items list by title
 	public abstract ArrayList<Items> searchItemByTitle(String title)throws SQLException;
+	//get items list by itemType
+	public abstract ArrayList<Items> searchItemByItemType(int itemtypeID)throws SQLException;
 	//get items list by title and status
 	public abstract ArrayList<Items> searchItembyTitleStatus(String title, String itemstatus) throws SQLException;
 	//get items list by title and item type
 	public abstract ArrayList<Items> searchItembyTitleItemType(String title, int itemTypeID) throws SQLException;
+	//get items list by status and item type
+	public abstract ArrayList<Items> searchItembyStatusItemType(String itemstatus, int itemTypeID) throws SQLException;
 	//get items list by title, item type, status
 	public abstract ArrayList<Items> searchItemsByFullCriteria(String title, int itemTypeID, String itemstatus) throws SQLException;
 

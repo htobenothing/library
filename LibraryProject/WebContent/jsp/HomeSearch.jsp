@@ -73,8 +73,26 @@
             	<td>${items.title}</td>
 				<td>${items.author}</td>
 				<td>${items.publisher}</td>
-            	<td>${items.itemstatus}</td>            	          
-            	<td><input type="checkbox" name="borrow" value=${items.itemNumber}></td>
+				<c:choose>
+					<c:when test="${items.itemstatus != 0}">
+						<td>Available</td>
+					</c:when>
+					<c:otherwise>
+						<td>Unavailable</td>
+					</c:otherwise>
+				</c:choose>
+				<c:choose>
+					<c:when test="${items.itemstatus == 0}">
+						<td>
+						<input type="checkbox" name="borrow" disabled="disabled" value=${items.itemNumber}>
+						</td>
+					</c:when>
+					<c:otherwise>
+						<td>
+						<input type="checkbox" name="borrow" value=${items.itemNumber}>
+						</td>
+					</c:otherwise>
+				</c:choose>
         	</tr>        
         </c:forEach> 
     </table>
