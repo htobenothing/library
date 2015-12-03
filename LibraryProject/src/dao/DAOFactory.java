@@ -10,5 +10,9 @@ public class DAOFactory {
 	{
 		return new TransactionDataAccess();
 	}
+	public static UserDAO getUserDAO() {
+		return new UserDataAccess();
+	}
+	
 
 }
