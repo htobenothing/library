@@ -40,8 +40,7 @@ public class ItemsDataAccess implements ItemsDAO {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-	}
-	
+	}	
 
 	@Override
 	public int createItems(Items itm) throws SQLException {
@@ -59,6 +58,24 @@ public class ItemsDataAccess implements ItemsDAO {
 	}
 
 	@Override
+	public int updateItems(Items itm) throws SQLException {
+		openConnection();
+		int i = statement.executeUpdate("UPDATE library.items SET title = " 
+				+ "\"" + itm.getTitle()
+				+ "\", author =" + "\"" + itm.getAuthor()
+				+ "\", publisher = " + "\"" + itm.getPublisher() 
+				+ "\", year = " + "\"" + itm.getYear()
+				+ "\", description = " + "\"" + itm.getDescription()
+				+ "\", isbn = " + "\"" + itm.getIsbn()
+				+ "\", itemtypeID = " + itm.getItemtypeID()
+				+ ", itemstatus = " + "'" + itm.getItemstatus()
+				+ "' WHERE itemNumber = " + itm.getItemNumber() + ";");
+		
+		closeConnection();
+		return i;
+	}	
+	
+	@Override
 	public Items getOneItems(int itemNumber) throws SQLException {
 		Items itm = new Items();
 		openConnection();
@@ -74,31 +91,6 @@ public class ItemsDataAccess implements ItemsDAO {
 	}
 
 	@Override
-	public int updateItems(Items itm) throws SQLException {
-		
-/*		"update library.items set title = \"" + itm.getTitle() +  
-		+"\"itm.getTitle()+ ", author = "author", publisher="", year="2015" where itemNumber=102;
-		*/
-		
-		openConnection();
-		int i = statement.executeUpdate("UPDATE library.items SET title = \"" + itm.getTitle()
-					+", author =\"" + itm.getAuthor()
-					+", publisher = \"" + itm.getPublisher() + "\", year = \"" + itm.getYear()
-					+", description = \"" + itm.getDescription() + "\", isbn = \"" + itm.getIsbn()
-					+", itemtypeID = \"" + itm.getItemtypeID() + "\", itemstatus = \"" + itm.getItemstatus()
-					+ "\" WHERE itemNumber = " + itm.getItemNumber() + ";");
-		
-		closeConnection();
-		return i;
-	}
-
-	@Override
-	public ArrayList<Items> getItemByStatus(int i) throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
 	public ArrayList<Items> getAllItems() throws SQLException {
 		openConnection();
 		ArrayList<Items> result = new ArrayList<Items>();
@@ -111,12 +103,97 @@ public class ItemsDataAccess implements ItemsDAO {
 		}
 		closeConnection();
 		return result;
-	}
-
+	}	
+	
+//	SELECT * FROM library.items WHERE title LIKE '%man%';
 	@Override
-	public ArrayList<Items> searchItemsByCriteria(String title, int i) throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
+	public ArrayList<Items> searchItemByTitle(String title) throws SQLException {
+		openConnection();
+		ArrayList<Items> result = new ArrayList<Items>();		
+		String qry = MySQLConstants.SELECT_QRY + MySQLConstants.ITEMS_TABLE_NAME 
+										+ "WHERE title LIKE '%" + title + "%'" ;
+		
+		rs = statement.executeQuery(qry);
+		while(rs.next()){
+			Items itm = new Items(rs.getInt(1), rs.getString(2), rs.getString(3), 
+					rs.getString(4), rs.getString(5), rs.getString(6), rs.getString(7), 
+					rs.getInt(8),rs.getString(9));
+			result.add(itm);
+		}
+		closeConnection();
+		return result;
 	}
-
+	
+	@Override
+	public ArrayList<Items> searchItemByStatus(String itemstatus) throws SQLException {
+		openConnection();
+		ArrayList<Items> result = new ArrayList<Items>();		
+		String qry = MySQLConstants.SELECT_QRY + MySQLConstants.ITEMS_TABLE_NAME 
+										+ "WHERE itemstatus = '" + itemstatus + "'" ;
+		
+		rs = statement.executeQuery(qry);
+		while(rs.next()){
+			Items itm = new Items(rs.getInt(1), rs.getString(2), rs.getString(3), 
+					rs.getString(4), rs.getString(5), rs.getString(6), rs.getString(7), 
+					rs.getInt(8),rs.getString(9));
+			result.add(itm);
+		}
+		closeConnection();
+		return result;
+	}
+	
+	@Override
+	public ArrayList<Items> searchItembyTitleStatus(String title, String itemstatus) throws SQLException {
+		ArrayList<Items> result = new ArrayList<Items>();		
+		String qry = MySQLConstants.SELECT_QRY + MySQLConstants.ITEMS_TABLE_NAME 
+										+ "WHERE title LIKE '%" + title + "%' AND itemstatus = '" + itemstatus + "'" ;
+		
+		rs = statement.executeQuery(qry);
+		while(rs.next()){
+			Items itm = new Items(rs.getInt(1), rs.getString(2), rs.getString(3), 
+					rs.getString(4), rs.getString(5), rs.getString(6), rs.getString(7), 
+					rs.getInt(8),rs.getString(9));
+			result.add(itm);
+		}
+		closeConnection();
+		return result;
+	}
+	
+	@Override
+	public ArrayList<Items> searchItembyTitleItemType(String title, int itemTypeID) throws SQLException {
+		ArrayList<Items> result = new ArrayList<Items>();		
+		String qry = MySQLConstants.SELECT_QRY + MySQLConstants.ITEMS_TABLE_NAME 
+										+ "WHERE title LIKE '%" + title + "%' AND itemTypeID = " 
+										+ itemTypeID ;
+		
+		rs = statement.executeQuery(qry);
+		while(rs.next()){
+			Items itm = new Items(rs.getInt(1), rs.getString(2), rs.getString(3), 
+					rs.getString(4), rs.getString(5), rs.getString(6), rs.getString(7), 
+					rs.getInt(8),rs.getString(9));
+			result.add(itm);
+		}
+		closeConnection();
+		return result;
+	}
+	
+	//SELECT * FROM library.items WHERE title="title" and itemtypeID = 2 AND itemstatus='0';
+	@Override
+	public ArrayList<Items> searchItemsByFullCriteria(String title, int itemTypeID, String itemstatus)
+			throws SQLException {
+		ArrayList<Items> result = new ArrayList<Items>();		
+		String qry = MySQLConstants.SELECT_QRY + MySQLConstants.ITEMS_TABLE_NAME 
+										+ "WHERE title LIKE '%" + title + "%' AND itemTypeID = " 
+										+ itemTypeID + "AND itemstatus = '" + itemstatus + "'" ;
+		
+		rs = statement.executeQuery(qry);
+		while(rs.next()){
+			Items itm = new Items(rs.getInt(1), rs.getString(2), rs.getString(3), 
+					rs.getString(4), rs.getString(5), rs.getString(6), rs.getString(7), 
+					rs.getInt(8),rs.getString(9));
+			result.add(itm);
+		}
+		closeConnection();
+		return result;
+	}
 }

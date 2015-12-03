@@ -13,6 +13,9 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import org.apache.commons.logging.*;
 
+import com.mysql.jdbc.log.Log;
+import com.mysql.jdbc.log.LogFactory;
+
 
 public final class DAOUtil
 {

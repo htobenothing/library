@@ -8,19 +8,24 @@ import dto.Items;
 public interface ItemsDAO {
 	
 	public abstract int createItems(Items itm) throws SQLException;
-	
-	//get item to update by librarian
-	public abstract Items getOneItems(int i) throws SQLException;
-	
 	public abstract int updateItems(Items itm) throws SQLException;
 	
-	//get list of items based on (available/unavailable/onloan) status by librarian
-	public abstract ArrayList<Items> getItemByStatus(int i) throws SQLException;	
+	//get item to update by librarian
+	public abstract Items getOneItems(int i) throws SQLException;	
+	public abstract ArrayList<Items> getAllItems() throws SQLException;		
 	
-	public abstract ArrayList<Items> getAllItems() throws SQLException;
 	
-	//get list of items by input title with selected item type (Book, CD, etc..) by student
-	public abstract ArrayList<Items> searchItemsByCriteria(String title, int i) throws SQLException;
 	
+	//SEARCHING
+	//get items list by status
+	public abstract ArrayList<Items> searchItemByStatus(String itemstatus) throws SQLException;
+	//get items list by title
+	public abstract ArrayList<Items> searchItemByTitle(String title)throws SQLException;
+	//get items list by title and status
+	public abstract ArrayList<Items> searchItembyTitleStatus(String title, String itemstatus) throws SQLException;
+	//get items list by title and item type
+	public abstract ArrayList<Items> searchItembyTitleItemType(String title, int itemTypeID) throws SQLException;
+	//get items list by title, item type, status
+	public abstract ArrayList<Items> searchItemsByFullCriteria(String title, int itemTypeID, String itemstatus) throws SQLException;
 
 }
