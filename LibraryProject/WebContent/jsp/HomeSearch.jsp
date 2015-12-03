@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<link rel="stylesheet" href="../css/loginstyle.css" type="text/css">
+<link rel="stylesheet" href="css/loginstyle.css" type="text/css">
 <title>Insert title here</title>
 </head>
 <body>
@@ -17,16 +17,16 @@
   <div class="content">
   <div style="margin:10px;">
   
-<form class="searchbar">
+<form class="searchbar" action="/library/items/searchresult" method="post">
     <table class="searchtable">
     <tr  class="str">
     	<td >Item Title</td>
-        <td ><input type="text" name="keyword" /></td>
+        <td ><input type="text" name="title" /></td>
     </tr>
      <tr>
     	<td>ItemType</td>
         <td >
-        <select name="itemtype">
+        <select name="itemtypeID">
         	<option value="-1" selected="selected">All</option>
         	<option value="1" >Book</option>
             <option value="2">CD</option>
@@ -43,7 +43,7 @@
         <td> 
         <select name="itemstatus">
         	<option value="-1" selected="selected">All</option>
-        	<option value="1">Avaiable</option>
+        	<option value="1">Available</option>
         </select>
         </td>
     </tr>
@@ -73,8 +73,26 @@
             	<td>${items.title}</td>
 				<td>${items.author}</td>
 				<td>${items.publisher}</td>
-            	<td>${items.itemstatus}</td>            	          
-            	<td><input type="checkbox" name="borrow" value=${items.itemNumber}></td>
+				<c:choose>
+					<c:when test="${items.itemstatus != 0}">
+						<td>Available</td>
+					</c:when>
+					<c:otherwise>
+						<td>Unavailable</td>
+					</c:otherwise>
+				</c:choose>
+				<c:choose>
+					<c:when test="${items.itemstatus == 0}">
+						<td>
+						<input type="checkbox" name="borrow" disabled="disabled" value=${items.itemNumber}>
+						</td>
+					</c:when>
+					<c:otherwise>
+						<td>
+						<input type="checkbox" name="borrow" value=${items.itemNumber}>
+						</td>
+					</c:otherwise>
+				</c:choose>
         	</tr>        
         </c:forEach> 
     </table>
