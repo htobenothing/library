@@ -23,7 +23,7 @@
   </div>
   <div class="content">
   <div>
-  	<form action="/library/transaction/viewtransaction" method="post">
+  	<form action="/library/transaction/viewtransactionlib" method="post">
   	<label>Transaction History</label>
     <br>
     <table class="searchtransaction">
@@ -33,7 +33,7 @@
             <label>From:</label>
             <input type="date" name="startdate" >
             <label> To:</label>
-            <input type="date" name="enddate" >
+            <input type="date" name="enddate">
             </td>
         </tr>
         <tr>
@@ -77,12 +77,12 @@
         </tr>
         <c:forEach items="${slist}" var="t" varStatus="i">
     	<tr >
-        	<td>${t.getIteamID()}</td>
-            <td>Java</td>
-            <td>James</td>
-            <td >2015-05-06</td>
-            <td>2015-05-16</td>
-           	<td>return</td>
+        	<td>${t.itemID}</td>
+            <td>${t.title}</td>
+            <td>${t.username}</td>
+            <td >${t.borrowDate}</td>
+            <td>${t.returnDate}</td>
+           	<td>${t.status}</td>
         </tr>
         </c:forEach>
     </table>
