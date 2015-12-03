@@ -141,9 +141,27 @@ public class ItemsDataAccess implements ItemsDAO {
 		closeConnection();
 		return result;
 	}
+	@Override
+	public ArrayList<Items> searchItemByItemType(int itemtypeID) throws SQLException {
+		openConnection();
+		ArrayList<Items> result = new ArrayList<Items>();		
+		String qry = MySQLConstants.SELECT_QRY + MySQLConstants.ITEMS_TABLE_NAME 
+										+ "WHERE itemtypeID = " + itemtypeID ;
+		
+		rs = statement.executeQuery(qry);
+		while(rs.next()){
+			Items itm = new Items(rs.getInt(1), rs.getString(2), rs.getString(3), 
+					rs.getString(4), rs.getString(5), rs.getString(6), rs.getString(7), 
+					rs.getInt(8),rs.getString(9));
+			result.add(itm);
+		}
+		closeConnection();
+		return result;
+	}	
 	
 	@Override
 	public ArrayList<Items> searchItembyTitleStatus(String title, String itemstatus) throws SQLException {
+		openConnection();
 		ArrayList<Items> result = new ArrayList<Items>();		
 		String qry = MySQLConstants.SELECT_QRY + MySQLConstants.ITEMS_TABLE_NAME 
 										+ "WHERE title LIKE '%" + title + "%' AND itemstatus = '" + itemstatus + "'" ;
@@ -158,12 +176,31 @@ public class ItemsDataAccess implements ItemsDAO {
 		closeConnection();
 		return result;
 	}
-	
+
 	@Override
 	public ArrayList<Items> searchItembyTitleItemType(String title, int itemTypeID) throws SQLException {
+		openConnection();
 		ArrayList<Items> result = new ArrayList<Items>();		
 		String qry = MySQLConstants.SELECT_QRY + MySQLConstants.ITEMS_TABLE_NAME 
 										+ "WHERE title LIKE '%" + title + "%' AND itemTypeID = " 
+										+ itemTypeID ;
+		
+		rs = statement.executeQuery(qry);
+		while(rs.next()){
+			Items itm = new Items(rs.getInt(1), rs.getString(2), rs.getString(3), 
+					rs.getString(4), rs.getString(5), rs.getString(6), rs.getString(7), 
+					rs.getInt(8),rs.getString(9));
+			result.add(itm);
+		}
+		closeConnection();
+		return result;
+	}
+	@Override
+	public ArrayList<Items> searchItembyStatusItemType(String itemstatus, int itemTypeID) throws SQLException {
+		openConnection();
+		ArrayList<Items> result = new ArrayList<Items>();		
+		String qry = MySQLConstants.SELECT_QRY + MySQLConstants.ITEMS_TABLE_NAME 
+										+ "WHERE itemstatus = '" + itemstatus + "' AND itemTypeID = " 
 										+ itemTypeID ;
 		
 		rs = statement.executeQuery(qry);
@@ -181,10 +218,11 @@ public class ItemsDataAccess implements ItemsDAO {
 	@Override
 	public ArrayList<Items> searchItemsByFullCriteria(String title, int itemTypeID, String itemstatus)
 			throws SQLException {
+		openConnection();
 		ArrayList<Items> result = new ArrayList<Items>();		
 		String qry = MySQLConstants.SELECT_QRY + MySQLConstants.ITEMS_TABLE_NAME 
 										+ "WHERE title LIKE '%" + title + "%' AND itemTypeID = " 
-										+ itemTypeID + "AND itemstatus = '" + itemstatus + "'" ;
+										+ itemTypeID + " AND itemstatus = '" + itemstatus + "'" ;
 		
 		rs = statement.executeQuery(qry);
 		while(rs.next()){
@@ -196,4 +234,6 @@ public class ItemsDataAccess implements ItemsDAO {
 		closeConnection();
 		return result;
 	}
+
+
 }

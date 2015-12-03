@@ -56,7 +56,7 @@ public class ItemsController extends HttpServlet {
 			
 		case "/searchresult":			
 			System.out.println(request.getParameter("title").length());
-			System.out.println(request.getParameter("itemtypeID"));
+			System.out.println(Integer.parseInt(request.getParameter("itemtypeID")));
 			System.out.println(request.getParameter("itemstatus"));
 			
 			String t = request.getParameter("title"); 
@@ -85,6 +85,13 @@ public class ItemsController extends HttpServlet {
 				rd = request.getRequestDispatcher("../jsp/HomeSearch.jsp");
 				rd.forward(request, response);
 				
+			}else if((t.length()==0) && s.equals("-1") && id != -1){
+				//searchItemByItemType
+				ArrayList<Items> list = mgr.searchItemsByItemType(Integer.parseInt(request.getParameter("itemtypeID")));
+				request.setAttribute("itmlist", list);
+				rd = request.getRequestDispatcher("../jsp/HomeSearch.jsp");
+				rd.forward(request, response);
+				
 			}else if((t.length()!=0) && s.equals("-1") && id != -1){
 				//searchItemBytitle&ItemType
 				ArrayList<Items> list = mgr.searchItembyTitleItemType(request.getParameter("title"), Integer.parseInt(request.getParameter("itemTypeID")));
@@ -92,19 +99,41 @@ public class ItemsController extends HttpServlet {
 				rd = request.getRequestDispatcher("../jsp/HomeSearch.jsp");
 				rd.forward(request, response);
 				
-			}/*else if((t.length()!=0) && s != "-1" && id == -1){
+			}else if((t.length()!=0) && s != "-1" && id == -1){
 				//searchItemBytitle&status
 				ArrayList<Items> list = mgr.searchItembyTitleStatus(request.getParameter("title"), request.getParameter("itemstatus"));
 				request.setAttribute("itmlist", list);
 				rd = request.getRequestDispatcher("../jsp/HomeSearch.jsp");
 				rd.forward(request, response);
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+			}else if((t.length()== 0) && s != "-1" && id != -1){
+				//searchItemBy Status & ItemType
+				ArrayList<Items> list = mgr.searchItembyStatusItemType(request.getParameter("itemstatus"), Integer.parseInt(request.getParameter("itemTypeID")));
+				System.out.println(list.size());
+				
+				request.setAttribute("itmlist", list);
+				
+				rd = request.getRequestDispatcher("../jsp/HomeSearch.jsp");
+				rd.forward(request, response);
+				
 			}else{
 				//searchItemByFullCriteria
 				ArrayList<Items> list = mgr.searchItemsByFullCriteria(request.getParameter("title"), Integer.parseInt(request.getParameter("itemTypeID")), request.getParameter("itemstatus"));
 				request.setAttribute("itmlist", list);
 				rd = request.getRequestDispatcher("../jsp/HomeSearch.jsp");
 				rd.forward(request, response);
-			}*/
+			}
 			break;
 			
 		case "/edit":
