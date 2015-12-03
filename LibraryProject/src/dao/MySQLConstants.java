@@ -1,7 +1,6 @@
 package dao;
 
 public class MySQLConstants {
-	
 	public static final String URL = "jdbc:mysql://localhost/library";
     public static final String USER = "root";
     public static final String PASSWORD = "password";
@@ -21,5 +20,15 @@ public class MySQLConstants {
     public static final String ITEMS_COL_ISBN = "isbn";
     public static final String ITEMS_COL_ITEMTYPEID = "itemtypeID";
     public static final String ITEMS_COL_ITEMSTATUS = "itemstatus";
-
+    
+    public static final String TRANSACTION_TABLE_NAME = "library.transaction";
+    public static final String TRANSACTION_COL_TRANSACTIONDI="transactionID";
+    public static final String TRANSACTION_COL_USERID="userID";
+    public static final String TRANSACTION_COL_ITEAMNUMBER="itemNumber";
+    public static final String TRANSACTION_COL_STATUS="status";
+    public static final String TRANSACTION_COL_LOANDATE="loanDate";
+    public static final String TRANSACTION_COL_DUEDATE="duedate";
+    public static final String TRANSACTION_COL_RETURNDATE="returnDate";
+    
+    public static final String USER_COL_ONLOANNUMBER="onloannumber";
 }

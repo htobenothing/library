@@ -3,7 +3,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <link rel="stylesheet" href="../css/loginstyle.css" type="text/css">
-<title>Home Page</title>
+<title>Student Detail</title>
 </head>
 
 <body>
@@ -20,31 +20,32 @@
   	<div class="homesearchbar">
     <form>
       <label>Student Detail</label>
-      <table>
+      <input  type="hidden" value=${userid} name="userid">
+      <table class="stable">
         <tr>
             <td>Student ID</td>
             <td>${item.id}</td>
         </tr>
         <tr>
             <td>Student name</td>
-            <td><input type="text" name="studentName"></td>
+            <td><input type="text" name="studentname"></td>
         </tr>
         
         <tr>
             <td>ContactNumber</td>
-            <td><input type="text" name="studentName"></td>
+            <td><input type="text" name="contactnumber"></td>
         </tr>
         
         <tr>
             <td>Address</td>
-            <td><textarea rows="3" ></textarea></td>
+            <td><textarea rows="3" name="address"></textarea></td>
         </tr>
         
         <tr>
             <td>status</td>
-            <td><select>
-            <option>active</option>
-            <option>unactive</option>
+            <td><select name="status">
+            <option value="1" >active</option>
+            <option value="0">unactive</option>
             </select></td>
         </tr>
         <tr>

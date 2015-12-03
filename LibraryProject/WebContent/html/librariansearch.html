@@ -3,7 +3,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <link rel="stylesheet" href="../css/loginstyle.css" type="text/css">
-<title>Untitled Document</title>
+<title>libSearch</title>
 </head>
 
 <body>
@@ -22,35 +22,14 @@
     <!-- end .sidebar1 --></div>
   <div class="content">
  <div style="margin:10px;">
- 	<form class="searchbar">
-    	<label >Search</label>
-        <input type="text"  />
-        <input type="submit" name="go" />
-    </form>
-   <form>
-   <div style="height:740px;">
-  	<label>Search Result</label>
-  	<table>
-    	<tr>
-            <th>SN</th>
-            <th>Title</th>
-            <th>Author</th>
-            <th>Publisher</th>
-            <th>Status</th>
-            <th>Borrow</th> 
-        </tr>
-    	<tr>
-        	<td>0001</td>
-            <td>Java</td>
-            <td>2015-05-06</td>
-            <td>null</td>
-            <td>2015-06-06</td>
-            <td><input type="checkbox" name="borrow" value=${item.id}></td>
-        </tr>
-    </table>
-    </div>
-    <button type="submit" >Borrow</button>
-    </form>
+ 	<div class="homesearchbar">
+    <label ></label>
+      <form class="searchform" >
+            <label >Search</label>
+            <input type="text" name="keyword" />
+            <button name="subject" type="submit" value="">Go</button>
+      </form>
+	</div>
   </div>
   </div>
   <div class="footer">
