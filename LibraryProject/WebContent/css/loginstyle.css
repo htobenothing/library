@@ -11,6 +11,7 @@ body {
 
 
 .stable{
+	width: 600px;
 	margin-top: 20px;
 	border-collapse:collapse;
 	border:1px solid black;
