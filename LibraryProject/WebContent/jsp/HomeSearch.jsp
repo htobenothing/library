@@ -54,10 +54,10 @@
     </form>
     
     <!-- search result table -->
-   <form>
+   <form class="searchbar">
    <div style="height:740px;">
   	<label>Search Result</label>
-  	<table>
+  	<table class="stable">
     	<tr>
             <th>SN</th>
             <th>Title</th>
@@ -68,17 +68,17 @@
         </tr>
         
         <c:forEach items="${itmlist}" var="items" varStatus="i">
-			<tr> 
-			    <td>${i.index+1}</td>
-            	<td>${items.title}</td>
+			<tr>
+				<td>${i.index+1}</td>
+				<td>${items.title}</td>
 				<td>${items.author}</td>
-				<td>${items.publisher}</td>
+				<td>${items.publisher}</td>				
 				<c:choose>
 					<c:when test="${items.itemstatus != 0}">
-						<td>Available</td>
+						<td>available</td>
 					</c:when>
 					<c:otherwise>
-						<td>Unavailable</td>
+						<td>unavailable</td>
 					</c:otherwise>
 				</c:choose>
 				<c:choose>
