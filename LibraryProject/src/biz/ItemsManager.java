@@ -73,6 +73,17 @@ public class ItemsManager {
 		return null;
 	}
 	
+	public ArrayList<Items> searchItemsByItemType(int itemtypeID) {
+
+		try {
+			return itmdao.searchItemByItemType(itemtypeID);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
 	public ArrayList<Items> searchItembyTitleStatus(String title, String itemstatus) {
 
 		try {
@@ -88,6 +99,34 @@ public class ItemsManager {
 
 		try {
 			return itmdao.searchItembyTitleItemType(title, itemTypeID);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
+	public ArrayList<Items> searchItembyStatusItemType(String itemstatus, int itemTypeID) {
+		System.out.println("before try");
+
+		try {
+			System.out.println("go try");
+			return itmdao.searchItembyStatusItemType(itemstatus, itemTypeID);
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
+	public ArrayList<Items> searchItembyStatusItemNumber(String itemstatus, int itemNumber) {
+		System.out.println("before try");
+
+		try {
+			System.out.println("go try");
+			return itmdao.searchItembyStatusItemNumber(itemstatus, itemNumber);
+			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

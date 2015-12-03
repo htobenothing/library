@@ -21,7 +21,7 @@
   <div id="mainview" style="height:1000px; background:white;">
   	
   	<div class="homesearchbar">
-      <form id="searchform" action="/library/items/searchbytitle" method="post">
+      <form id="searchform" action="/library/items/homesearch" method="post">
             <label >Search</label>
             <input type="text" name="title"/>
             <button name="subject" type="submit" value="">Go</button>

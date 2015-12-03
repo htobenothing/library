@@ -1,6 +1,12 @@
 package dto;
 
 public class Items {
+	@Override
+	public String toString() {
+		return "Items [itemNumber=" + itemNumber + ", title=" + title + ", author=" + author + ", publisher="
+				+ publisher + ", year=" + year + ", description=" + description + ", isbn=" + isbn + ", itemtypeID="
+				+ itemtypeID + ", itemstatus=" + itemstatus + "]";
+	}
 	//Attributes
 	private int itemNumber;
 	private String title;

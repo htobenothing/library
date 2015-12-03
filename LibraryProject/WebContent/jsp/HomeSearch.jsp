@@ -54,10 +54,10 @@
     </form>
     
     <!-- search result table -->
-   <form>
+   <form class="searchbar">
    <div style="height:740px;">
   	<label>Search Result</label>
-  	<table>
+  	<table class="stable">
     	<tr>
             <th>SN</th>
             <th>Title</th>
@@ -68,13 +68,31 @@
         </tr>
         
         <c:forEach items="${itmlist}" var="items" varStatus="i">
-			<tr> 
-			    <td>${i.index+1}</td>
-            	<td>${items.title}</td>
+			<tr>
+				<td>${i.index+1}</td>
+				<td>${items.title}</td>
 				<td>${items.author}</td>
-				<td>${items.publisher}</td>
-            	<td>${items.itemstatus}</td>            	          
-            	<td><input type="checkbox" name="borrow" value=${items.itemNumber}></td>
+				<td>${items.publisher}</td>				
+				<c:choose>
+					<c:when test="${items.itemstatus != 0}">
+						<td>available</td>
+					</c:when>
+					<c:otherwise>
+						<td>unavailable</td>
+					</c:otherwise>
+				</c:choose>
+				<c:choose>
+					<c:when test="${items.itemstatus == 0}">
+						<td>
+						<input type="checkbox" name="borrow" disabled="disabled" value=${items.itemNumber}>
+						</td>
+					</c:when>
+					<c:otherwise>
+						<td>
+						<input type="checkbox" name="borrow" value=${items.itemNumber}>
+						</td>
+					</c:otherwise>
+				</c:choose>
         	</tr>        
         </c:forEach> 
     </table>
