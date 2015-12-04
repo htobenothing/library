@@ -188,10 +188,47 @@ public class TransactionControl extends HttpServlet {
 			}
 			rd = request.getRequestDispatcher("../jsp/returndetail.jsp");
 			rd.forward(request, response);
-		}
+			break;
 		
-	}
+		case "/viewtransactionstu":		
+			session=request.getSession();
+			loguser=(User)session.getAttribute("loginuser"); 
+			Date sfrom;
+			System.out.println(request.getParameter("startdate"));
+			try{
+				sfrom=Date.valueOf(request.getParameter("startdate"));}
+			catch (Exception e) {sfrom=Date.valueOf("1800-01-01");} 
+			
+			Date sto;
+			try
+			{
+				sto=Date.valueOf(request.getParameter("enddate"));}
+			catch(Exception e){
+				sto=Date.valueOf("3000-01-01");
+			}
+			System.out.println("\n"+sfrom+"\n"+sto);
+			try {
+				ArrayList<Transcation> list= TM.findTransactionByTimeandUerID(loguser.getUserId(), sfrom, sto);
+				ArrayList<TransactionWithEntity>list2=new ArrayList<TransactionWithEntity>();
+				for(Transcation transcation:list)
+				list2.add(new TransactionWithEntity(transcation));
 
-
-
+				request.setAttribute("uslist", list2);
+				rd = request.getRequestDispatcher("../jsp/stutransaction.jsp");for(Transcation t:list)System.out.println(t.toString());
+				rd.forward(request, response);
+			}
+			
+			catch (Exception e) {
+			// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			break;
+		}
+	}	
 }
+		
+	
+
+
+
+

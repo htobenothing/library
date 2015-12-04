@@ -54,8 +54,11 @@ public class TransactionManager {
 	}
 	
 	public Transcation findTransactionByID(int transactionID) throws Exception{
-		return transactionDao.findTransactionByID(transactionID); 
-		
+		return transactionDao.findTransactionByID(transactionID); 		
 	} 
+	
+	public ArrayList<Transcation> findTransactionByTimeandUerID(String uerID,Date from,Date to) throws Exception{
+		return transactionDao.findTransactionByTimeandUerID(uerID, from, to);
+	}
 	
 }
