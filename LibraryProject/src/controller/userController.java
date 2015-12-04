@@ -50,6 +50,7 @@ public class userController extends HttpServlet {
 		
 		UserManager usermgr = new UserManager();
 		RequestDispatcher rd = null;
+		boolean iscorrectlogin=true;
 		
 		switch (path) {
 		case "/login":
@@ -58,7 +59,14 @@ public class userController extends HttpServlet {
 			System.out.println(id+"    "+pwd);
 			User loguser = usermgr.getOneUser(id);
 			System.out.println("id:"+loguser.getUserId()+"password:"+loguser.getPassword());
+			
+			HttpSession session = request.getSession();
+			
+			session.setAttribute("loginuser", loguser);
+			session.setAttribute("correctlogin", iscorrectlogin);
 			if(loguser.getUserId()==null){
+				iscorrectlogin = false;
+				session.setAttribute("correctlogin", iscorrectlogin);
 				System.out.println("no find");
 				rd = request.getRequestDispatcher("../jsp/login.jsp");
 				rd.forward(request, response);
@@ -66,15 +74,13 @@ public class userController extends HttpServlet {
 			}
 			else{
 				if( !loguser.getPassword().equals(request.getParameter("pwd"))){
-					System.out.println("password not equall");
+					iscorrectlogin = false;
+					session.setAttribute("correctlogin", iscorrectlogin);
 					rd = request.getRequestDispatcher("../jsp/login.jsp");
 					rd.forward(request, response);
 					break;
 				}
 				else{
-					HttpSession session = request.getSession();
-					session.setAttribute("loginuser", loguser);
-
 					if(loguser.getRole().equals("librarian")){
 						rd = request.getRequestDispatcher("../jsp/libsearch.jsp");
 						rd.forward(request, response);
