@@ -11,8 +11,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.eclipse.jdt.internal.compiler.env.ISourceMethod;
-
 import biz.ItemsManager;
 import dto.Items;
 
@@ -46,18 +44,49 @@ public class ItemsController extends HttpServlet {
 		RequestDispatcher rd = null;
 		Items itm; int result=0;
 		switch (path) {
-		case "/searchbytitle":
+		
+		//testing......
+		case "/list":
+			ArrayList<Items> testing = mgr.getAllItems();
+			request.setAttribute("itmlist", testing);
+			rd = request.getRequestDispatcher("/ItemsList.jsp");
+			rd.forward(request, response);
+			break;
+		case "/homesearch":
 			ArrayList<Items> itmlist = mgr.searchItemsByTitle(request.getParameter("title"));
 			request.setAttribute("itmlist", itmlist);
 			System.out.println(request.getParameter("title"));
 			rd = request.getRequestDispatcher("../jsp/HomeSearch.jsp");
 			rd.forward(request, response);	
 			break;
-			
-		case "/searchresult":			
-			System.out.println(request.getParameter("title").length());
-			System.out.println(Integer.parseInt(request.getParameter("itemtypeID")));
+		
+		case "/maintainsearch":
+			System.out.println(request.getParameter("itemNumber"));
 			System.out.println(request.getParameter("itemstatus"));
+			
+			String i = request.getParameter("itemNumber");
+			String sts = request.getParameter("itemstatus");
+			
+			if(i.length()== 0 && sts.equals("-1")){
+				ArrayList<Items> list = mgr.getAllItems();
+				request.setAttribute("itmlist", list);
+				rd = request.getRequestDispatcher("../jsp/MaintainItem.jsp");
+				rd.forward(request, response);
+			}else if(i.length()==0 && sts != "-1"){
+				ArrayList<Items> list = mgr.searchItemByStatus(request.getParameter("itemstatus"));
+				request.setAttribute("itmlist", list);
+				rd = request.getRequestDispatcher("../jsp/MaintainItem.jsp");
+				rd.forward(request, response);
+				
+			}else if(i.length()!=0 && sts != "-1"){
+				ArrayList<Items> list = mgr.searchItembyStatusItemNumber(request.getParameter("itemstatus"), Integer.parseInt(request.getParameter("itemNumber")));
+				request.setAttribute("itmlist", list);
+				rd = request.getRequestDispatcher("../jsp/MaintainItem.jsp");
+				rd.forward(request, response);
+			}
+			break;			
+			
+		case "/searchresult":	
 			
 			String t = request.getParameter("title"); 
 			int id = Integer.parseInt(request.getParameter("itemtypeID"));
@@ -94,7 +123,7 @@ public class ItemsController extends HttpServlet {
 				
 			}else if((t.length()!=0) && s.equals("-1") && id != -1){
 				//searchItemBytitle&ItemType
-				ArrayList<Items> list = mgr.searchItembyTitleItemType(request.getParameter("title"), Integer.parseInt(request.getParameter("itemTypeID")));
+				ArrayList<Items> list = mgr.searchItembyTitleItemType(request.getParameter("title"), Integer.parseInt(request.getParameter("itemtypeID")));
 				request.setAttribute("itmlist", list);
 				rd = request.getRequestDispatcher("../jsp/HomeSearch.jsp");
 				rd.forward(request, response);
@@ -104,32 +133,18 @@ public class ItemsController extends HttpServlet {
 				ArrayList<Items> list = mgr.searchItembyTitleStatus(request.getParameter("title"), request.getParameter("itemstatus"));
 				request.setAttribute("itmlist", list);
 				rd = request.getRequestDispatcher("../jsp/HomeSearch.jsp");
-				rd.forward(request, response);
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
+				rd.forward(request, response);	
 				
 			}else if((t.length()== 0) && s != "-1" && id != -1){
-				//searchItemBy Status & ItemType
-				ArrayList<Items> list = mgr.searchItembyStatusItemType(request.getParameter("itemstatus"), Integer.parseInt(request.getParameter("itemTypeID")));
-				System.out.println(list.size());
-				
-				request.setAttribute("itmlist", list);
-				
+				//searchItemBy Status & ItemType				
+				ArrayList<Items> list = mgr.searchItembyStatusItemType(request.getParameter("itemstatus"),Integer.parseInt(request.getParameter("itemtypeID")) );
+				request.setAttribute("itmlist", list);				
 				rd = request.getRequestDispatcher("../jsp/HomeSearch.jsp");
 				rd.forward(request, response);
 				
 			}else{
 				//searchItemByFullCriteria
-				ArrayList<Items> list = mgr.searchItemsByFullCriteria(request.getParameter("title"), Integer.parseInt(request.getParameter("itemTypeID")), request.getParameter("itemstatus"));
+				ArrayList<Items> list = mgr.searchItemsByFullCriteria(request.getParameter("title"), Integer.parseInt(request.getParameter("itemtypeID")), request.getParameter("itemstatus"));
 				request.setAttribute("itmlist", list);
 				rd = request.getRequestDispatcher("../jsp/HomeSearch.jsp");
 				rd.forward(request, response);
@@ -141,9 +156,10 @@ public class ItemsController extends HttpServlet {
 			System.out.println(itm.getAuthor());
 			HttpSession session = request.getSession();
 			session.setAttribute("itmobj", itm);
-			rd = request.getRequestDispatcher("/EditItem.jsp");
+			rd = request.getRequestDispatcher("../jsp/ItemDetail.jsp");
 			rd.forward(request, response);	
 			break;
+			
 		case "/update":
 			itm = new Items();
 			itm.setItemNumber(Integer.parseInt(request.getParameter("itemNumber")));
