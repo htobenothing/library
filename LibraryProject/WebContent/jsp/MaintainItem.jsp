@@ -15,10 +15,10 @@
     <!-- end .header --></div>
   <div class="sidebar1">
     <ul class="nav">
-     <li><a href="#">Serach Item</a></li>
+     <li><a href="http://localhost:8080/library/jsp/libsearch.jsp">Search Item</a></li>
       <li><a href="#">Transaction History</a></li>
       <li><a href="#">Return Item</a></li>
-      <li><a href="#">Maintain Item</a>
+      <li><a href="http://localhost:8080/library/jsp/MaintainItem.jsp">Maintain Item</a>
       <li><a href="#">Maintain Student</a></li>
     </ul>
     <!-- end .sidebar1 --></div>

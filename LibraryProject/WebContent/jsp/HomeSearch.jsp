@@ -12,6 +12,7 @@
 <body>
 <div class="container" >
   <div class="header"><a href="#"><img src="../img/BigLogo.png" alt="Insert Logo Here" name="Insert_logo" width="180" height="90" id="Insert_logo" style="background-color: lightgrey; display:block;" /></a> 
+    <a href="http://localhost:8080/library/jsp/login.jsp" style="float:right; ">Log In</a>
     <!-- end .header --></div>
      
   <div class="content">

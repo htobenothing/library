@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -13,25 +14,25 @@
     <!-- end .header --></div>
   <div class="sidebar1">
     <ul class="nav">
-      <li><a href="librariansearch.html">Search Item</a></li>
+      <li><a href="http://localhost:8080/library/jsp/libsearch.jsp">Search Item</a></li>
       <li><a href="librariantransaction.html">Transaction History</a></li>
       <li><a href="librarianreturn.html">Return Item</a></li>
-      <li><a href="maintainitem.html">Maintain Item</a>
+      <li><a href="http://localhost:8080/library/jsp/MaintainItem.jsp">Maintain Item</a>
       <li><a href="maintainstudent.html">Maintain Student</a></li>
     </ul>
     <!-- end .sidebar1 --></div>
   <div class="content">
  <div style="margin:10px;">
- 	<form class="searchbar">
+ 	<form class="searchbar" action="/library/items/searchresult" method="post">
     <table class="searchtable">
     <tr  class="str">
     	<td >Item Title</td>
-        <td ><input type="text" name="keyword" /></td>
+        <td ><input type="text" name="title" /></td>
     </tr>
      <tr>
     	<td>ItemType</td>
         <td >
-        <select name="itemtype">
+        <select name="itemtypeID">
         	<option value="-1" selected="selected">All</option>
         	<option value="1" >Book</option>
             <option value="2">CD</option>
@@ -48,7 +49,7 @@
         <td> 
         <select name="itemstatus">
         	<option value="-1" selected="selected">All</option>
-        	<option value="0">Avaiable</option>
+        	<option value="1">Available</option>
         </select>
         </td>
     </tr>
@@ -57,27 +58,48 @@
     </tr>
       </table>
     </form>
-   <form>
-   <div style="height:650px;">
-  	
+    
+   <form class="searchbar">
+   <div style="height:740px;">
+  	<label>Search Result</label>
   	<table class="stable">
-    	<caption class="scaptain" >Search Result</caption>
-    	<tr class="str">
-            <th class="sth">SN</th>
-            <th class="sth">Title</th>
-            <th class="sth">Author</th>
-            <th class="sth">Publisher</th>
-            <th class="sth">Status</th>
-            <th class="sth">Borrow</th> 
+    	<tr>
+            <th>SN</th>
+            <th>Title</th>
+            <th>Author</th>
+            <th>Publisher</th>
+            <th>Status</th>
+            <th>Borrow</th> 
         </tr>
-    	<tr class="str">
-        	<td class="std">0001</td>
-            <td class="std">Java</td>
-            <td class="std">2015-05-06</td>
-            <td class="std">null</td>
-            <td class="std">2015-06-06</td>
-            <td class="std"><input type="checkbox" name="borrow" value=${item.id}></td>
-        </tr>
+        
+        <c:forEach items="${itmlist}" var="items" varStatus="i">
+			<tr>
+				<td>${i.index+1}</td>
+				<td>${items.title}</td>
+				<td>${items.author}</td>
+				<td>${items.publisher}</td>				
+				<c:choose>
+					<c:when test="${items.itemstatus != 0}">
+						<td>available</td>
+					</c:when>
+					<c:otherwise>
+						<td>unavailable</td>
+					</c:otherwise>
+				</c:choose>
+				<c:choose>
+					<c:when test="${items.itemstatus == 0}">
+						<td>
+						<input type="checkbox" name="borrow" disabled="disabled" value=${items.itemNumber}>
+						</td>
+					</c:when>
+					<c:otherwise>
+						<td>
+						<input type="checkbox" name="borrow" value=${items.itemNumber}>
+						</td>
+					</c:otherwise>
+				</c:choose>
+        	</tr>        
+        </c:forEach> 
     </table>
     </div>
     <button type="submit" >Borrow</button>

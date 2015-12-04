@@ -137,6 +137,21 @@ public class User implements Serializable {
 			return false;
 		return true;
 	}
+
+	public User(String userId, String userName, String password, String role, String userStatus, String address,
+			String email, String phoneNumber, Date createDate, int onloanNumber) {
+		super();
+		this.userId = userId;
+		this.userName = userName;
+		this.password = password;
+		this.role = role;
+		this.userStatus = userStatus;
+		this.address = address;
+		this.email = email;
+		this.phoneNumber = phoneNumber;
+		this.createDate = createDate;
+		this.onloanNumber = onloanNumber;
+	}
 	
 	
 
