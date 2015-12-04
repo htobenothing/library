@@ -217,7 +217,7 @@ public class TransactionDataAccess implements TransactionDao {
 		else{ 
 			ArrayList<Transcation> result=new ArrayList<Transcation>();
 			if(itemType!=-1){
-				qry+=" and "+MySQLConstants.ITEMS_COL_ITEMTYPEID+"=\'"+itemType+"\'";
+				qry+=" and "+MySQLConstants.ITEMS_COL_ITEMTYPEID+"="+itemType;
 			}
 			if(satus!=-1){
 				qry+=" and "+MySQLConstants.TRANSACTION_COL_STATUS+"=\'"+satus+"\'";
@@ -255,6 +255,67 @@ public class TransactionDataAccess implements TransactionDao {
 			conn.close();
 			return result;
 		}
+	}
+	@Override
+	public ArrayList<Transcation> findTransactionByUserIDandStatus(String userID,String status) throws Exception {
+		ArrayList<Transcation> result=new ArrayList<Transcation>();
+		Connection conn=openConnection();
+		Statement stmt=(Statement) conn.createStatement();
+		ResultSet rs=stmt.executeQuery(FINDER_CONDITION_QRY+MySQLConstants.TRANSACTION_COL_USERID+" = \'"+userID+"\'"+" and "+MySQLConstants.TRANSACTION_COL_STATUS+"=\'"+status+"\'");
+		while (rs.next()) {
+			Transcation t=new Transcation();
+			t.setTransactionID(rs.getInt(1));
+			t.setUerID(rs.getString(2));
+			t.setIteamID(rs.getInt(3));
+			t.setStatus(rs.getString(4));
+			t.setLoanDate(rs.getDate(5));
+			t.setDueDate(rs.getDate(6));
+			t.setReturnDate(rs.getDate(7));
+			result.add(t);
+		}
+		stmt.close();
+		conn.close();
+		return result;
+	}
+	@Override
+	public ArrayList<Transcation> findTransactionByUserIDandNOTStatus(String userID, String status) throws Exception {
+		ArrayList<Transcation> result=new ArrayList<Transcation>();
+		Connection conn=openConnection();
+		Statement stmt=(Statement) conn.createStatement();System.out.println(FINDER_CONDITION_QRY+MySQLConstants.TRANSACTION_COL_USERID+" = \'"+userID+"\'"+" and "+MySQLConstants.TRANSACTION_COL_STATUS+"!=\'"+status+"\'");
+		ResultSet rs=stmt.executeQuery(FINDER_CONDITION_QRY+MySQLConstants.TRANSACTION_COL_USERID+" = \'"+userID+"\'"+" and "+MySQLConstants.TRANSACTION_COL_STATUS+"!=\'"+status+"\'");
+		while (rs.next()) {
+			Transcation t=new Transcation();
+			t.setTransactionID(rs.getInt(1));
+			t.setUerID(rs.getString(2));
+			t.setIteamID(rs.getInt(3));
+			t.setStatus(rs.getString(4));
+			t.setLoanDate(rs.getDate(5));
+			t.setDueDate(rs.getDate(6));
+			t.setReturnDate(rs.getDate(7));
+			result.add(t);
+		}
+		stmt.close();
+		conn.close();
+		return result;
+	}
+	@Override
+	public Transcation findTransactionByID(int transactionID) throws Exception {
+		Transcation t=new Transcation();
+		Connection conn=openConnection();
+		Statement stmt=(Statement) conn.createStatement();
+		ResultSet rs=stmt.executeQuery(FINDER_CONDITION_QRY+MySQLConstants.TRANSACTION_COL_TRANSACTIONDI+" = \'"+transactionID+"\'");
+		while (rs.next()) {
+			t.setTransactionID(rs.getInt(1));
+			t.setUerID(rs.getString(2));
+			t.setIteamID(rs.getInt(3));
+			t.setStatus(rs.getString(4));
+			t.setLoanDate(rs.getDate(5));
+			t.setDueDate(rs.getDate(6));
+			t.setReturnDate(rs.getDate(7));
+		}
+		stmt.close();
+		conn.close();
+		return t;
 	}
 
 }

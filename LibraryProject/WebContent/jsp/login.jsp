@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -25,8 +26,6 @@
                 <td class="logintable" ><label >UserID:</label></td>
                 <td class="logintable"><input type="text" name="userid" ></td>
             <tr>
-            
-            
             <tr>
                 <td class="logintable"> <label >PassWord:</label></td>
                 <td class="logintable"><input type="password" name="pwd"  ></td>
@@ -37,6 +36,12 @@
                 </td>
             </tr>
             </table>
+            
+            <label style="color:red;"> 
+	            <c:if test="${correctlogin==false}">
+	            	UserID or Password is un correct!
+	            </c:if>
+             </label>
       </form>
 	</div>
   </div>

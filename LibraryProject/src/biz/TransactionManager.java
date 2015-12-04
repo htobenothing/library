@@ -29,8 +29,8 @@ public class TransactionManager {
 		return transactionDao.findTransactionByTime(from, to);
 	}
 	
-	public int updateTransaction(Transcation t)throws Exception{
-		return transactionDao.updateTransaction(t);
+	public int updateTransaction(Transcation transaction)throws Exception{
+		return transactionDao.updateTransaction(transaction);
 	}
 	
 	public int insertTransaction(Transcation t)throws Exception{
@@ -44,5 +44,18 @@ public class TransactionManager {
 	public ArrayList<Transcation> findTransactionByCondition(int itemType, int satus, Date from, Date to)throws Exception{
 		return transactionDao.findTransactionByCondition(itemType, satus, from, to);
 	}
+	
+	public ArrayList<Transcation> findTransactionByUserIDandStatus(String userID, String status)throws Exception{
+		return transactionDao.findTransactionByUserIDandStatus(userID, status);
+	}
+	
+	public ArrayList<Transcation> findTransactionByUserIDandNOTStatus(String userID,String status) throws Exception{
+		return transactionDao.findTransactionByUserIDandNOTStatus(userID, status);
+	}
+	
+	public Transcation findTransactionByID(int transactionID) throws Exception{
+		return transactionDao.findTransactionByID(transactionID); 
+		
+	} 
 	
 }
