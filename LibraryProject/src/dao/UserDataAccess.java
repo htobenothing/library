@@ -62,6 +62,7 @@ public class UserDataAccess implements UserDAO {
 		CloseConnection();
 		return user;
 		
+		
 	}
 	
 	public Collection<User> findAll() throws SQLException {
@@ -104,21 +105,35 @@ public class UserDataAccess implements UserDAO {
 		prstmt.setString(9, u.getPhoneNumber());
 		prstmt.setDate(10, u.getCreateDate());
 		prstmt.setInt(11, u.getOnloanNumber());
+		int i = prstmt.executeUpdate();
 		CloseConnection();
-		return prstmt.executeUpdate();
+		return i;
 		
 	}
 	@Override
 	public Collection<User> finByName(String name) throws SQLException {
 		OpenConnection();
-		String selname = "Select * from library.user where name like ?";
+		String selname = "Select * from library.user where username like ?";
+		ArrayList<User> uslist= new ArrayList<User>();
 		prstmt = con.prepareStatement(selname);
 		prstmt.setString(1, "%"+name+"%");
 		rs =prstmt.executeQuery();
 		while(rs.next()){
-			User ur = new User();
-			
+			User u = new User();
+			u.setUserId(rs.getString(1));
+			u.setUserName(rs.getString(2));
+			u.setPassword(rs.getString(3));
+			u.setRole(rs.getString(4));
+			u.setUserStatus(rs.getString(5));
+			u.setDateOfBirth(rs.getDate(6));
+			u.setAddress(rs.getString(7));
+			u.setEmail(rs.getString(8));
+			u.setPhoneNumber(rs.getString(9));
+			u.setCreateDate(rs.getDate(10));
+			u.setOnloanNumber(rs.getInt(11));
+			uslist.add(u);
 		}
+		return uslist;
 	}
 	
 	
