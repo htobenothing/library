@@ -13,15 +13,15 @@
 <div class="container" >
  <div class="header">
  <img src="../img/BigLogo.png" alt="Insert Logo Here" name="Insert_logo" width="180" height="90" id="Insert_logo" style="background-color: lightgrey; float:left" />
- <a href="#" style="float:right; ">Log In</a>
+ <a href="http://localhost:8080/library/jsp/login.jsp" style="float:right; ">Log In</a>
    <div style="clear:both; height:10px;"></div>
     <!-- end .header --></div>
   
   <div style="clear:both; height:10px;"></div>
   <div id="mainview" style="height:1000px; background:white;">
-  	
   	<div class="homesearchbar">
-      <form id="searchform" action="/library/items/homesearch" method="post">
+  	
+      <form class="searchform" action="/library/items/homesearch" method="post">
             <label >Search</label>
             <input type="text" name="title"/>
             <button name="subject" type="submit" value="">Go</button>
