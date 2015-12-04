@@ -317,5 +317,27 @@ public class TransactionDataAccess implements TransactionDao {
 		conn.close();
 		return t;
 	}
+	@Override
+	public ArrayList<Transcation> findTransactionByTimeandUerID(String userID, Date from, Date to) throws Exception {
+		ArrayList<Transcation> result=new ArrayList<Transcation>();
+		Connection conn=openConnection();
+		Statement stmt=(Statement) conn.createStatement();System.out.println(FINDER_CONDITION_QRY+MySQLConstants.TRANSACTION_COL_LOANDATE+" >= \'"+from +"\' and "+MySQLConstants.TRANSACTION_COL_LOANDATE+" <= \'"+to+"\' and "+MySQLConstants.TRANSACTION_COL_USERID+" = \'"+userID+"\'");
+		ResultSet rs=stmt.executeQuery(FINDER_CONDITION_QRY+MySQLConstants.TRANSACTION_COL_LOANDATE+" >= \'"+from +"\' and "+MySQLConstants.TRANSACTION_COL_LOANDATE+" <= \'"+to+"\' and "+MySQLConstants.TRANSACTION_COL_USERID+" = \'"+userID+"\'");
+		
+		while (rs.next()) {
+			Transcation t=new Transcation();
+			t.setTransactionID(rs.getInt(1));
+			t.setUerID(rs.getString(2));
+			t.setIteamID(rs.getInt(3));
+			t.setStatus(rs.getString(4));
+			t.setLoanDate(rs.getDate(5));
+			t.setDueDate(rs.getDate(6));
+			t.setReturnDate(rs.getDate(7));
+			result.add(t);
+		}
+		stmt.close();
+		conn.close();
+		return result;
+	}
 
 }

@@ -18,5 +18,6 @@ public interface TransactionDao {
 	public ArrayList<Transcation> findTransactionByUserIDandStatus(String userID, String status)throws Exception;
 	public ArrayList<Transcation> findTransactionByUserIDandNOTStatus(String userID,String status) throws Exception;
 	public Transcation findTransactionByID(int transactionID) throws Exception; 
+	public ArrayList<Transcation> findTransactionByTimeandUerID(String uerID,Date from,Date to) throws Exception;
 		
 	}
