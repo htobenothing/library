@@ -27,7 +27,7 @@ public class usertest {
 		}*/
 	
 		
-		try {
+/*		try {
 			uda.OpenConnection();
 			User ud = uda.findByUserId("S00000010");
 			System.out.println(ud.toString());
@@ -39,7 +39,7 @@ public class usertest {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+		*/
 		/*try {
 			uda.OpenConnection();
 			User us =new User("S00000007","Same8","asdf","student","1",Date.valueOf("1989-01-01"),"blk23","Same4@gmail.com","12345678",Date.valueOf("2004-04-02"),0);
@@ -62,7 +62,10 @@ public class usertest {
 			e.printStackTrace();
 		}
 		*/
-
+		
+		int i = Integer.parseInt("abc");
+		
+		
 	}
 
 }
