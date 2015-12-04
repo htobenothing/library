@@ -52,6 +52,7 @@ public class TransactionControl extends HttpServlet {
 	
 	public void process(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String path = request.getPathInfo();
+		int transactionID;
 		System.out.println("PATH is" + path);
 		TransactionManager TM=new TransactionManager();
 		RequestDispatcher rd = null;
@@ -91,9 +92,9 @@ public class TransactionControl extends HttpServlet {
 		case"/returnlib":
 			String userID=request.getParameter("studentid");			
 			try{
-				ArrayList<Transcation> list=TM.findTransactionByUserID(userID);
+				ArrayList<Transcation> list=TM.findTransactionByUserIDandNOTStatus(userID, "0");
+	
 				ArrayList<TransactionWithEntity>list2=new ArrayList<TransactionWithEntity>();
-				list2=null;
 				for(Transcation transcation:list){
 					list2.add(new TransactionWithEntity(transcation));
 				}
@@ -105,7 +106,39 @@ public class TransactionControl extends HttpServlet {
 				// TODO: handle exception
 			}
 			break;
-		
+		case"/returnlib2":
+			transactionID=Integer.parseInt(request.getParameter("tansactionid"));
+			try{
+			Transcation t=TM.findTransactionByID(transactionID);
+			TransactionWithEntity te=new TransactionWithEntity(t);
+			Date returndate=new Date(System.currentTimeMillis());
+			te.setReturnDate(returndate);
+			request.setAttribute("returnID", te);
+			long due=te.getReturnDate().getTime()/(24*60*60*1000)-te.getDueDate().getTime()/(24*60*60*1000);
+			if(due<=0) due=0;
+			request.setAttribute("duefee", "$"+due);
+			request.setAttribute("type", "library");
+			}
+			catch (Exception e) {
+				// TODO: handle exception
+			}
+			rd = request.getRequestDispatcher("../jsp/returndetail.jsp");
+			rd.forward(request, response);
+		case"/returnlib3":
+			transactionID=Integer.parseInt(request.getParameter("transactionid"));
+			try{
+				Transcation t=TM.findTransactionByID(transactionID);
+				t.setReturnDate(new Date(System.currentTimeMillis()));
+				TM.updateTransaction(t);
+			}
+			catch (Exception e) {
+				// TODO: handle exception
+			}
+			if(request.getAttribute("type")=="library")
+				rd = request.getRequestDispatcher("../jsp/libreturn.jsp");
+			rd.forward(request, response);
+			
+			
 		}
 		
 	}

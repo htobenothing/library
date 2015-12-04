@@ -14,7 +14,7 @@
     <!-- end .header --></div>
   <div class="sidebar1">
     <ul class="nav">
-     <li><a href="#">Serach Item</a></li>
+     <li><a href="#">Search Item</a></li>
       <li><a href="#">Transaction History</a></li>
       <li><a href="#">Return Item</a></li>
       <li><a href="#">Maintain Item</a>
@@ -28,33 +28,34 @@
         <input type="text" name="studentid"  />
         <button type="submit">Search</button>
     </form>
-   <form>
    <div style="height:740px;">
   
         <table  class="stable" >
         <caption class="scaptain">Onloan Item</caption>
-            	
-                <th >ItemID</th>
-                <th >Title</th>
-                <th >Borrow</td>
-                <th >BorrowDate</th>
-                <th >DueDate</th>
-                <th >Status</th>
-                <th >Return</th> 
+        	<tr>
+                <th>ItemID</th>
+                <th>Title</th>
+                <th>Borrow</th>
+                <th>BorrowDate</th>
+                <th>DueDate</th>
+                <th>Status</th>
+                <th>Return</th> 
             </tr>
            <c:forEach items="${rlist}" var="t" varStatus="i">
+           <form action="/library/transaction/returnlib2" method="post">
+           <input type="hidden"  name="tansactionid" value=${t.tranasctionID }>
                 <td >${t.itemID}</td>
                 <td >${t.title}</td>
                 <td >${t.username}</td>
                 <td>${t.borrowDate}</td>
                 <td >${t.dueDate}</td>
                 <td >${t.status}</td>
-                <td ><a href="#">return</a></td>
+                <td ><button type="submit">Return</button></td>
             </tr>
+            </form>
             </c:forEach>
         </table>
     </div>
-    </form>
   </div>
   </div>
   <div class="footer">
