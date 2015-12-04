@@ -1,14 +1,14 @@
-<!DOCTYPE html>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <link rel="stylesheet" href="../css/loginstyle.css" type="text/css">
-<title>libSearch</title>
+<title>Insert title here</title>
 </head>
-
 <body>
-
-<div class="container" >
+	<div class="container" >
   <div class="header"><a href="#"><img src="../img/BigLogo.png" alt="Insert Logo Here" name="Insert_logo" width="180" height="90" id="Insert_logo" style="background-color: lightgrey; display:block;" /></a> 
     <!-- end .header --></div>
   <div class="sidebar1">
@@ -90,5 +90,6 @@
     <p>Sun Rise Library</p>
     <!-- end .footer --></div>
   <!-- end .container --></div>
+
 </body>
 </html>

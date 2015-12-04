@@ -1,7 +1,6 @@
 package controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -9,10 +8,9 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
-import biz.ItemsManager;
 import biz.UserManager;
-import dto.Items;
 import dto.User;
 
 /**
@@ -58,7 +56,7 @@ public class userController extends HttpServlet {
 			String id =request.getParameter("userid");
 			String pwd= request.getParameter("pwd");
 			System.out.println(id+"    "+pwd);
-			User loguser = usermgr.getOneUser(request.getParameter("userid"));
+			User loguser = usermgr.getOneUser(id);
 			System.out.println("id:"+loguser.getUserId()+"password:"+loguser.getPassword());
 			if(loguser.getUserId()==null){
 				System.out.println("no find");
@@ -74,6 +72,9 @@ public class userController extends HttpServlet {
 					break;
 				}
 				else{
+					HttpSession session = request.getSession();
+					session.setAttribute("loginuser", loguser);
+
 					if(loguser.getRole().equals("librarian")){
 						rd = request.getRequestDispatcher("../jsp/libsearch.jsp");
 						rd.forward(request, response);
@@ -87,6 +88,8 @@ public class userController extends HttpServlet {
 				}
 				
 			}
+		case "/createstudent":
+			
 			
 		
 	}
