@@ -103,6 +103,7 @@ public class userController extends HttpServlet {
 			
 			
 		case "/createstudent":
+			boolean isphonecorrect=false;
 			boolean iscurrentuser =false;
 			boolean isidright = true;
 			boolean ispasswordsame = false;
@@ -117,6 +118,20 @@ public class userController extends HttpServlet {
 					isidright = false;
 				}
 			}
+			if(request.getParameter("phone").equals("")){
+					isphonecorrect=true;
+			}else{
+				if(request.getParameter("phone").length()==8){
+					
+					try{
+						Integer.parseInt(request.getParameter("phone"));
+						isphonecorrect = true;
+					}catch(Exception e){
+						isphonecorrect =false;
+					}
+				}
+			}
+			
 			
 			if(request.getParameter("password").equals(request.getParameter("confirmpassword"))){
 				ispasswordsame = true;
@@ -128,8 +143,9 @@ public class userController extends HttpServlet {
 				isusernamenull = true;
 			}
 			
+			
 			User newuser= new User();
-			if(isidright&&!ispasswordnull&&ispasswordsame&&!isusernamenull){
+			if(isidright&&!ispasswordnull&&ispasswordsame&&!isusernamenull&&isphonecorrect){
 				System.out.println("allcorrect");
 				String userid = ("S"+request.getParameter("studentid"));
 				String username = request.getParameter("studentname");
@@ -179,6 +195,7 @@ public class userController extends HttpServlet {
 				request.setAttribute("ispasswordsame", ispasswordsame);
 				request.setAttribute("ispasswordnull", ispasswordnull);
 				request.setAttribute("isusernamenull", isusernamenull);
+				request.setAttribute("isphonecorrect", isphonecorrect);
 				System.out.println(isidright);
 				System.out.println(ispasswordsame);
 				rd = request.getRequestDispatcher("../jsp/newstudent.jsp");
