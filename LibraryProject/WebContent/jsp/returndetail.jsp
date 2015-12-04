@@ -20,7 +20,7 @@
   <div style="clear:both; height:10px;"></div>
   <div id="mainview" style="height:1000px; background:white;">
   <div class="homesearchbar">
-  <form action="/library/transaction/returnlib3" method="post">
+  <form action="/library/transaction/returnfinal" method="post">
       <label>Return Item Detail</label>
       <input type="hidden" name="transactionid"  value=${returnID.tranasctionID}>
       <table class="stable">
