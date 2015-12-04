@@ -47,4 +47,22 @@ public class UserManager {
 		}
 		return null;
 	}
+	public Collection<User> getStudents(){
+		try {
+			return userAdoInt.findStudents();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
+	}
+	public int updateStudent(User u){
+		try {
+			return userAdoInt.update(u);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return 0;
+	}
 }

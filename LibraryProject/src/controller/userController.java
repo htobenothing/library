@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.sql.Date;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 
 import javax.servlet.RequestDispatcher;
@@ -54,6 +55,7 @@ public class userController extends HttpServlet {
 		
 		UserManager usermgr = new UserManager();
 		RequestDispatcher rd = null;
+		HttpSession session = request.getSession();
 		
 		
 		switch (path) {
@@ -64,10 +66,8 @@ public class userController extends HttpServlet {
 			System.out.println(id+"    "+pwd);
 			User loguser = usermgr.getOneUser(id);
 			System.out.println("id:"+loguser.getUserId()+"password:"+loguser.getPassword());
+		
 			
-			HttpSession session = request.getSession();
-			
-			session.setAttribute("loginuser", loguser);
 			
 			if(loguser.getUserId()==null){
 				iscorrectlogin = false;
@@ -86,6 +86,7 @@ public class userController extends HttpServlet {
 					break;
 				}
 				else{
+					session.setAttribute("loginuser", loguser);
 					if(loguser.getRole().equals("librarian")){
 						rd = request.getRequestDispatcher("../jsp/libsearch.jsp");
 						rd.forward(request, response);
@@ -100,6 +101,33 @@ public class userController extends HttpServlet {
 				
 			}
 		case "/logout":
+			
+			session.getId();
+			session.invalidate();
+			rd = request.getRequestDispatcher("../jsp/HomePage");
+			rd.forward(request, response);
+			
+		case "/maintainstudent":
+			ArrayList<User> stulist = (ArrayList<User>) usermgr.getStudents();
+			request.setAttribute("stulist", stulist);
+			rd = request.getRequestDispatcher("../jsp/maintainstudent.jsp");
+			rd.forward(request, response);
+			break;
+			
+		case "/studetail":
+			String uid = request.getParameter("userid");
+			System.out.println(request.getParameter("userid"));
+			User stu = usermgr.getOneUser(uid);
+			System.out.println(stu.toString());
+			request.setAttribute("stu", stu);
+			rd = request.getRequestDispatcher("../jsp/studetail.jsp");
+			rd.forward(request,response);
+			
+		case "/updatestudent":
+			
+			
+			
+			
 			
 			
 		case "/createstudent":

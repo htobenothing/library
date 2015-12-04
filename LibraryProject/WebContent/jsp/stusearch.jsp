@@ -14,24 +14,23 @@
     <!-- end .header --></div>
   <div class="sidebar1">
     <ul class="nav">
-      <li><a href="#">Search Item</a></li>
+      <li><a href="#">Serach Item</a></li>
       <li><a href="#">Transaction History</a></li>
       <li><a href="#">Return Item</a></li>
     </ul>
     <!-- end .sidebar1 --></div>
   <div class="content">
  <div style="margin:10px;">
- 
- <form class="searchbar" action="/library/items/searchresult" method="post">
+ 	<form class="searchbar">
     <table class="searchtable">
     <tr  class="str">
     	<td >Item Title</td>
-        <td ><input type="text" name="title" /></td>
+        <td ><input type="text" name="keyword" /></td>
     </tr>
      <tr>
     	<td>ItemType</td>
         <td >
-        <select name="itemtypeID">
+        <select name="itemtype">
         	<option value="-1" selected="selected">All</option>
         	<option value="1" >Book</option>
             <option value="2">CD</option>
@@ -48,7 +47,7 @@
         <td> 
         <select name="itemstatus">
         	<option value="-1" selected="selected">All</option>
-        	<option value="1">Available</option>
+        	<option value="0">Avaiable</option>
         </select>
         </td>
     </tr>
@@ -57,48 +56,27 @@
     </tr>
       </table>
     </form>
-    
-   <form class="searchbar">
-   <div style="height:740px;">
-  	<label>Search Result</label>
+   <form>
+   <div style="height:650px;">
+  	
   	<table class="stable">
-    	<tr>
-            <th>SN</th>
-            <th>Title</th>
-            <th>Author</th>
-            <th>Publisher</th>
-            <th>Status</th>
-            <th>Borrow</th> 
+    	<caption class="scaptain" >Search Result</caption>
+    	<tr class="str">
+            <th class="sth">SN</th>
+            <th class="sth">Title</th>
+            <th class="sth">Author</th>
+            <th class="sth">Publisher</th>
+            <th class="sth">Status</th>
+            <th class="sth">Borrow</th> 
         </tr>
-        
-        <c:forEach items="${itmlist}" var="items" varStatus="i">
-			<tr>
-				<td>${i.index+1}</td>
-				<td>${items.title}</td>
-				<td>${items.author}</td>
-				<td>${items.publisher}</td>				
-				<c:choose>
-					<c:when test="${items.itemstatus != 0}">
-						<td>available</td>
-					</c:when>
-					<c:otherwise>
-						<td>unavailable</td>
-					</c:otherwise>
-				</c:choose>
-				<c:choose>
-					<c:when test="${items.itemstatus == 0}">
-						<td>
-						<input type="checkbox" name="borrow" disabled="disabled" value=${items.itemNumber}>
-						</td>
-					</c:when>
-					<c:otherwise>
-						<td>
-						<input type="checkbox" name="borrow" value=${items.itemNumber}>
-						</td>
-					</c:otherwise>
-				</c:choose>
-        	</tr>        
-        </c:forEach> 
+    	<tr class="str">
+        	<td class="std">0001</td>
+            <td class="std">Java</td>
+            <td class="std">2015-05-06</td>
+            <td class="std">null</td>
+            <td class="std">2015-06-06</td>
+            <td class="std"><input type="checkbox" name="borrow" value=${item.id}></td>
+        </tr>
     </table>
     </div>
     <button type="submit" >Borrow</button>
