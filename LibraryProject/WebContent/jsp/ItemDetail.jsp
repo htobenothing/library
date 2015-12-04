@@ -23,8 +23,31 @@
   	<div class="homesearchbar">
     <form action="/library/items/update" method="post">
     <%
-		Items itm = (Items)session.getAttribute("itmobj");
-	%>
+		Items itm = (Items)session.getAttribute("itmobj");   	
+    %>
+    <%!
+    	public String itemType(int i){
+    		switch (i){
+    		case 1:
+    			return "Book";
+    		case 2:
+    			return "CD";
+    		case 3:
+    			return "Casettes";
+    		case 4:
+    			return "Kits";
+    		case 5:
+    			return "Manuscripts";
+    		case 6:
+    			return "Magazines";
+    		case 7:
+    			return "Journals";
+    		default:
+    			return "Not Defined Yet!";
+    		}    	
+    }
+    %>
+    
       <label>Item Detail</label>
       <table class="stable">
         <tr >
@@ -53,18 +76,38 @@
         </tr>
 		<tr >
             <td>Type</td>
-            <td>           
-      			<input type="text" name="itemtypeID" value="<%=itm.getItemtypeID()%>" style="width: 400px; "/>
+            <td>
+				<%= itemType(itm.getItemtypeID()) %>          
+      			<!-- <input type="text" name="itemtypeID" value="<%=itm.getItemtypeID()%>" style="width: 400px; "/> -->
             </td>
         </tr>        
         <tr>
-            <td >status</td>
-            <td ><select style="width: 400px; ">
-            <option>active</option>
-            <option>onloan</option>
-            <option>unactive</option>
-          
-            </select></td>
+            <td >Status</td>
+     <%!
+    	public String itemstatus(String i){
+    		if(i.equals("1"))
+    			return "available";
+    		else
+    			return "unavailable";    	
+    }
+    %>
+            <td>
+            <%= itemstatus(itm.getItemstatus())%>
+			<c:choose>
+				<c:when test="${itm.getItemstatus() == '1'}">
+					<select>
+            		<option selected="selected" value="1">available</option>
+            		<option value="0">unavailable</option>          
+            		</select>
+				</c:when>
+				<c:otherwise>
+					<select>
+            		<option value="1">available</option>
+            		<option selected="selected" value="0">unavailable</option>          
+            		</select>
+				</c:otherwise>
+			</c:choose>		  	
+			</td>
         </tr>
      
       </table>

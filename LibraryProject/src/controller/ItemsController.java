@@ -13,6 +13,8 @@ import javax.servlet.http.HttpSession;
 
 import biz.ItemsManager;
 import dto.Items;
+import dto.User;
+
 
 /**
  * Servlet implementation class ItemsController
@@ -91,64 +93,60 @@ public class ItemsController extends HttpServlet {
 			String t = request.getParameter("title"); 
 			int id = Integer.parseInt(request.getParameter("itemtypeID"));
 			String s = request.getParameter("itemstatus");	
+			ArrayList<Items> list;
+
 			
 			if(t.length()==0 && s.equals("-1") && id == -1){
-				//getAllItems
-				ArrayList<Items> list = mgr.getAllItems();
-				request.setAttribute("itmlist", list);
-				rd = request.getRequestDispatcher("../jsp/HomeSearch.jsp");
-				rd.forward(request, response);				
+				//get All Items
+				list = mgr.getAllItems();
 				
 			}else if((t.length()!=0) && s.equals("-1") && id == -1){
-				//searchItemByTitle
-				ArrayList<Items> list = mgr.searchItemsByTitle(request.getParameter("title"));
-				request.setAttribute("itmlist", list);
-				System.out.println(request.getParameter("title"));
-				rd = request.getRequestDispatcher("../jsp/HomeSearch.jsp");
-				rd.forward(request, response);
+				//get Item By Title
+				list = mgr.searchItemsByTitle(request.getParameter("title"));
 				
 			}else if((t.length()==0) && s != "-1" && id == -1){
-				//searchItemByStatus
-				ArrayList<Items> list = mgr.searchItemByStatus(request.getParameter("itemstatus"));
-				request.setAttribute("itmlist", list);
-				rd = request.getRequestDispatcher("../jsp/HomeSearch.jsp");
-				rd.forward(request, response);
+				//get Item By Status
+				list = mgr.searchItemByStatus(request.getParameter("itemstatus"));
 				
 			}else if((t.length()==0) && s.equals("-1") && id != -1){
-				//searchItemByItemType
-				ArrayList<Items> list = mgr.searchItemsByItemType(Integer.parseInt(request.getParameter("itemtypeID")));
-				request.setAttribute("itmlist", list);
-				rd = request.getRequestDispatcher("../jsp/HomeSearch.jsp");
-				rd.forward(request, response);
+				//get Item By ItemType
+				list = mgr.searchItemsByItemType(Integer.parseInt(request.getParameter("itemtypeID")));
 				
 			}else if((t.length()!=0) && s.equals("-1") && id != -1){
-				//searchItemBytitle&ItemType
-				ArrayList<Items> list = mgr.searchItembyTitleItemType(request.getParameter("title"), Integer.parseInt(request.getParameter("itemtypeID")));
-				request.setAttribute("itmlist", list);
-				rd = request.getRequestDispatcher("../jsp/HomeSearch.jsp");
-				rd.forward(request, response);
+				//get Item By title&ItemType
+				list = mgr.searchItembyTitleItemType(request.getParameter("title"), Integer.parseInt(request.getParameter("itemtypeID")));
 				
 			}else if((t.length()!=0) && s != "-1" && id == -1){
-				//searchItemBytitle&status
-				ArrayList<Items> list = mgr.searchItembyTitleStatus(request.getParameter("title"), request.getParameter("itemstatus"));
-				request.setAttribute("itmlist", list);
-				rd = request.getRequestDispatcher("../jsp/HomeSearch.jsp");
-				rd.forward(request, response);	
+				//get Item By title&status
+				list = mgr.searchItembyTitleStatus(request.getParameter("title"), request.getParameter("itemstatus"));
 				
 			}else if((t.length()== 0) && s != "-1" && id != -1){
-				//searchItemBy Status & ItemType				
-				ArrayList<Items> list = mgr.searchItembyStatusItemType(request.getParameter("itemstatus"),Integer.parseInt(request.getParameter("itemtypeID")) );
-				request.setAttribute("itmlist", list);				
-				rd = request.getRequestDispatcher("../jsp/HomeSearch.jsp");
-				rd.forward(request, response);
+				//get Item By Status&ItemType				
+				list = mgr.searchItembyStatusItemType(request.getParameter("itemstatus"),Integer.parseInt(request.getParameter("itemtypeID")) );			
 				
 			}else{
-				//searchItemByFullCriteria
-				ArrayList<Items> list = mgr.searchItemsByFullCriteria(request.getParameter("title"), Integer.parseInt(request.getParameter("itemtypeID")), request.getParameter("itemstatus"));
-				request.setAttribute("itmlist", list);
-				rd = request.getRequestDispatcher("../jsp/HomeSearch.jsp");
-				rd.forward(request, response);
+				//get ItemBy FullCriteria
+				list = mgr.searchItemsByFullCriteria(request.getParameter("title"), Integer.parseInt(request.getParameter("itemtypeID")), request.getParameter("itemstatus"));
 			}
+			request.setAttribute("itmlist", list);	
+			
+			System.out.println(request.getSession().getAttribute("loginuser"));
+			
+			if(null == request.getSession().getAttribute("loginuser")){
+				rd = request.getRequestDispatcher("../jsp/HomeSearch.jsp");
+			}else{
+				User u = (User)request.getSession().getAttribute("loginuser");
+				System.out.println(u.getUserId().substring(0, 1));
+				String role = u.getUserId().substring(0, 1);
+				if(role.equals("S")){
+					System.out.println("i m here.");
+					rd = request.getRequestDispatcher("../jsp/stusearch.jsp");
+				}else if(role.equals("L")){
+					rd = request.getRequestDispatcher("../jsp/libsearch.jsp");
+				}
+			}		
+			
+			rd.forward(request, response);
 			break;
 			
 		case "/edit":
