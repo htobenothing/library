@@ -22,31 +22,40 @@
   <div class="content">
    <label>Current Onloan</label>
   <div style="height:300px; ">
+  <form action="/library/transaction/viewonloantransactionstu" method="post"> 
+  <button type="submit">view on loan</button>
+  </form>
  
   <table class="stable">
     	<tr >
             <th>ItemID</th>
             <th>Title</th>
             <th>BorrowDate</th>
-            <th>ReturnDate</th>
             <th>DueDate</th>
             <th>Status</th>
             <th>Renew</th> 
         </tr>
-        
-    	<tr >
-        <form>
-        	<input type="hidden" name="transactionid" value="111">
-        	<td>0001</td>
-            <td>Java</td>
-            <td >2015-05-06</td>
-            <td>null</td>
-            <td>2015-06-06</td>
-            <td>onloan</td>
-            <td><button type="submit">Renew</button></td>
-        </form> 
+		<c:forEach items="${ruslist}" var="t" varStatus="i">
+    	<form action="/library/transaction/renew" method="post">
+    	<input type="hidden" name="transactionid" value=${t.tranasctionID }>
+        <tr>
+        	<td>${t.itemID}</td>
+            <td>${t.title}</td>
+            <td>${t.borrowDate}</td>
+            <td>${t.dueDate }</td>
+            <td>${t.status}</td>
+            <c:choose>
+            	<c:when test="${t.statusNumber == 1 }">
+            	<td><button type="submit">Renew</button></td>            	
+            	</c:when>
+            	<c:otherwise>
+            	<td></td>
+            	</c:otherwise>
+            	
+            </c:choose>
         </tr>
-      
+    	</form>        
+      </c:forEach>
     </table>
  </div> 
   

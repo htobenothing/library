@@ -5,6 +5,7 @@ import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 import org.apache.catalina.tribes.group.interceptors.StaticMembershipInterceptor;
 
@@ -147,12 +148,10 @@ public class TransactionDataAccess implements TransactionDao {
 		}
 		catch(Exception e){
 			conn.rollback();
-			}
-		finally {			
+			}			
 		stmt.close();
 		conn.close();
 		return i;
-		}
 		
 	}
 	@Override
@@ -181,13 +180,9 @@ public class TransactionDataAccess implements TransactionDao {
 		catch(Exception exception){
 			conn.rollback();
 		}
-		finally {
 			stmt.close();
 			stmt.close();
-			return i;
-		}
-		
-		
+			return i;		
 	}
 	public int overdueTransaction(int transsationID)throws Exception
 	{
@@ -338,6 +333,27 @@ public class TransactionDataAccess implements TransactionDao {
 		stmt.close();
 		conn.close();
 		return result;
+	}
+	@Override
+	public int renewTransaction(Transcation t) throws Exception {
+		Connection conn=openConnection();
+		Statement stmt=(Statement) conn.createStatement();
+		int i=0;
+		Date due=t.getDueDate();
+		long r=due.getTime();
+		r+=15*24*60*60*1000;
+		Date renew=new Date(r);
+		try{
+			String qry=UPDATE_QRY+" `"+MySQLConstants.TRANSACTION_COL_STATUS+"`= \'"+3+"\' , "+MySQLConstants.TRANSACTION_COL_DUEDATE+" =\'"+renew+"\'";
+			qry+="where" +" `"+MySQLConstants.TRANSACTION_COL_TRANSACTIONDI+"` = "+t.getTransactionID();
+			System.out.println(qry);
+			i=stmt.executeUpdate(qry);
+			System.out.println("finish qry");
+			stmt.close();
+			conn.close();
+			return i;
+		}
+		catch(Exception e){return i;}
 	}
 
 }

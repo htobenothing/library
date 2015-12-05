@@ -3,6 +3,8 @@ package dao;
 import java.sql.Date;
 import java.util.ArrayList;
 
+import org.apache.taglibs.standard.lang.jstl.test.beans.PublicInterface2;
+
 import dto.Transcation;
 import dto.dto;
 
@@ -19,5 +21,6 @@ public interface TransactionDao {
 	public ArrayList<Transcation> findTransactionByUserIDandNOTStatus(String userID,String status) throws Exception;
 	public Transcation findTransactionByID(int transactionID) throws Exception; 
 	public ArrayList<Transcation> findTransactionByTimeandUerID(String uerID,Date from,Date to) throws Exception;
+	public int renewTransaction(Transcation t)throws Exception;
 		
 	}
