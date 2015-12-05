@@ -13,16 +13,19 @@
 	<div class="container" >
  <div class="header">
  <img src="../img/BigLogo.png" alt="Insert Logo Here" name="Insert_logo" width="180" height="90" id="Insert_logo" style="background-color: lightgrey; float:left" />
- <a href="#" style="float:right; ">Log In</a>
-   <div style="clear:both; height:10px;"></div>
-    <!-- end .header --></div>
+ <c:choose>
+ <c:when test="${loginuser.userId==null}"><a href="../jsp/login.jsp" style="float:right; ">Log In</a></c:when>
+ <c:when test="${loginuser.userId!=null }"><label style="float:right;">Welcome:${loginuser.userName}</label><br><a href="/library/user/logout" style="float:right; ">Log out</a></c:when>
+ </c:choose>
+ <div style="clear:both; height:10px;"></div>
+ <!-- end .header --></div>
   
   <div style="clear:both; height:10px;"></div>
   <div id="mainview" style="height:1000px; background:white;">
   	<div class="homesearchbar">
    <form action="/library/user/updatestudent" method="post">
       <label>Student Detail</label>
-      <input  type="hidden" value="${stu.userId}" name="userid">
+      <input  type="hidden" value="${stu.userId}" name="studentid">
      <table class="stable" style="text-align:left">
         <tr>
             <td>Student ID</td>
@@ -99,7 +102,12 @@
      
       </table>
       <button type="submit" >Confirm</button>
+      		<c:if test="${ispasswordsame==false}"><br><label class="errorlabe">password not same</label></c:if>
+      		<c:if test="${ispasswordnull==true}"><br><label class="errorlabe">password can not be empty</label></c:if>
+      		<c:if test="${isusernamenull==true}"><br><label class="errorlabe">User name can not be empty</label></c:if>
+      		<c:if test="${isphonecorrect==false}"><br><label class="errorlabe">Phone not 8 digits</label></c:if>
       </form>
+      
       <form action="/library/user/maintainstudent" method="post"><button type="submit">Cancel</button></form>
       
 	</div>
