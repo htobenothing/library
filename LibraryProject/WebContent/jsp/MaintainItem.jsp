@@ -53,7 +53,8 @@
    <form>
    <div style="height:740px;">
    	<label></label>
-  	<label>Student List</label>
+  	<c:url var="create" value="items/add"/>
+  	<a href="create">Create New Item</a>
         <table  class="stable">
             <tr >                
                 <th>SN</th>

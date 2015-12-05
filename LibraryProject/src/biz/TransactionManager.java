@@ -61,4 +61,8 @@ public class TransactionManager {
 		return transactionDao.findTransactionByTimeandUerID(uerID, from, to);
 	}
 	
+	public int renewTransaction(Transcation t) throws Exception {
+		return transactionDao.renewTransaction(t);
+	}
+	
 }

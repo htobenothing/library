@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
-<%@ page import="dto.Items" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -25,92 +24,81 @@
   <div id="mainview" style="height:1000px; background:white;">
   	<div class="homesearchbar">
     <form action="/library/items/update" method="post">
-    <%
-		Items itm = (Items)session.getAttribute("itmobj");   	
-    %>
-    <%!
-    	public String itemType(int i){
-    		switch (i){
-    		case 1:
-    			return "Book";
-    		case 2:
-    			return "CD";
-    		case 3:
-    			return "Casettes";
-    		case 4:
-    			return "Kits";
-    		case 5:
-    			return "Manuscripts";
-    		case 6:
-    			return "Magazines";
-    		case 7:
-    			return "Journals";
-    		default:
-    			return "Not Defined Yet!";
-    		}    	
-    }
-    %>
-    
       <label>Item Detail</label>
       <table class="stable">
         <tr >
             <td >ItemID</td>
             <td align="left">
-            	<%=itm.getItemNumber()%>
+            	<%-- <%=itm.getItemNumber()%> --%>
+            	
+            	${itmobj.itemNumber}
             </td>
         </tr>
         <tr >
             <td >Title</td>
             <td >
-            	<input type="text" name="title" value="<%=itm.getTitle()%>" style="width: 400px; "/>
+            	<input type="text" name="title" value="${itmobj.title}" style="width: 400px; "/>
             </td>
         </tr>        
         <tr >
             <td >Author</td>
             <td >
-            	<input type="text" name="author" value="<%=itm.getAuthor()%>" style="width: 400px; "/>
+            	<input type="text" name="author" value="${itmobj.author}" style="width: 400px; "/>
             </td>
         </tr>
         <tr >
             <td >Publisher</td>
             <td>
-            	<input type="text" name="publisher" value="<%=itm.getPublisher()%>" style="width: 400px; "/>
+            	<input type="text" name="publisher" value="${itmobj.publisher}" style="width: 400px; "/>
             </td>
         </tr>
 		<tr >
             <td>Type</td>
-            <td>
-				<%= itemType(itm.getItemtypeID()) %>          
-      			<!-- <input type="text" name="itemtypeID" value="<%=itm.getItemtypeID()%>" style="width: 400px; "/> -->
-            </td>
+			<c:choose>
+				<c:when test='${itmobj.itemtypeID == 1}'>
+				<td>Book</td>					
+				</c:when>
+				<c:when test='${itmobj.itemtypeID == 2}'>
+				<td>CD</td>					
+				</c:when>
+				<c:when test='${itmobj.itemtypeID == 3}'>
+				<td>Casettes</td>					
+				</c:when>
+				<c:when test='${itmobj.itemtypeID == 4}'>
+				<td>Kits</td>					
+				</c:when>
+				<c:when test='${itmobj.itemtypeID == 5}'>
+				<td>Manuscripts</td>					
+				</c:when>
+				<c:when test='${itmobj.itemtypeID == 6}'>
+				<td>Magazines</td>					
+				</c:when>
+				<c:when test='${itmobj.itemtypeID == 7}'>
+				<td>Journals</td>					
+				</c:when>
+			</c:choose>
         </tr>        
         <tr>
-            <td >Status</td>
-     <%!
-    	public String itemstatus(String i){
-    		if(i.equals("1"))
-    			return "available";
-    		else
-    			return "unavailable";    	
-    }
-    %>
-            <td>
-            <%= itemstatus(itm.getItemstatus())%>
+            <td >Status</td>            
 			<c:choose>
-				<c:when test="${itm.getItemstatus() == '1'}">
+				<c:when test='${itmobj.itemstatus == 1}'>
+				<td>
 					<select>
             		<option selected="selected" value="1">available</option>
             		<option value="0">unavailable</option>          
             		</select>
-				</c:when>
-				<c:otherwise>
+            	</td>
+				</c:when>				
+				<c:when test='${itmobj.itemstatus == 0}'>
+				<td>
 					<select>
             		<option value="1">available</option>
             		<option selected="selected" value="0">unavailable</option>          
             		</select>
-				</c:otherwise>
+            	</td>
+				</c:when>
 			</c:choose>		  	
-			</td>
+		
         </tr>
      
       </table>

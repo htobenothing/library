@@ -43,7 +43,7 @@ public class TransactionControl extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+		process(request,response);
 	}
 
 	
@@ -223,6 +223,34 @@ public class TransactionControl extends HttpServlet {
 				e.printStackTrace();
 			}
 			break;
+		case "/viewonloantransactionstu":
+			session=request.getSession();
+			loguser=(User)session.getAttribute("loginuser"); 
+			try{
+				ArrayList<Transcation> list=TM.findTransactionByUserIDandNOTStatus(loguser.getUserId(), "0");
+				ArrayList<TransactionWithEntity>list2=new ArrayList<TransactionWithEntity>();
+				for(Transcation transcation:list)
+				list2.add(new TransactionWithEntity(transcation));
+				request.setAttribute("ruslist", list2);
+				rd = request.getRequestDispatcher("../jsp/stutransaction.jsp");for(Transcation t:list)System.out.println(t.toString());
+				rd.forward(request, response);
+			}
+			catch (Exception e) {
+				// TODO: handle exception
+			}
+		case "/renew":
+			session=request.getSession();
+			transactionID=Integer.parseInt(request.getParameter("transactionid"));
+			try{
+				System.out.println("try");
+				TM.renewTransaction(TM.findTransactionByID(transactionID));
+				System.out.println("finish");
+				rd = request.getRequestDispatcher("../jsp/stutransaction.jsp");
+				rd.forward(request, response);
+			}
+			catch (Exception e) {
+				// TODO: handle exception
+			}
 		}
 	}	
 }
