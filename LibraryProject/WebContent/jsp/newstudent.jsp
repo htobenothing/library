@@ -39,7 +39,7 @@
         </tr>
         <tr>
             <td>confirm password</td>
-            <td><input type="text" name="confirmpassword"></td>
+            <td><input type="password" name="confirmpassword"></td>
         </tr>
         <!--  <tr>
             <td>role type</td>
@@ -84,6 +84,7 @@
       		<c:if test="${ispasswordsame==false}"><br><label class="errorlabe">password not same</label></c:if>
       		<c:if test="${ispasswordnull==true}"><br><label class="errorlabe">password can not be empty</label></c:if>
       		<c:if test="${isusernamenull==true}"><br><label class="errorlabe">User name can not be empty</label></c:if>
+      		<c:if test="${isphonecorrect==false}"><br><label class="errorlabe">Phone not 8 digits</label></c:if>
 
       </form>
 	</div>
