@@ -56,7 +56,7 @@
     
     <!-- search result table -->
    <form class="searchbar">
-   <div style="height:740px;">
+   <div style="magin: 10px; overfow:auto; height:740px;">
   	<label>Search Result</label>
   	<table class="stable">
     	<tr>

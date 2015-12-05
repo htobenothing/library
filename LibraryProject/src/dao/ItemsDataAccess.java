@@ -44,8 +44,7 @@ public class ItemsDataAccess implements ItemsDAO {
 
 	@Override
 	public int createItems(Items itm) throws SQLException {
-		openConnection();
-		
+		openConnection();		
 		String ins = MySQLConstants.INSERT_QRY + MySQLConstants.ITEMS_TABLE_NAME + "(title, author, publisher, year, description, isbn, itemtypeID, itemstatus) VALUES ("
 				+ "\"" + itm.getTitle() 
 				+ "\",\"" + itm.getAuthor() + "\",\"" + itm.getPublisher()
@@ -76,9 +75,9 @@ public class ItemsDataAccess implements ItemsDAO {
 	}	
 	
 	@Override
-	public Items getOneItems(int itemNumber) throws SQLException {
-		Items itm = new Items();
+	public Items getOneItems(int itemNumber) throws SQLException {		
 		openConnection();
+		Items itm = new Items();
 		rs = statement.executeQuery("SELECT * FROM library.items WHERE itemNumber ="
 				+ itemNumber + ";");
 		while (rs.next()) {
