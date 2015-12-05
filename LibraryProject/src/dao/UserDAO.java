@@ -11,4 +11,6 @@ public interface UserDAO {
 	public abstract Collection<User> findAll() throws SQLException;
 	public abstract int createNewUser(User u) throws SQLException;
 	public abstract Collection<User> finByName(String name) throws SQLException;
+	public abstract Collection<User> findStudents() throws SQLException;
+	public abstract int update(User u) throws SQLException;
 }

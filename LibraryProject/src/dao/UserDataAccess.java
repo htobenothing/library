@@ -133,7 +133,56 @@ public class UserDataAccess implements UserDAO {
 			u.setOnloanNumber(rs.getInt(11));
 			uslist.add(u);
 		}
+		CloseConnection();
 		return uslist;
+	}
+	@Override
+	public Collection<User> findStudents() throws SQLException {
+		OpenConnection();
+		String selstu = "Select * from library.user where role=?";
+		ArrayList<User> stulist= new ArrayList<User>();
+		prstmt = con.prepareStatement(selstu);
+		prstmt.setString(1, "student");
+		rs = prstmt.executeQuery();
+		while(rs.next()){
+			User u = new User();
+			u.setUserId(rs.getString(1));
+			u.setUserName(rs.getString(2));
+			u.setPassword(rs.getString(3));
+			u.setRole(rs.getString(4));
+			u.setUserStatus(rs.getString(5));
+			u.setDateOfBirth(rs.getDate(6));
+			u.setAddress(rs.getString(7));
+			u.setEmail(rs.getString(8));
+			u.setPhoneNumber(rs.getString(9));
+			u.setCreateDate(rs.getDate(10));
+			u.setOnloanNumber(rs.getInt(11));
+			stulist.add(u);
+		}
+		CloseConnection();
+		return stulist;
+		
+		
+	}
+	@Override
+	public int update(User u) throws SQLException {
+		OpenConnection();
+		String update = "Update library.user set username=?,"
+				+ "password=?,role=?,userstatus=?,"
+				+ "address=?,email=?,phone=?"
+				+ "where userid=? ";
+		prstmt = con.prepareStatement(update);
+		prstmt.setString(1, u.getUserName());
+		prstmt.setString(2, u.getPassword());
+		prstmt.setString(3, u.getRole());
+		prstmt.setString(4, u.getUserStatus());
+		prstmt.setString(5, u.getAddress());
+		prstmt.setString(6, u.getEmail());
+		prstmt.setString(7, u.getPhoneNumber());
+		prstmt.setString(8, u.getUserId());
+		int i =prstmt.executeUpdate();
+		CloseConnection();
+		return i;
 	}
 	
 	

@@ -62,8 +62,27 @@ public class usertest {
 			e.printStackTrace();
 		}
 		*/
+		/*try {
+			uda.OpenConnection();
+			ArrayList<User> slist= (ArrayList<User>) uda.findStudents();
+			for (User user : slist) {
+				System.out.println(user.toString());
+			
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}*/
+
 		
-		int i = Integer.parseInt("abc");
+		try {
+			User updateuser= new User("S00000001", "james", "sdf", "student", "0", "address", "email", "12345678");
+			uda.update(updateuser);
+			System.out.println(uda.update(updateuser));
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 		
 	}
