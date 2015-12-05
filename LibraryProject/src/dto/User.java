@@ -106,11 +106,15 @@ public class User implements Serializable {
 	public void setOnloanNumber(int onloanNumber) {
 		this.onloanNumber = onloanNumber;
 	}
+
+	
+
 	@Override
 	public String toString() {
-		return "User [userId=" + userId + ", userName=" + userName + ", role=" + role + ", userStatus=" + userStatus
-				+ ", dateOfBirth=" + dateOfBirth + ", address=" + address + ", email=" + email + ", phoneNumber="
-				+ phoneNumber + ", createDate=" + createDate + ", onloanNumber=" + onloanNumber + "]";
+		return "User [userId=" + userId + ", userName=" + userName + ", password=" + password + ", role=" + role
+				+ ", userStatus=" + userStatus + ", dateOfBirth=" + dateOfBirth + ", address=" + address + ", email="
+				+ email + ", phoneNumber=" + phoneNumber + ", createDate=" + createDate + ", onloanNumber="
+				+ onloanNumber + "]";
 	}
 
 	@Override

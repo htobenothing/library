@@ -69,6 +69,13 @@ public class userController extends HttpServlet {
 		Date dateOfBirth;
 		Date createDate;
 		ArrayList<User> stulist;
+
+		boolean isphonecorrect=false;
+		boolean iscurrentuser =false;
+		boolean isidright = true;
+		boolean ispasswordsame = false;
+		boolean ispasswordnull = false;
+		boolean isusernamenull = false;
 		
 		
 		switch (path) {
@@ -116,12 +123,15 @@ public class userController extends HttpServlet {
 				
 			}
 		case "/logout":
-			session.getId();
+			
 			session.invalidate();
-			rd = request.getRequestDispatcher("../jsp/HomePage");
+			System.out.println("session destroy");
+			rd = request.getRequestDispatcher("../jsp/HomePage.jsp");
+			System.out.println("should go home");
 			rd.forward(request, response);
 			
 		case "/maintainstudent":
+
 			stulist = (ArrayList<User>) usermgr.getStudents();
 			request.setAttribute("stulist", stulist);
 			rd = request.getRequestDispatcher("../jsp/maintainstudent.jsp");
@@ -162,37 +172,77 @@ public class userController extends HttpServlet {
 			System.out.println(request.getParameter("userid"));
 			User stu = usermgr.getOneUser(uid);
 			System.out.println(stu.toString());
-			request.setAttribute("stu", stu);
+			session.setAttribute("stu", stu);
+			/*request.setAttribute("stu", stu);*/
 			rd = request.getRequestDispatcher("../jsp/studetail.jsp");
 			rd.forward(request,response);
 			
 		case "/updatestudent":
-			// add check condition later
-			userid = request.getParameter("userid");
-			username = request.getParameter("studentname");
-			password = request.getParameter("password");
-			roletype = request.getParameter("roletype");
-			email = request.getParameter("email");
-			phone = request.getParameter("phone");
-			address = request.getParameter("address");
-			status = request.getParameter("status");
-			User updateuser= new User(userid, username, password, roletype, status, address, email, phone);
-			System.out.println(updateuser);
-			usermgr.updateStudent(updateuser);
-			rd =request.getRequestDispatcher("maintainstudent");
-			rd.forward(request,response);
-			break;
+
+			if(request.getParameter("phone").equals("")){
+					isphonecorrect=true;
+			}else{
+				if(request.getParameter("phone").length()==8){
+					
+					try{
+						Integer.parseInt(request.getParameter("phone"));
+						isphonecorrect = true;
+					}catch(Exception e){
+						isphonecorrect =false;
+					}
+				}
+			}
+			
+			
+			if(request.getParameter("password").equals(request.getParameter("confirmpassword"))){
+				ispasswordsame = true;
+			}
+			System.out.println(request.getParameter("password"));
+			System.out.println(request.getParameter("confirmpassword"));
+			if(request.getParameter("password").equals("")){
+				ispasswordnull=true;
+				
+			}
+			if(request.getParameter("studentname").equals("")){
+				isusernamenull = true;
+			}
+			System.out.println(request.getParameter("studentname"));
+			System.out.println((!ispasswordnull)&&ispasswordsame&&(!isusernamenull)&&isphonecorrect);
+			if((!ispasswordnull)&&ispasswordsame&&(!isusernamenull)&&isphonecorrect){
+				System.out.println("inform ok");
+				userid = request.getParameter("studentid");
+				username = request.getParameter("studentname");
+				password = request.getParameter("password");
+				roletype = request.getParameter("roletype");
+				email = request.getParameter("email");
+				phone = request.getParameter("phone");
+				address = request.getParameter("address");
+				status = request.getParameter("status");
+				User updateuser= new User(userid, username, password, roletype, status, address, email, phone);
+				System.out.println(updateuser);
+				usermgr.updateStudent(updateuser);
+				rd =request.getRequestDispatcher("maintainstudent");
+				rd.forward(request,response);
+				break;
+			}else{
+
+				request.setAttribute("ispasswordsame", ispasswordsame);
+				System.out.println(ispasswordsame);
+				request.setAttribute("ispasswordnull", ispasswordnull);
+				System.out.println(ispasswordnull);
+				request.setAttribute("isusernamenull", isusernamenull);
+				System.out.println(isusernamenull);
+				request.setAttribute("isphonecorrect", isphonecorrect);
+				rd = request.getRequestDispatcher("../jsp/studetail.jsp");
+				rd.forward(request, response);
+				
+			}
+			
+			
 			
 			
 			
 		case "/createstudent":
-			
-			boolean isphonecorrect=false;
-			boolean iscurrentuser =false;
-			boolean isidright = true;
-			boolean ispasswordsame = false;
-			boolean ispasswordnull = false;
-			boolean isusernamenull = false;
 			
 			if(request.getParameter("studentid").length()!=8){
 				isidright = false;
@@ -203,6 +253,7 @@ public class userController extends HttpServlet {
 					isidright = false;
 				}
 			}
+			System.out.println(isidright);
 			if(request.getParameter("phone").equals("")){
 					isphonecorrect=true;
 			}else{
@@ -290,13 +341,7 @@ public class userController extends HttpServlet {
 				
 					
 				
-		}
-			
-			
-		
-			
-		
+		}	
 	}
-
 }
 

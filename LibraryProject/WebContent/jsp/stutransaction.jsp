@@ -10,8 +10,16 @@
 </head>
 <body>
 <div class="container" >
-  <div class="header"><a href="#"><img src="../img/BigLogo.png" alt="Insert Logo Here" name="Insert_logo" width="180" height="90" id="Insert_logo" style="background-color: lightgrey; display:block;" /></a> 
-    <!-- end .header --></div>
+ <div class="header">
+ <img src="../img/BigLogo.png" alt="Insert Logo Here" name="Insert_logo" width="180" height="90" id="Insert_logo" style="background-color: lightgrey; float:left" />
+ <c:choose>
+ <c:when test="${loginuser.userId==null}"><a href="../jsp/login.jsp" style="float:right; ">Log In</a></c:when>
+ <c:when test="${loginuser.userId!=null }"><label style="float:right;">Welcome:${loginuser.userName}</label><br><a href="/library/user/logout" style="float:right; ">Log out</a></c:when>
+ </c:choose>
+ <div style="clear:both; height:10px;"></div>
+ <!-- end .header --></div>
+ 
+ 
   <div class="sidebar1">
     <ul class="nav">
       <li><a href="#">Serach Item</a></li>

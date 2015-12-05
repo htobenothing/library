@@ -13,9 +13,12 @@
 <div class="container" >
  <div class="header">
  <img src="../img/BigLogo.png" alt="Insert Logo Here" name="Insert_logo" width="180" height="90" id="Insert_logo" style="background-color: lightgrey; float:left" />
- <a href="#" style="float:right; ">Log In</a>
-   <div style="clear:both; height:10px;"></div>
-    <!-- end .header --></div>
+ <c:choose>
+ <c:when test="${loginuser.userId==null}"><a href="../jsp/login.jsp" style="float:right; ">Log In</a></c:when>
+ <c:when test="${loginuser.userId!=null }"><label style="float:right;">Welcome:${loginuser.userName}</label><br><a href="/library/user/logout" style="float:right; ">Log out</a></c:when>
+ </c:choose>
+ <div style="clear:both; height:10px;"></div>
+ <!-- end .header --></div>
   
   <div style="clear:both; height:10px;"></div>
   <div id="mainview" style="height:1000px; background:white;">
