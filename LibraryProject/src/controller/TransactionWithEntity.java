@@ -13,6 +13,7 @@ public class TransactionWithEntity {
 	private Date borrowDate;
 	private Date returnDate;
 	private Date dueDate;
+	private String statusNumber;
 	private String status;
 	private int itemType;
 	private ItemsManager IM=new ItemsManager();
@@ -24,6 +25,7 @@ public class TransactionWithEntity {
 		this.borrowDate = t.getLoanDate();
 		this.returnDate = t.getReturnDate();
 		this.dueDate = t.getDueDate();
+		this.statusNumber=t.getStatus();
 		this.status = this.Status(t.getStatus());
 		this.itemType = IM.getOneItems(t.getIteamID()).getItemtypeID();
 		this.title = IM.getOneItems(t.getIteamID()).getTitle();
@@ -102,6 +104,12 @@ public class TransactionWithEntity {
 		return "TransactionWithEntity [tranasctionID=" + tranasctionID + ", itemID=" + itemID + ", title=" + title
 				+ ", username=" + username + ", borrowDate=" + borrowDate + ", returnDate=" + returnDate + ", dueDate="
 				+ dueDate + ", status=" + status + ", itemType=" + itemType + ", IM=" + IM + ", UM=" + UM + "]";
+	}
+	public String getStatusNumber() {
+		return statusNumber;
+	}
+	public void setStatusNumber(String statusNumber) {
+		this.statusNumber = statusNumber;
 	}
 	
 	
