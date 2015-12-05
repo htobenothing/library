@@ -167,22 +167,19 @@ public class UserDataAccess implements UserDAO {
 	@Override
 	public int update(User u) throws SQLException {
 		OpenConnection();
-		String update = "Update library.user set username=?"
-				+ "password=?,role=?,userStatus=?,dateOfBirth=?,"
-				+ "address=?,email=?,phoneNumber=?,createDate=?,"
-				+ "onloanNumber=?,where userid=? ";
+		String update = "Update library.user set username=?,"
+				+ "password=?,role=?,userstatus=?,"
+				+ "address=?,email=?,phone=?"
+				+ "where userid=? ";
 		prstmt = con.prepareStatement(update);
 		prstmt.setString(1, u.getUserName());
 		prstmt.setString(2, u.getPassword());
 		prstmt.setString(3, u.getRole());
 		prstmt.setString(4, u.getUserStatus());
-		prstmt.setDate(5, u.getDateOfBirth());
-		prstmt.setString(6, u.getAddress());
-		prstmt.setString(7, u.getEmail());
-		prstmt.setString(8, u.getPhoneNumber());
-		prstmt.setDate(9, u.getCreateDate());
-		prstmt.setInt(10, u.getOnloanNumber());
-		prstmt.setString(11, u.getUserId());
+		prstmt.setString(5, u.getAddress());
+		prstmt.setString(6, u.getEmail());
+		prstmt.setString(7, u.getPhoneNumber());
+		prstmt.setString(8, u.getUserId());
 		int i =prstmt.executeUpdate();
 		CloseConnection();
 		return i;

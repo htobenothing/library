@@ -15,26 +15,28 @@
     <!-- end .header --></div>
   <div class="sidebar1">
     <ul class="nav">
-     <li><a href="#">Serach Item</a></li>
-      <li><a href="#">Transaction History</a></li>
-      <li><a href="#">Return Item</a></li>
-      <li><a href="#">Maintain Item</a>
-      <li><a href="#">Maintain Student</a></li>
+    <li><a href="http://localhost:8080/library/jsp/libsearch.jsp">Search Item</a></li>
+      <li><a href="librariantransaction.html">Transaction History</a></li>
+      <li><a href="librarianreturn.html">Return Item</a></li>
+      <li><a href="http://localhost:8080/library/jsp/MaintainItem.jsp">Maintain Item</a>
+      <li><a href="/library/user/maintainstudent">Maintain Student</a></li>
     </ul>
     <!-- end .sidebar1 --></div>
   <div class="content">
  <div style="margin:10px;">
 
- 	<form class="searchbar">
+ 	<form class="searchbar" action="/library/user/showStuById" method="post">
     	<label >Student ID</label>
-        <input type="text" name="studentid"  />
+        <input type="text" name="userid" />
         <button type="submit">Search</button>
     </form>
+   	<a href ="../jsp/newstudent.jsp">Create New Student</a>
+	<br>
    <form>
    <div style="height:740px;">
         <table class="stable">
-       	<a href ="../jsp/newstudent.jsp">Create New Student</a>
-       
+       	
+       	<c:if test="${isnorecord== true }"><label class="errorlabe">No Record Find</label></c:if>
             <tr >
             	<th>SN</th>
                 <th>StudentID</th>
@@ -43,6 +45,7 @@
                 <th>Status</th>
                 <th>Edit</th>
             </tr>
+           
             <c:forEach items="${stulist}" var="stu" varStatus="i">
             
             <tr>
@@ -61,8 +64,8 @@
 					<a href="studetail?userid=${stu.userId}">Edit</a>
 				</td>
             </tr>
-            
             </c:forEach>
+
         </table>
     </div>
     </form>

@@ -62,7 +62,7 @@ public class usertest {
 			e.printStackTrace();
 		}
 		*/
-		try {
+		/*try {
 			uda.OpenConnection();
 			ArrayList<User> slist= (ArrayList<User>) uda.findStudents();
 			for (User user : slist) {
@@ -72,9 +72,17 @@ public class usertest {
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
+		}*/
 
 		
+		try {
+			User updateuser= new User("S00000001", "james", "sdf", "student", "0", "address", "email", "12345678");
+			uda.update(updateuser);
+			System.out.println(uda.update(updateuser));
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 		
 	}

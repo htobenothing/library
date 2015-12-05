@@ -57,13 +57,28 @@ public class userController extends HttpServlet {
 		RequestDispatcher rd = null;
 		HttpSession session = request.getSession();
 		
+		//
+		String userid;
+		String username;
+		String password;
+		String roletype;
+		String email;
+		String phone;
+		String address;
+		String status;
+		Date dateOfBirth;
+		Date createDate;
+		ArrayList<User> stulist;
+		
 		
 		switch (path) {
 		case "/login":
 			boolean iscorrectlogin=true;
 			String id =request.getParameter("userid");
 			String pwd= request.getParameter("pwd");
+			
 			System.out.println(id+"    "+pwd);
+			
 			User loguser = usermgr.getOneUser(id);
 			System.out.println("id:"+loguser.getUserId()+"password:"+loguser.getPassword());
 		
@@ -101,18 +116,46 @@ public class userController extends HttpServlet {
 				
 			}
 		case "/logout":
-			
 			session.getId();
 			session.invalidate();
 			rd = request.getRequestDispatcher("../jsp/HomePage");
 			rd.forward(request, response);
 			
 		case "/maintainstudent":
-			ArrayList<User> stulist = (ArrayList<User>) usermgr.getStudents();
+			stulist = (ArrayList<User>) usermgr.getStudents();
 			request.setAttribute("stulist", stulist);
 			rd = request.getRequestDispatcher("../jsp/maintainstudent.jsp");
 			rd.forward(request, response);
 			break;
+			
+		case "/showStuById":
+			stulist= new ArrayList<User>();
+			if(request.getParameter("userid")==""){
+				stulist = (ArrayList<User>) usermgr.getStudents();
+				request.setAttribute("stulist", stulist);
+				rd = request.getRequestDispatcher("../jsp/maintainstudent.jsp");
+				rd.forward(request, response);
+				break;
+			}else{
+				User showuser = usermgr.getOneUser(request.getParameter("userid"));
+				System.out.println(showuser);
+				boolean isnorecord=false;
+				if(showuser.getUserId()==null){
+					isnorecord = true;
+					request.setAttribute("isnorecord", isnorecord);
+					rd = request.getRequestDispatcher("../jsp/maintainstudent.jsp");
+					rd.forward(request, response);
+					break;
+				}else{
+					stulist.add(showuser);
+					request.setAttribute("stulist", stulist);
+					rd = request.getRequestDispatcher("../jsp/maintainstudent.jsp");
+					rd.forward(request, response);
+					break;
+				}
+				
+			}
+			
 			
 		case "/studetail":
 			String uid = request.getParameter("userid");
@@ -124,19 +167,33 @@ public class userController extends HttpServlet {
 			rd.forward(request,response);
 			
 		case "/updatestudent":
-			
-			
-			
+			// add check condition later
+			userid = request.getParameter("userid");
+			username = request.getParameter("studentname");
+			password = request.getParameter("password");
+			roletype = request.getParameter("roletype");
+			email = request.getParameter("email");
+			phone = request.getParameter("phone");
+			address = request.getParameter("address");
+			status = request.getParameter("status");
+			User updateuser= new User(userid, username, password, roletype, status, address, email, phone);
+			System.out.println(updateuser);
+			usermgr.updateStudent(updateuser);
+			rd =request.getRequestDispatcher("maintainstudent");
+			rd.forward(request,response);
+			break;
 			
 			
 			
 		case "/createstudent":
+			
 			boolean isphonecorrect=false;
 			boolean iscurrentuser =false;
 			boolean isidright = true;
 			boolean ispasswordsame = false;
 			boolean ispasswordnull = false;
 			boolean isusernamenull = false;
+			
 			if(request.getParameter("studentid").length()!=8){
 				isidright = false;
 			}else{
@@ -175,14 +232,14 @@ public class userController extends HttpServlet {
 			User newuser= new User();
 			if(isidright&&!ispasswordnull&&ispasswordsame&&!isusernamenull&&isphonecorrect){
 				System.out.println("allcorrect");
-				String userid = ("S"+request.getParameter("studentid"));
-				String username = request.getParameter("studentname");
-				String password = request.getParameter("password");
-				String roletype = "student";
-				String email = request.getParameter("email");
-				String phone = request.getParameter("phone");
-				String address = request.getParameter("address");
-				String status = "1";
+				userid = ("S"+request.getParameter("studentid"));
+				username = request.getParameter("studentname");
+				password = request.getParameter("password");
+				roletype = "student";
+				email = request.getParameter("email");
+				phone = request.getParameter("phone");
+				address = request.getParameter("address");
+				status = "1";
 				
 				//get current date
 				DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
@@ -211,9 +268,9 @@ public class userController extends HttpServlet {
 					rd.forward(request, response);
 				}
 				else{
-					iscurrentuser = true;
+					iscurrentuser = false;
 					usermgr.createUser(newuser);
-					rd = request.getRequestDispatcher("../jsp/maintainuser.jsp");
+					rd = request.getRequestDispatcher("maintainstudent");
 					rd.forward(request, response);
 				}
 			}

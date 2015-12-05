@@ -27,11 +27,21 @@
         <tr>
             <td>Student ID</td>
             <td>${stu.userId}</td>
+            
         </tr>
         <tr>
             <td>Student name</td>
             <td><input type="text" name="studentname" value="${stu.userName}"></td>
         </tr>
+         <tr>
+            <td>password</td>
+            <td><input type="password" name="password" value="${stu.password}"></td>
+        </tr>
+         <tr>
+            <td>password</td>
+            <td><input type="password" name="confirmpassword" value="${stu.password}"></td>
+        </tr>
+        
          
         <tr>
             <td>role type</td>
@@ -39,9 +49,15 @@
             <td>
             <c:choose>
             	<c:when test='${stu.role=="student"}'>
-            	<select name="roletype" disabled="disabled">
+            	<select name="roletype" >
             	<option value="librarian" >librarian</option>
             	<option value="student" selected>student</option>
+            	</select>
+            	</c:when>
+            	<c:when test='${stu.role=="librarian"}'>
+            	<select name="roletype" >
+            	<option value="librarian" selected>librarian</option>
+            	<option value="student" >student</option>
             	</select>
             	</c:when>
             </c:choose>	
@@ -84,6 +100,8 @@
       </table>
       <button type="submit" >Confirm</button>
       </form>
+      <form action="/library/user/maintainstudent" method="post"><button type="submit">Cancel</button></form>
+      
 	</div>
   </div>
   <div class="footer">
