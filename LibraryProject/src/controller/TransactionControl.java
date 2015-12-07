@@ -81,6 +81,7 @@ public class TransactionControl extends HttpServlet {
 		RequestDispatcher rd = null;
 		switch (path) {
 		case "/viewtransactionlib":
+			if(checkLoginLib(request.getSession())){
 			int itemType=Integer.parseInt(request.getParameter("Item Type"));			
 			int satus=Integer.parseInt(request.getParameter("Status"));
 			Date from;
@@ -110,9 +111,15 @@ public class TransactionControl extends HttpServlet {
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
+			}}
+			else {
+				session.invalidate();
+				rd=request.getRequestDispatcher("../jsp/login.jsp");
+				rd.forward(request, response);
 			}
 			break;
 		case"/returnlib":
+			if(checkLoginLib(request.getSession())){
 			String userID=request.getParameter("studentid");			
 			try{
 				ArrayList<Transcation> list=TM.findTransactionByUserIDandNOTStatus(userID, "0");
@@ -127,9 +134,15 @@ public class TransactionControl extends HttpServlet {
 			}
 			catch (Exception e) {
 				// TODO: handle exception
+			}}
+			else{
+				session.invalidate();
+				rd=request.getRequestDispatcher("../jsp/login.jsp");
+				rd.forward(request, response);
 			}
 			break;
 		case"/returnlib2":
+			if(checkLoginLib(request.getSession())){
 			transactionID=Integer.parseInt(request.getParameter("tansactionid"));
 			try{
 			Transcation t=TM.findTransactionByID(transactionID);
@@ -147,7 +160,12 @@ public class TransactionControl extends HttpServlet {
 				// TODO: handle exception
 			}
 			rd = request.getRequestDispatcher("../jsp/returndetail.jsp");
-			rd.forward(request, response);
+			rd.forward(request, response);}
+			else{
+				session.invalidate();
+				rd=request.getRequestDispatcher("../jsp/login.jsp");
+				rd.forward(request, response);
+			}
 		case"/returnfinal":
 			transactionID=Integer.parseInt(request.getParameter("transactionid"));
 			session=request.getSession();
@@ -170,11 +188,13 @@ public class TransactionControl extends HttpServlet {
 				rd=request.getRequestDispatcher("/transaction/returnstu");
 			}
 			else{ 
+				session.invalidate();
 				rd=request.getRequestDispatcher("../jsp/login.jsp");
-				session.setAttribute("loginuser", null);
+				rd.forward(request, response);
 			}
 			rd.forward(request, response);			
 		case "/returnstu":
+			if(checkLoginStu(request.getSession())){
 			session=request.getSession();
 			loguser=(User)session.getAttribute("loginuser"); 
 		
@@ -190,9 +210,15 @@ public class TransactionControl extends HttpServlet {
 			}
 			catch (Exception e) {
 				// TODO: handle exception
+			}}
+			else{
+				session.invalidate();
+				rd=request.getRequestDispatcher("../jsp/login.jsp");
+				rd.forward(request, response);
 			}
 			break;
 		case"/returnstu2":
+			if(checkLoginStu(request.getSession())){
 			transactionID=Integer.parseInt(request.getParameter("tansactionid"));
 			session=request.getSession();
 			try{
@@ -210,10 +236,16 @@ public class TransactionControl extends HttpServlet {
 				// TODO: handle exception
 			}
 			rd = request.getRequestDispatcher("../jsp/returndetail.jsp");
-			rd.forward(request, response);
+			rd.forward(request, response);}
+			else{
+				session.invalidate();
+				rd=request.getRequestDispatcher("../jsp/login.jsp");
+				rd.forward(request, response);
+			}
 			break;
 		
-		case "/viewtransactionstu":		
+		case "/viewtransactionstu":	
+			if(checkLoginStu(request.getSession())){
 			session=request.getSession();
 			loguser=(User)session.getAttribute("loginuser"); 
 			Date sfrom;
@@ -245,9 +277,15 @@ public class TransactionControl extends HttpServlet {
 			catch (Exception e) {
 			// TODO Auto-generated catch block
 				e.printStackTrace();
+			}}
+			else {
+				session.invalidate();
+				rd=request.getRequestDispatcher("../jsp/login.jsp");
+				rd.forward(request, response);
 			}
 			break;
 		case "/viewonloantransactionstu":
+			if(checkLoginStu(request.getSession())){
 			session=request.getSession();
 			loguser=(User)session.getAttribute("loginuser"); 
 			try{
@@ -261,8 +299,15 @@ public class TransactionControl extends HttpServlet {
 			}
 			catch (Exception e) {
 				// TODO: handle exception
+			}}
+			else{
+				session.invalidate();
+				rd=request.getRequestDispatcher("../jsp/login.jsp");
+				rd.forward(request, response);
 			}
+			break;
 		case "/renew":
+			if(checkLoginStu(request.getSession())){
 			session=request.getSession();
 			transactionID=Integer.parseInt(request.getParameter("transactionid"));
 			try{
@@ -274,9 +319,15 @@ public class TransactionControl extends HttpServlet {
 			}
 			catch (Exception e) {
 				// TODO: handle exception
+			}}
+			else {
+				session.invalidate();
+				rd=request.getRequestDispatcher("../jsp/login.jsp");
+				rd.forward(request, response);
 			}
 			break;
 		case "/stuborrow":
+			if(checkLoginStu(request.getSession())){
 			session=request.getSession();
 			loguser=(User)session.getAttribute("loginuser"); 
 			System.out.println("hehe");
@@ -307,7 +358,12 @@ public class TransactionControl extends HttpServlet {
 			rd = request.getRequestDispatcher("../jsp/stusearch.jsp");
 			rd.forward(request, response);
 				// TODO: handle exception
-			} 
+			} }
+			else{
+				session.invalidate();
+				rd=request.getRequestDispatcher("../jsp/login.jsp");
+				rd.forward(request, response);
+			}
 			break;
 		case "/finalborrow":
 			session=request.getSession();
@@ -354,6 +410,7 @@ public class TransactionControl extends HttpServlet {
 			rd.forward(request, response);
 			break;
 		case "/libborrow":
+			if(checkLoginLib(request.getSession())){
 			session=request.getSession();
 			User student=new User();
 			student=UM.getOneUser(request.getParameter("sdutentID"));
@@ -391,11 +448,15 @@ public class TransactionControl extends HttpServlet {
 				request.setAttribute("message", "Must select at least one item");
 				rd = request.getRequestDispatcher("../jsp/libsearch.jsp");
 				rd.forward(request, response);
+			}}
+			else{
+				session.invalidate();
+				rd=request.getRequestDispatcher("../jsp/login.jsp");
+				rd.forward(request, response);
 			}
 				
 			break;
 		case"/home":
-			
 			System.out.println("home");
 			String[] search=request.getParameterValues("borrow");
 			ArrayList<Items> list=new ArrayList<Items>();
@@ -412,7 +473,28 @@ public class TransactionControl extends HttpServlet {
 			rd = request.getRequestDispatcher("../jsp/login.jsp");
 			rd.forward(request, response);	
 		}
-	}	
+	}
+	protected boolean checkLoginStu(HttpSession session){
+		User loguser=(User)session.getAttribute("loginuser");
+		try{
+		if(loguser.getRole().equals("student"))
+			return true;
+		else
+			return false;
+		}
+		catch(Exception exception){return false;}
+	}
+	protected boolean checkLoginLib(HttpSession session){
+		User loguser=(User)session.getAttribute("loginuser");
+		System.out.println(loguser.getRole());
+		try{
+			if(loguser.getRole().equals("librarian"))
+				return true;
+			else
+				return false;
+			}
+			catch(Exception exception){return false;}
+	}
 }
 		
 	

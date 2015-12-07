@@ -1,5 +1,6 @@
 package controller;
 
+import java.awt.Checkbox;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -252,6 +253,26 @@ public class ItemsController extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		process(request,response);
+	}
+	protected boolean checkLoginStu(HttpSession session){
+		User loguser=(User)session.getAttribute("loginuser");
+		try{
+		if(loguser.getRole()=="student")
+			return true;
+		else
+			return false;
+		}
+		catch(Exception exception){return false;}
+	}
+	protected boolean checkLoginLib(HttpSession session){
+		User loguser=(User)session.getAttribute("loginuser");
+		try{
+			if(loguser.getRole()=="librarian")
+				return true;
+			else
+				return false;
+			}
+			catch(Exception exception){return false;}
 	}
 
 }
