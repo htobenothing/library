@@ -25,8 +25,8 @@
   <div class="sidebar1">
     <ul class="nav">
       <li><a href="../jsp/stusearch.jsp">Search Item</a></li>
-      <li><a href="../jsp/stutransaction.jsp">Transaction History</a></li>
-      <li><a href="../jsp/stureturn.jsp">Return Item</a></li>
+      <li><a href="/library/transaction/viewonloantransactionstu">Transaction History</a></li>
+      <li><a href="/library/transaction/returnstu">Return Item</a></li>
     </ul>
   </div>
   <div class="content">
@@ -34,7 +34,6 @@
  <div style="margin:10px;">
  
   	<form action="/library/transaction/returnstu" method="post">
-  	<button type="submit">Show on loan</button>
   	</form>
   	<table class="stable">
     	<tr >

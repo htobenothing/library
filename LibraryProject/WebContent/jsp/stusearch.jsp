@@ -25,8 +25,8 @@
   <div class="sidebar1">
     <ul class="nav">
       <li><a href="../jsp/stusearch.jsp">Search Item</a></li>
-      <li><a href="../jsp/stutransaction.jsp">Transaction History</a></li>
-      <li><a href="../jsp/stureturn.jsp">Return Item</a></li>
+      <li><a href="/library/transaction/viewonloantransactionstu">Transaction History</a></li>
+      <li><a href="/library/transaction/returnstu">Return Item</a></li>
     </ul>
     <!-- end .sidebar1 --></div>
   <div class="content">

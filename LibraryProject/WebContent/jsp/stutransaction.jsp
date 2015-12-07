@@ -26,15 +26,15 @@
   <div class="sidebar1">
 	<ul class="nav">
       <li><a href="../jsp/stusearch.jsp">Search Item</a></li>
-      <li><a href="../jsp/stutransaction.jsp">Transaction History</a></li>
-      <li><a href="../jsp/stureturn.jsp">Return Item</a></li>
+      <li><a href="/library/transaction/viewonloantransactionstu">Transaction History</a></li>
+      <li><a href="/library/transaction/returnstu">Return Item</a></li>
     </ul>
   </div>
   <div class="content">
    <label>Current Onloan</label>
   <div style="height:300px; ">
   <form action="/library/transaction/viewonloantransactionstu" method="post"> 
-  <button type="submit">view on loan</button>
+ 
   </form>
  
   <table class="stable">
@@ -60,7 +60,7 @@
             	<td><button type="submit">Renew</button></td>            	
             	</c:when>
             	<c:otherwise>
-            	<td></td>
+            	<td><button type="submit" disabled>Renew</button></td>
             	</c:otherwise>
             	
             </c:choose>
