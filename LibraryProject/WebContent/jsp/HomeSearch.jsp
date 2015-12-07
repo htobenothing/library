@@ -15,27 +15,24 @@
  <img src="../img/BigLogo.png" alt="Insert Logo Here" name="Insert_logo" width="180" height="90" id="Insert_logo" style="background-color: lightgrey; float:left" />
  <c:choose>
  <c:when test="${loginuser.userId==null}"><a href="../jsp/login.jsp" style="float:right; ">Log In</a></c:when>
- <c:when test="${loginuser.userId!=null }">
- 	<a href="/library/user/logout" style="float:right; ">Log out</a>
- 	<label style="float:right;">Welcome:${loginuser.userName}|</label>
- 	</c:when>
+ <c:when test="${loginuser.userId!=null }"><label style="float:right;">Welcome:${loginuser.userName}</label><br><a href="/library/user/logout" style="float:right; ">Log out</a></c:when>
  </c:choose>
    <div style="clear:both; height:10px;"></div>
     <!-- end .header --></div>
      
-  <div class="content">
+  <div>
   <div style="margin:10px;">
   
 <form class="searchbar" action="/library/items/searchresult" method="post">
     <table class="searchtable">
     <tr  class="str">
     	<td >Item Title</td>
-        <td ><input type="text" name="title" /></td>
+        <td ><input type="text" name="title" style="width:400px"/></td>
     </tr>
      <tr>
     	<td>ItemType</td>
         <td >
-        <select name="itemtypeID">
+        <select name="itemtypeID" style="width:200px">
         	<option value="-1" selected="selected">All</option>
         	<option value="1" >Book</option>
             <option value="2">CD</option>
@@ -50,7 +47,7 @@
      <tr >
     	<td>ItemStatus</td>
         <td> 
-        <select name="itemstatus">
+        <select name="itemstatus" style="width:200px">
         	<option value="-1" selected="selected">All</option>
         	<option value="1">Available</option>
         </select>
@@ -64,9 +61,9 @@
     
     <!-- search result table -->
    <form class="searchbar">
-   <div style="magin: 10px; overfow:auto; height:740px;">
+   <div style="magin:10px auto; overfow:auto; height:740px;">
   	<label>Search Result</label>
-  	<table class="stable">
+  	<table class="stable" style="width:100%;">
     	<tr>
             <th>SN</th>
             <th>Title</th>
