@@ -167,10 +167,12 @@ public class TransactionControl extends HttpServlet {
 			{
 				user=UM.getOneUser(loguser.getUserId());
 				session.setAttribute("loginuser", user);	
-				rd=request.getRequestDispatcher("../jsp/stureturn.jsp");
+				rd=request.getRequestDispatcher("/transaction/returnstu");
 			}
-			else 
+			else{ 
 				rd=request.getRequestDispatcher("../jsp/login.jsp");
+				session.setAttribute("loginuser", null);
+			}
 			rd.forward(request, response);			
 		case "/returnstu":
 			session=request.getSession();
@@ -235,8 +237,9 @@ public class TransactionControl extends HttpServlet {
 				list2.add(new TransactionWithEntity(transcation));
 
 				request.setAttribute("uslist", list2);
-				rd = request.getRequestDispatcher("../jsp/stutransaction.jsp");for(Transcation t:list)System.out.println(t.toString());
+				rd = request.getRequestDispatcher("/transaction/viewonloantransactionstu");for(Transcation t:list)System.out.println(t.toString());
 				rd.forward(request, response);
+				
 			}
 			
 			catch (Exception e) {
@@ -266,7 +269,7 @@ public class TransactionControl extends HttpServlet {
 				System.out.println("try");
 				TM.renewTransaction(TM.findTransactionByID(transactionID));
 				System.out.println("finish");
-				rd = request.getRequestDispatcher("../jsp/stutransaction.jsp");
+				rd = request.getRequestDispatcher("/transaction/viewonloantransactionstu");
 				rd.forward(request, response);
 			}
 			catch (Exception e) {
@@ -343,9 +346,11 @@ public class TransactionControl extends HttpServlet {
 			}
 			else {
 				rd = request.getRequestDispatcher("../jsp/login.jsp");
+				session.setAttribute("loginuser", null);
 			}
 			session.setAttribute("usertype", null);
 			session.setAttribute("user", null);
+			session.setAttribute("homelist", null);
 			rd.forward(request, response);
 			break;
 		case "/libborrow":
