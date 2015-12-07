@@ -15,7 +15,10 @@
  <img src="../img/BigLogo.png" alt="Insert Logo Here" name="Insert_logo" width="180" height="90" id="Insert_logo" style="background-color: lightgrey; float:left" />
  <c:choose>
  <c:when test="${loginuser.userId==null}"><a href="../jsp/login.jsp" style="float:right; ">Log In</a></c:when>
- <c:when test="${loginuser.userId!=null }"><label style="float:right;">Welcome:${loginuser.userName}</label><br><a href="/library/user/logout" style="float:right; ">Log out</a></c:when>
+ <c:when test="${loginuser.userId!=null }">
+ 	<a href="/library/user/logout" style="float:right; ">Log out</a>
+ 	<label style="float:right;">Welcome:${loginuser.userName}|</label>
+ 	</c:when>
  </c:choose>
  <div style="clear:both; height:10px;"></div>
  <!-- end .header --></div>
@@ -82,7 +85,7 @@
         
         <tr>
             <td>Address</td>
-            <td><textarea rows="3" name="address" value="${stu.address}"></textarea></td>
+            <td><input type="text" value="${stu.address}" name="address"></td>
         </tr>
         <tr>
             <td>status</td>

@@ -12,10 +12,7 @@
 	<div class="container" >
  <div class="header">
  <img src="../img/BigLogo.png" alt="Insert Logo Here" name="Insert_logo" width="180" height="90" id="Insert_logo" style="background-color: lightgrey; float:left" />
- <c:choose>
- <c:when test="${loginuser.userId==null}"><a href="../jsp/login.jsp" style="float:right; ">Log In</a></c:when>
- <c:when test="${loginuser.userId!=null }"><label>Welcome:${loginuser.userName}</label><a href="/library/user/logout" style="float:right; ">Log out</a></c:when>
- </c:choose>
+
    <div style="clear:both; height:10px;"></div>
     <!-- end .header --></div>
   
@@ -42,7 +39,7 @@
             
             <label style="color:red;"> 
 	            <c:if test="${correctlogin==false}">
-	            	UserID or Password is un correct!
+	            	UserID or Password is incorrect!
 	            </c:if>
              </label>
       </form>

@@ -15,7 +15,10 @@
  <img src="../img/BigLogo.png" alt="Insert Logo Here" name="Insert_logo" width="180" height="90" id="Insert_logo" style="background-color: lightgrey; float:left" />
  <c:choose>
  <c:when test="${loginuser.userId==null}"><a href="../jsp/login.jsp" style="float:right; ">Log In</a></c:when>
- <c:when test="${loginuser.userId!=null }"><label style="float:right;">Welcome:${loginuser.userName}</label><br><a href="/library/user/logout" style="float:right; ">Log out</a></c:when>
+ <c:when test="${loginuser.userId!=null }">
+ 	<a href="/library/user/logout" style="float:right; ">Log out</a>
+ 	<label style="float:right;">Welcome:${loginuser.userName}|</label>
+ 	</c:when>
  </c:choose>
  <div style="clear:both; height:10px;"></div>
  <!-- end .header --></div>
@@ -44,15 +47,6 @@
             <td>confirm password</td>
             <td><input type="password" name="confirmpassword"></td>
         </tr>
-        <!--  <tr>
-            <td>role type</td>
-            <td>
-            	<select name="roletype" disabled="disabled">
-            	<option value="librarian" >librarian</option>
-            	<option value="student" selected>student</option>
-            	</select>
-            </td>
-        </tr> -->
          <tr>
             <td>Date of Birth</td>
             <td><input type="Date" name="dateofbirth"></td>
@@ -69,7 +63,7 @@
         
         <tr>
             <td>Address</td>
-            <td><textarea rows="3" name="address"></textarea></td>
+            <td><input type="text" name="address"></td>
         </tr>
         
      <!--    <tr>

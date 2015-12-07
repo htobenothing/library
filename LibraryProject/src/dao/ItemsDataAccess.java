@@ -65,9 +65,9 @@ public class ItemsDataAccess implements ItemsDAO {
 				+ "\", publisher = " + "\"" + itm.getPublisher() 
 				+ "\", year = " + "\"" + itm.getYear()
 				+ "\", description = " + "\"" + itm.getDescription()
-				+ "\", isbn = " + "\"" + itm.getIsbn()
-				+ "\", itemtypeID = " + itm.getItemtypeID()
-				+ ", itemstatus = " + "'" + itm.getItemstatus()
+				/*+ "\", isbn = " + "\"" + itm.getIsbn()*/
+				/*+ "\", itemtypeID = " + itm.getItemtypeID()*/
+				+ "\", itemstatus = " + "'" + itm.getItemstatus()
 				+ "' WHERE itemNumber = " + itm.getItemNumber() + ";");
 		
 		closeConnection();
