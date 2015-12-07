@@ -147,7 +147,9 @@ public class TransactionControl extends HttpServlet {
 			try{
 			Transcation t=TM.findTransactionByID(transactionID);
 			TransactionWithEntity te=new TransactionWithEntity(t);
-			Date returndate=new Date(System.currentTimeMillis());
+			long a=System.currentTimeMillis();
+			a-=a%(24*60*60*1000)+2*60*60*1000;
+			Date returndate=new Date(a);
 			te.setReturnDate(returndate);
 			request.setAttribute("returnID", te);
 			long due=te.getReturnDate().getTime()/(24*60*60*1000)-te.getDueDate().getTime()/(24*60*60*1000);
@@ -224,7 +226,9 @@ public class TransactionControl extends HttpServlet {
 			try{
 			Transcation t=TM.findTransactionByID(transactionID);
 			TransactionWithEntity te=new TransactionWithEntity(t);
-			Date returndate=new Date(System.currentTimeMillis());
+			long b=System.currentTimeMillis();
+			b-=b%(24*60*60*1000)+2*60*60*1000;
+			Date returndate=new Date(b);
 			te.setReturnDate(returndate);
 			request.setAttribute("returnID", te);
 			long due=te.getReturnDate().getTime()/(24*60*60*1000)-te.getDueDate().getTime()/(24*60*60*1000);
@@ -369,7 +373,9 @@ public class TransactionControl extends HttpServlet {
 			session=request.getSession();
 			User borrower=(User)session.getAttribute("user");
 			String[] itemid=request.getParameterValues("confirm");
-			Date now=new Date(System.currentTimeMillis());
+			long a=System.currentTimeMillis();
+			a-=a%(24*60*60*1000)+2*60*60*1000;
+			Date now=new Date(a);
 			Calendar calendar=Calendar.getInstance();
 			calendar.add(Calendar.DATE, 30);
 			long b=calendar.getTimeInMillis();
@@ -486,7 +492,6 @@ public class TransactionControl extends HttpServlet {
 	}
 	protected boolean checkLoginLib(HttpSession session){
 		User loguser=(User)session.getAttribute("loginuser");
-		System.out.println(loguser.getRole());
 		try{
 			if(loguser.getRole().equals("librarian"))
 				return true;

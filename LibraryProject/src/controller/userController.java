@@ -15,7 +15,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import biz.ItemsManager;
+import biz.TransactionManager;
 import biz.UserManager;
+import dto.Items;
+import dto.Transcation;
 import dto.User;
 
 /**
@@ -52,7 +56,8 @@ public class userController extends HttpServlet {
 		
 		String path = request.getPathInfo();
 		System.out.println("PATH is" + path);
-		
+		ItemsManager IM=new ItemsManager();
+		TransactionManager TM=new TransactionManager();
 		UserManager usermgr = new UserManager();
 		RequestDispatcher rd = null;
 		HttpSession session = request.getSession();
@@ -80,6 +85,36 @@ public class userController extends HttpServlet {
 		
 		switch (path) {
 		case "/login":
+			ArrayList<Transcation> list1= new ArrayList<Transcation>();
+			ArrayList<Transcation> list2= new ArrayList<Transcation>();
+			Date from;
+			from=Date.valueOf("1800-1-1");
+			Date to;
+			to=Date.valueOf("3000-1-1");
+			try{
+				list1=TM.findTransactionByCondition(-1, 1, from,to);
+				list2=TM.findTransactionByCondition(-1, 3, from, to);
+				for(Transcation it : list1){
+					long a=System.currentTimeMillis();
+					a-=a%(24*60*60*1000)+2*60*60*1000;
+					Date returndate=new Date(a);						
+					long due=returndate.getTime()/(24*60*60*1000)-it.getDueDate().getTime()/(24*60*60*1000);
+					if(due>0)
+						TM.overdueTransaction(it.getTransactionID());
+				}
+				for(Transcation it:list2){
+					long a=System.currentTimeMillis();
+					a-=a%(24*60*60*1000)+2*60*60*1000;
+					Date returndate=new Date(a);						
+					long due=returndate.getTime()/(24*60*60*1000)-it.getDueDate().getTime()/(24*60*60*1000);
+					if(due>0)
+						TM.overdueTransaction(it.getTransactionID());
+				}
+					
+			}
+			catch (Exception e) {
+				// TODO: handle exception
+			}
 			boolean iscorrectlogin=true;
 			String id =request.getParameter("userid");
 			String pwd= request.getParameter("pwd");

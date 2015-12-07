@@ -24,9 +24,11 @@ public class ForTest {
 		Calendar calendar=Calendar.getInstance();
 		long a=System.currentTimeMillis();
 		Date d1=new Date(a);
-		calendar.add(Calendar.DATE, 30);
+		calendar.add(Calendar.DATE, 1);
 		long b=calendar.getTimeInMillis();
-		Date d2=new Date(b); 
+		Date d2=Date.valueOf("2015-12-7");
+		
+		
 //		Date date=new Date(115, 11, 20);
 //		System.out.println(d1+"\n"+d2);
 //		
@@ -41,8 +43,9 @@ public class ForTest {
 		System.out.println();
 		
 		
-		System.out.println(d4.getTime());
+		System.out.println(d1);
 		System.out.println(d3.getTime());
+		System.out.println((d1.getTime()/(24*60*60*1000))+"\n"+(d2.getTime()/(24*60*60*1000)));
 		System.out.println(d1.getTime()/(24*60*60*1000)-d2.getTime()/(24*60*60*1000));
 		
 	}
