@@ -327,6 +327,7 @@ public class userController extends HttpServlet {
 			}
 			else{
 				System.out.println("not correct");
+				
 				request.setAttribute("isidright", isidright);
 				request.setAttribute("ispasswordsame", ispasswordsame);
 				request.setAttribute("ispasswordnull", ispasswordnull);

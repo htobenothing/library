@@ -44,7 +44,7 @@ public class ItemsController extends HttpServlet {
 		
 		ItemsManager mgr = new ItemsManager();
 		RequestDispatcher rd = null;
-		Items itm; int result=0;
+		Items itm; int result=0; boolean istitlenull = false;
 		switch (path) {
 		
 		//testing......
@@ -172,31 +172,76 @@ public class ItemsController extends HttpServlet {
 		case "/update":
 			itm = new Items();
 			itm.setItemNumber(Integer.parseInt(request.getParameter("itemNumber")));
+			System.out.println(request.getParameter("itemNumber"));
+			
 			itm.setTitle(request.getParameter("title"));
+			System.out.println(request.getParameter("title"));
 			itm.setAuthor(request.getParameter("author"));
+			System.out.println(request.getParameter("author"));
 			itm.setPublisher(request.getParameter("publisher"));
+			System.out.println(request.getParameter("publisher"));
 			itm.setYear(request.getParameter("year"));
+			System.out.println(request.getParameter("year"));
 			itm.setDescription(request.getParameter("description"));
+			System.out.println(request.getParameter("description"));
 			itm.setIsbn(request.getParameter("isbn"));
-			itm.setItemtypeID(Integer.parseInt(request.getParameter("itemtypeID")));
+			System.out.println(request.getParameter("isbn"));
+			
+			/*System.out.println(request.getParameter("itemtypeID"));*/
 			itm.setItemstatus(request.getParameter("itemstatus"));
+			System.out.println(request.getParameter("itemstatus"));
+			
+			System.out.println(itm.toString());
 			result = mgr.updateItems(itm);
 			System.out.println(result);
+			rd = request.getRequestDispatcher("../jsp/MaintainItem.jsp");
+			rd.forward(request, response);
 			break;
+			
+			
 		case "/add":
+			boolean isauthornull = false;
+			boolean isyearcorrect = false;
+
+			if (request.getParameter("title").equals("")) {
+				istitlenull = true;
+			}
+			if(request.getParameter("author").equals("")){
+				isauthornull = true;
+			}
+			
+			if(request.getParameter("year").length() != 0){
+				if(request.getParameter("year").length() == 4){
+					try{
+						Integer.parseInt(request.getParameter("year"));
+						isyearcorrect = true;
+					}catch(Exception e){
+						isyearcorrect = false;
+					}
+				}
+			}
 			itm = new Items();
-//			itm.setItemNumber(request.getParameter("itemnumber"));
-			itm.setTitle(request.getParameter("title"));
-			itm.setAuthor(request.getParameter("author"));
-			itm.setPublisher(request.getParameter("publisher"));
-			itm.setYear(request.getParameter("year"));
-			itm.setDescription(request.getParameter("description"));
-			itm.setIsbn(request.getParameter("isbn"));
-			itm.setItemtypeID(Integer.parseInt(request.getParameter("itemtypeID")));
-			itm.setItemstatus(request.getParameter("itemstatus"));			
-			result = mgr.createItems(itm);			
-			System.out.println(result);	
-			break;		
+			if (!istitlenull && !isauthornull) {
+				// itm.setItemNumber(request.getParameter("itemnumber"));
+				itm.setTitle(request.getParameter("title"));
+				itm.setAuthor(request.getParameter("author"));
+				itm.setPublisher(request.getParameter("publisher"));
+				itm.setYear(request.getParameter("year"));
+				itm.setDescription(request.getParameter("description"));
+				itm.setIsbn(request.getParameter("isbn"));
+				itm.setItemtypeID(Integer.parseInt(request.getParameter("itemtypeID")));
+				itm.setItemstatus(request.getParameter("itemstatus"));
+				result = mgr.createItems(itm);
+				System.out.println(result);
+				rd = request.getRequestDispatcher("../jsp/CreateItem.jsp");
+				rd.forward(request, response);
+			} else {
+				request.setAttribute("istitlenull", istitlenull);
+				request.setAttribute("isauthornull", isauthornull);
+				request.setAttribute("isyearcorrect", isyearcorrect);
+				rd = request.getRequestDispatcher("../jsp/CreateItem.jsp");
+				rd.forward(request, response);
+			}		
 	
 		default:
 			break;

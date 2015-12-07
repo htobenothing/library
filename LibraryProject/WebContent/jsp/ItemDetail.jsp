@@ -15,7 +15,10 @@
  <img src="../img/BigLogo.png" alt="Insert Logo Here" name="Insert_logo" width="180" height="90" id="Insert_logo" style="background-color: lightgrey; float:left" />
  <c:choose>
  <c:when test="${loginuser.userId==null}"><a href="../jsp/login.jsp" style="float:right; ">Log In</a></c:when>
- <c:when test="${loginuser.userId!=null }"><label style="float:right;">Welcome:${loginuser.userName}</label><br><a href="/library/user/logout" style="float:right; ">Log out</a></c:when>
+ <c:when test="${loginuser.userId!=null }">
+ 	<a href="/library/user/logout" style="float:right; ">Log out</a>
+ 	<label style="float:right;">Welcome:${loginuser.userName}|</label>
+ 	</c:when>
  </c:choose>
    <div style="clear:both; height:10px;"></div>
     <!-- end .header --></div>
@@ -25,12 +28,11 @@
   	<div class="homesearchbar">
     <form action="/library/items/update" method="post">
       <label>Item Detail</label>
+      <input type="hidden" value="${itmobj.itemNumber}" name="itemNumber">
       <table class="stable">
         <tr >
             <td >ItemID</td>
             <td align="left">
-            	<%-- <%=itm.getItemNumber()%> --%>
-            	
             	${itmobj.itemNumber}
             </td>
         </tr>
@@ -51,6 +53,26 @@
             <td>
             	<input type="text" name="publisher" value="${itmobj.publisher}" style="width: 400px; "/>
             </td>
+        </tr>
+         <tr >
+            <td >Year</td>
+            <td align="left">
+            	<input type="hidden" value="${itmobj.year}" name="year">
+            	${itmobj.year}
+            </td>
+        </tr>
+        <tr>
+        	<td>Description</td>
+        	<td>
+        		<input value="${itmobj.description}" name="description">
+        	</td>
+        </tr>
+        <tr>
+        	<td>Isbn</td>
+        	<td>
+        		<input type="hidden" value="${itmobj.isbn}" name="isbn">
+        		${itmobj.isbn}
+        	</td>
         </tr>
 		<tr >
             <td>Type</td>
@@ -83,16 +105,16 @@
 			<c:choose>
 				<c:when test='${itmobj.itemstatus == 1}'>
 				<td>
-					<select>
-            		<option selected="selected" value="1">available</option>
+					<select name="itemstatus">
+            		<option selected="selected" value="1" >available</option>
             		<option value="0">unavailable</option>          
             		</select>
             	</td>
 				</c:when>				
 				<c:when test='${itmobj.itemstatus == 0}'>
 				<td>
-					<select>
-            		<option value="1">available</option>
+					<select name="itemstatus">
+            		<!-- <option value="1">available</option> -->
             		<option selected="selected" value="0">unavailable</option>          
             		</select>
             	</td>

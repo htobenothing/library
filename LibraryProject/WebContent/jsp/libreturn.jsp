@@ -14,7 +14,10 @@
  <img src="../img/BigLogo.png" alt="Insert Logo Here" name="Insert_logo" width="180" height="90" id="Insert_logo" style="background-color: lightgrey; float:left" />
  <c:choose>
  <c:when test="${loginuser.userId==null}"><a href="../jsp/login.jsp" style="float:right; ">Log In</a></c:when>
- <c:when test="${loginuser.userId!=null }"><label style="float:right;">Welcome:${loginuser.userName}</label><br><a href="/library/user/logout" style="float:right; ">Log out</a></c:when>
+ <c:when test="${loginuser.userId!=null }">
+ 	<a href="/library/user/logout" style="float:right; ">Log out</a>
+ 	<label style="float:right;">Welcome:${loginuser.userName}|</label>
+ 	</c:when>
  </c:choose>
    <div style="clear:both; height:10px;"></div>
     <!-- end .header --></div>
@@ -23,8 +26,8 @@
   <div class="sidebar1">
     <ul class="nav">
      <li><a href="http://localhost:8080/library/jsp/libsearch.jsp">Search Item</a></li>
-      <li><a href="librariantransaction.html">Transaction History</a></li>
-      <li><a href="librarianreturn.html">Return Item</a></li>
+      <li><a href="../jsp/librariantransaction">Transaction History</a></li>
+      <li><a href="../jsp/libreturn">Return Item</a></li>
       <li><a href="http://localhost:8080/library/jsp/MaintainItem.jsp">Maintain Item</a>
       <li><a href="/library/user/maintainstudent">Maintain Student</a></li>
     </ul>
