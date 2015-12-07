@@ -257,7 +257,7 @@ public class ItemsController extends HttpServlet {
 	protected boolean checkLoginStu(HttpSession session){
 		User loguser=(User)session.getAttribute("loginuser");
 		try{
-		if(loguser.getRole()=="student")
+		if(loguser.getRole().equals("student"))
 			return true;
 		else
 			return false;
@@ -267,7 +267,7 @@ public class ItemsController extends HttpServlet {
 	protected boolean checkLoginLib(HttpSession session){
 		User loguser=(User)session.getAttribute("loginuser");
 		try{
-			if(loguser.getRole()=="librarian")
+			if(loguser.getRole().equals("librarian"))
 				return true;
 			else
 				return false;
