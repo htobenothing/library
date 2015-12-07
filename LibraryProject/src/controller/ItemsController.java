@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import biz.ItemsManager;
+import biz.UserManager;
 import dto.Items;
 import dto.User;
 
@@ -41,7 +42,16 @@ public class ItemsController extends HttpServlet {
 	private void process(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String path = request.getPathInfo();
 		System.out.println("PATH is" + path);
-		
+		HttpSession session;
+		session=request.getSession();
+		UserManager UM=new UserManager();
+		User loguser;
+		User user;
+		try{		
+		loguser=(User)session.getAttribute("loginuser");
+		user=UM.getOneUser(loguser.getUserId());
+		session.setAttribute("loginuser", user);}
+		catch(Exception e){}		
 		ItemsManager mgr = new ItemsManager();
 		RequestDispatcher rd = null;
 		Items itm; int result=0; boolean istitlenull = false;
@@ -71,7 +81,7 @@ public class ItemsController extends HttpServlet {
 			
 			if(i.length() !=0 && sts.equals("-1")){
 				itm = mgr.getOneItems(Integer.parseInt(request.getParameter("itemNumber")));
-				HttpSession session = request.getSession();
+				session = request.getSession();
 				session.setAttribute("itmobj", itm);
 				rd = request.getRequestDispatcher("../jsp/ItemDetail.jsp");
 				rd.forward(request, response);
@@ -95,6 +105,8 @@ public class ItemsController extends HttpServlet {
 			break;
 
 		case "/searchresult":	
+			session=request.getSession();
+			session.setAttribute("homelist", null);
 			
 			String t = request.getParameter("title"); 
 			int id = Integer.parseInt(request.getParameter("itemtypeID"));

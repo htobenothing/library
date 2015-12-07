@@ -60,7 +60,7 @@
     </form>
     
     <!-- search result table -->
-   <form class="searchbar">
+   <form class="searchbar" action="/library/transaction/home" method="post">
    <div style="magin:10px auto; overfow:auto; height:740px;">
   	<label>Search Result</label>
   	<table class="stable" style="width:100%;">

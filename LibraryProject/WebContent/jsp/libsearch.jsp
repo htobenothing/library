@@ -37,7 +37,7 @@
     <table class="searchtable">
     <tr  class="str">
     	<td >Item Title</td>
-        <td ><input type="text" name="title" /></td>
+        <td ><input type="text" name="title" value=${searchinput }></td>
     </tr>
      <tr>
     	<td>ItemType</td>
@@ -68,8 +68,9 @@
     </tr>
       </table>
     </form>
-    
-   <form class="searchbar">
+    <label>${user.userId} : ${user.userName}   ${user.onloanNumber}items on loan</label>
+    <label style="color:red;">              ${message}</label>
+   <form class="searchbar"  action="/library/transaction/libborrow" method="post">
    <div style="height:740px;">
   	<label>Search Result</label>
   	<table class="stable">
@@ -81,6 +82,26 @@
             <th>Status</th>
             <th>Borrow</th> 
         </tr>
+         <c:forEach items="${homelist }" var="t" varStatus="i">
+        <tr>
+				<td>${i.index+1}</td>
+				<td>${t.title}</td>
+				<td>${t.author}</td>
+				<td>${t.publisher}</td>
+				<c:choose>
+					<c:when test="${items.itemstatus != 0}">
+						<td>available</td>
+					</c:when>
+					<c:otherwise>
+						<td>unavailable</td>
+					</c:otherwise>
+				</c:choose>	
+				<td>
+						<input type="checkbox" name="borrow" value= ${t.itemNumber } checked/>
+				</td>
+		</tr>
+        </c:forEach>
+        
         
         <c:forEach items="${itmlist}" var="items" varStatus="i">
 			<tr>
@@ -112,6 +133,8 @@
         </c:forEach> 
     </table>
     </div>
+      <label style="color:red;"> ${message}</label>
+    <label> Input student ID: <input type="text" name="sdutentID" > </label>
     <button type="submit" >Borrow</button>
     </form>
  	
