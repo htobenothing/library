@@ -81,14 +81,20 @@ public class ItemsController extends HttpServlet {
 			System.out.println(request.getParameter("itemstatus"));
 			
 			if(i.length() !=0 && sts.equals("-1")){
-				itm = mgr.getOneItems(Integer.parseInt(request.getParameter("itemNumber")));
-				session = request.getSession();
-				session.setAttribute("itmobj", itm);
-				rd = request.getRequestDispatcher("../jsp/ItemDetail.jsp");
+				try{
+					itm = mgr.getOneItems(Integer.parseInt(request.getParameter("itemNumber")));
+					HttpSession session1 = request.getSession();
+					session1.setAttribute("itmobj", itm);
+					rd = request.getRequestDispatcher("../jsp/ItemDetail.jsp");
+				}catch(Exception e){
+					System.out.println("Incorrect!");
+					boolean isNumber = false;
+					request.setAttribute("isNumber", isNumber);
+					rd = request.getRequestDispatcher("../jsp/MaintainItem.jsp");
+				}				
 				rd.forward(request, response);
 				break;
 			}
-			
 			ArrayList<Items> list1 = null;
 			if(i.length()== 0 && sts.equals("-1")){
 				System.out.println("here..");
@@ -100,6 +106,7 @@ public class ItemsController extends HttpServlet {
 				list1 = mgr.searchItembyStatusItemNumber(request.getParameter("itemstatus"), 
 						Integer.parseInt(request.getParameter("itemNumber")));
 			}
+			
 			request.setAttribute("itmlist", list1);
 			rd = request.getRequestDispatcher("../jsp/MaintainItem.jsp");
 			rd.forward(request, response);
@@ -232,7 +239,7 @@ public class ItemsController extends HttpServlet {
 				result = mgr.createItems(itm);
 				System.out.println(result);				
 				rd = request.getRequestDispatcher("../jsp/libsearch.jsp");
-				rd.include(request, response);
+				rd.forward(request, response);
 				
 			} else {
 				request.setAttribute("istitlenull", istitlenull);

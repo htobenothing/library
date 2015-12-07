@@ -73,7 +73,7 @@
      		</td>		  	
         </tr>
         <tr>
-        	<td align="right">
+        	<td>
         		<input type="submit" value="Create">
         	</td>        		      	
         </tr>
