@@ -61,7 +61,7 @@
     
     <!-- search result table -->
    <form class="searchbar" action="/library/transaction/home" method="post">
-   <div style="magin:10px auto; overfow:auto; height:740px;">
+   <div style="magin:10px auto; overflow-y: auto; height:740px;">
   	<label>Search Result</label>
   	<table class="stable" style="width:100%;">
     	<tr>

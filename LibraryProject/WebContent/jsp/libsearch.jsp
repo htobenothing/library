@@ -71,7 +71,7 @@
     <label>${user.userId} : ${user.userName}   ${user.onloanNumber}items on loan</label>
     <label style="color:red;">              ${message}</label>
    <form class="searchbar"  action="/library/transaction/libborrow" method="post">
-   <div style="height:740px;">
+   <div style="height:660px; overflow:auto;">
   	<label>Search Result</label>
   	<table class="stable">
     	<tr>

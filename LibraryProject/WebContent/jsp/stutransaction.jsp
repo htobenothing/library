@@ -32,7 +32,7 @@
   </div>
   <div class="content">
    <label>Current Onloan</label>
-  <div style="height:300px; ">
+  <div style="height:300px;overflow:auto; ">
   <form action="/library/transaction/viewonloantransactionstu" method="post"> 
  
   </form>

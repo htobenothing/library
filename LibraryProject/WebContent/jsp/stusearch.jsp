@@ -70,9 +70,9 @@
     <label>${loginuser.userId} : ${loginuser.userName}   ${loginuser.onloanNumber}items on loan</label>
     <label style="color:red;">            ${message}</label>
    <form class="searchbar"  action="/library/transaction/stuborrow" method="post">
-   <div style="height:740px;">
+   <div style="height: 660px; overflow:auto;">
   	<label>Search Result</label>
-  	<table class="stable">
+  	<table class="stable" ">
     	<tr>
             <th>SN</th>
             <th>Title</th>
