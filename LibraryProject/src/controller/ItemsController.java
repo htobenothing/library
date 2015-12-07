@@ -45,23 +45,20 @@ public class ItemsController extends HttpServlet {
 		ItemsManager mgr = new ItemsManager();
 		RequestDispatcher rd = null;
 		Items itm; int result=0; boolean istitlenull = false;
-		switch (path) {
-		
-		//testing......
-		case "/list":
-			ArrayList<Items> testing = mgr.getAllItems();
-			request.setAttribute("itmlist", testing);
-			rd = request.getRequestDispatcher("/ItemsList.jsp");
-			rd.forward(request, response);
-			break;
-		//finish testing....
+		switch (path) {		
 			
 		case "/homesearch":
+			
+			if(request.getParameter("title").equals("")){
+				istitlenull = true;
+				request.setAttribute("istitlenull", istitlenull);
+				rd = request.getRequestDispatcher("../jsp/HomePage.jsp");				
+			}else{
 			ArrayList<Items> itmlist = mgr.searchItemsByTitle(request.getParameter("title"));
 			request.setAttribute("itmlist", itmlist);
-			System.out.println(request.getParameter("title"));
-			rd = request.getRequestDispatcher("../jsp/HomeSearch.jsp");
-			rd.forward(request, response);	
+			rd = request.getRequestDispatcher("../jsp/HomeSearch.jsp");			
+			}	
+			rd.forward(request, response);
 			break;
 		
 		case "/maintainsearch":
@@ -170,30 +167,18 @@ public class ItemsController extends HttpServlet {
 			break;
 			
 		case "/update":
+			
 			itm = new Items();
-			itm.setItemNumber(Integer.parseInt(request.getParameter("itemNumber")));
-			System.out.println(request.getParameter("itemNumber"));
-			
+			itm.setItemNumber(Integer.parseInt(request.getParameter("itemNumber")));			
 			itm.setTitle(request.getParameter("title"));
-			System.out.println(request.getParameter("title"));
 			itm.setAuthor(request.getParameter("author"));
-			System.out.println(request.getParameter("author"));
 			itm.setPublisher(request.getParameter("publisher"));
-			System.out.println(request.getParameter("publisher"));
 			itm.setYear(request.getParameter("year"));
-			System.out.println(request.getParameter("year"));
 			itm.setDescription(request.getParameter("description"));
-			System.out.println(request.getParameter("description"));
-			itm.setIsbn(request.getParameter("isbn"));
-			System.out.println(request.getParameter("isbn"));
+			itm.setIsbn(request.getParameter("isbn"));		
+			itm.setItemstatus(request.getParameter("itemstatus"));			
 			
-			/*System.out.println(request.getParameter("itemtypeID"));*/
-			itm.setItemstatus(request.getParameter("itemstatus"));
-			System.out.println(request.getParameter("itemstatus"));
-			
-			System.out.println(itm.toString());
 			result = mgr.updateItems(itm);
-			System.out.println(result);
 			rd = request.getRequestDispatcher("../jsp/MaintainItem.jsp");
 			rd.forward(request, response);
 			break;
@@ -232,15 +217,17 @@ public class ItemsController extends HttpServlet {
 				itm.setItemtypeID(Integer.parseInt(request.getParameter("itemtypeID")));
 				itm.setItemstatus(request.getParameter("itemstatus"));
 				result = mgr.createItems(itm);
-				System.out.println(result);
-				rd = request.getRequestDispatcher("../jsp/CreateItem.jsp");
-				rd.forward(request, response);
+				System.out.println(result);				
+				rd = request.getRequestDispatcher("../jsp/libsearch.jsp");
+				rd.include(request, response);
+				
 			} else {
 				request.setAttribute("istitlenull", istitlenull);
 				request.setAttribute("isauthornull", isauthornull);
 				request.setAttribute("isyearcorrect", isyearcorrect);
 				rd = request.getRequestDispatcher("../jsp/CreateItem.jsp");
-				rd.forward(request, response);
+				rd.forward(request, response);				
+			
 			}		
 	
 		default:

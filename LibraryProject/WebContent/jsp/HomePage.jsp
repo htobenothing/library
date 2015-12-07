@@ -32,6 +32,9 @@
             <input type="text" name="title"/>
             <button name="subject" type="submit" value="">Go</button>
             <br>
+            <c:if test="${istitlenull == true}">
+            	<label class="errorlabe">Please enter title to search !</label>
+            </c:if>
             <br/>
       </form>
 	</div>
