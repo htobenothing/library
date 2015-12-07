@@ -34,6 +34,7 @@
   <div class="content">
  <div style="margin:10px;">
  	<form class="searchbar" action="/library/items/maintainsearch" method="post">
+ 	<c:if test="${isNumber == false}"><label class="errorlabe">Item Number Incorrect!</label></c:if>
     <table>
     <tr>
     	<td>Item Number</td>
