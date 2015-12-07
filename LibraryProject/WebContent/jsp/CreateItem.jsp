@@ -75,11 +75,9 @@
         <tr>
         	<td align="right">
         		<input type="submit" value="Create">
-        		<input type="reset" value="Cancle">
-        	</td>
-        	
+        	</td>        		      	
         </tr>
-      </table>
+      </table>      
       <c:if test="${istitlenull == true}"><br>
       	<label class="errorlabe">Title can not be empty</label>
       </c:if>
@@ -90,6 +88,7 @@
       	<label class="errorlabe">Phone No must be 8 digit.</label>
       </c:if>      
       </form>
+      <form action="../jsp/libsearch.jsp" method="post"><button type="submit">Cancel</button></form>
 	</div>
   </div>
   <div class="footer">
