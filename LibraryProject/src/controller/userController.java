@@ -15,10 +15,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import biz.ItemsManager;
 import biz.TransactionManager;
 import biz.UserManager;
-import dto.Items;
 import dto.Transcation;
 import dto.User;
 
@@ -56,8 +54,7 @@ public class userController extends HttpServlet {
 		
 		String path = request.getPathInfo();
 		System.out.println("PATH is" + path);
-		ItemsManager IM=new ItemsManager();
-		TransactionManager TM=new TransactionManager();
+		TransactionManager TM =new TransactionManager();
 		UserManager usermgr = new UserManager();
 		RequestDispatcher rd = null;
 		HttpSession session = request.getSession();
@@ -111,10 +108,11 @@ public class userController extends HttpServlet {
 						TM.overdueTransaction(it.getTransactionID());
 				}
 					
-			}
-			catch (Exception e) {
+			}catch (Exception e) {
 				// TODO: handle exception
 			}
+			
+			
 			boolean iscorrectlogin=true;
 			String id =request.getParameter("userid");
 			String pwd= request.getParameter("pwd");
@@ -157,6 +155,8 @@ public class userController extends HttpServlet {
 				}
 				
 			}
+			break;
+			
 		case "/logout":
 			
 			session.invalidate();
@@ -166,14 +166,28 @@ public class userController extends HttpServlet {
 			rd.forward(request, response);
 			
 		case "/maintainstudent":
-
-			stulist = (ArrayList<User>) usermgr.getStudents();
-			request.setAttribute("stulist", stulist);
-			rd = request.getRequestDispatcher("../jsp/maintainstudent.jsp");
-			rd.forward(request, response);
+			User u;
+			session=request.getSession();
+			u=(User)session.getAttribute("loginuser");
+			System.out.println(u.toString());
+			
+			System.out.println(checkLoginLib(request.getSession()));
+			if(checkLoginLib(request.getSession())){
+				
+				stulist = (ArrayList<User>) usermgr.getStudents();
+				request.setAttribute("stulist", stulist);
+				rd = request.getRequestDispatcher("../jsp/maintainstudent.jsp");
+				rd.forward(request, response);
+				}else{
+					session.invalidate();
+					rd=request.getRequestDispatcher("../jsp/login.jsp");
+					rd.forward(request, response);
+			}
 			break;
 			
 		case "/showStuById":
+			System.out.println(checkLoginLib(request.getSession()));
+			if(checkLoginLib(request.getSession())){	
 			stulist= new ArrayList<User>();
 			if(request.getParameter("userid")==""){
 				stulist = (ArrayList<User>) usermgr.getStudents();
@@ -200,9 +214,15 @@ public class userController extends HttpServlet {
 				}
 				
 			}
-			
+			}else{
+				session.invalidate();
+				rd=request.getRequestDispatcher("../jsp/login.jsp");
+				rd.forward(request, response);
+			}
+			break;
 			
 		case "/studetail":
+			if(checkLoginLib(request.getSession())){
 			String uid = request.getParameter("userid");
 			System.out.println(request.getParameter("userid"));
 			User stu = usermgr.getOneUser(uid);
@@ -211,8 +231,14 @@ public class userController extends HttpServlet {
 			/*request.setAttribute("stu", stu);*/
 			rd = request.getRequestDispatcher("../jsp/studetail.jsp");
 			rd.forward(request,response);
+			}else{
+				session.invalidate();
+				rd=request.getRequestDispatcher("../jsp/login.jsp");
+				rd.forward(request, response);
+			}
 			
 		case "/updatestudent":
+			if(checkLoginLib(request.getSession())){
 
 			if(request.getParameter("phone").equals("")){
 					isphonecorrect=true;
@@ -272,13 +298,15 @@ public class userController extends HttpServlet {
 				rd.forward(request, response);
 				
 			}
-			
-			
-			
-			
+			}else{
+				session.invalidate();
+				rd=request.getRequestDispatcher("../jsp/login.jsp");
+				rd.forward(request, response);
+			}
+
 			
 		case "/createstudent":
-			
+			if(checkLoginLib(request.getSession())){
 			if(request.getParameter("studentid").length()!=8){
 				isidright = false;
 			}else{
@@ -374,10 +402,37 @@ public class userController extends HttpServlet {
 				rd.forward(request, response);
 				
 			}
-				
+			}else{
+				session.invalidate();
+				rd=request.getRequestDispatcher("../jsp/login.jsp");
+				rd.forward(request, response);
+			}
 					
 				
-		}	
+		}
+		
+	}
+	protected boolean checkLoginStu(HttpSession session){
+		User loguser=(User)session.getAttribute("loginuser");
+		try{
+		if(loguser.getRole().equals("student"))
+			return true;
+		else
+			return false;
+		}
+		catch(Exception exception){return false;}
+	}
+	protected boolean checkLoginLib(HttpSession session){
+		User loguser=(User)session.getAttribute("loginuser");
+		
+		try{
+			if(loguser.getRole().equals("librarian"))
+				return true;
+			
+			else
+				return false;
+			}
+			catch(Exception exception){return false;}
 	}
 }
 

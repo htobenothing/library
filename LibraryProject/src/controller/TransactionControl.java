@@ -144,6 +144,7 @@ public class TransactionControl extends HttpServlet {
 		case"/returnlib2":
 			if(checkLoginLib(request.getSession())){
 			transactionID=Integer.parseInt(request.getParameter("tansactionid"));
+			System.out.println(request.getParameter("tansactionid"));
 			try{
 			Transcation t=TM.findTransactionByID(transactionID);
 			TransactionWithEntity te=new TransactionWithEntity(t);
@@ -181,20 +182,26 @@ public class TransactionControl extends HttpServlet {
 			catch (Exception e) {
 				// TODO: handle exception
 			}
-			if(session.getAttribute("return")=="library")
-				rd = request.getRequestDispatcher("../jsp/libreturn.jsp");
+			if(session.getAttribute("return")=="library"){
+				rd = request.getRequestDispatcher("../jsp/libreturn.jsp");System.out.println(1);
+				session=request.getSession();
+				User u=(User)session.getAttribute("loginuser");System.out.println("5");
+				System.out.println(u.getUserName());}
 			else if(session.getAttribute("return")=="student")
 			{
+				System.out.println("2");
 				user=UM.getOneUser(loguser.getUserId());
 				session.setAttribute("loginuser", user);	
 				rd=request.getRequestDispatcher("/transaction/returnstu");
 			}
 			else{ 
+				System.out.println("3");
 				session.invalidate();
 				rd=request.getRequestDispatcher("../jsp/login.jsp");
 				rd.forward(request, response);
 			}
-			rd.forward(request, response);			
+			rd.forward(request, response);
+			break;
 		case "/returnstu":
 			if(checkLoginStu(request.getSession())){
 			session=request.getSession();
