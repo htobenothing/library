@@ -168,7 +168,7 @@ public class userController extends HttpServlet {
 			User u;
 			session=request.getSession();
 			u=(User)session.getAttribute("loginuser");
-			System.out.println(u.toString());
+			System.out.println(1);
 			
 			System.out.println(checkLoginLib(request.getSession()));
 			if(checkLoginLib(request.getSession())){
