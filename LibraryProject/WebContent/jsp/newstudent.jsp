@@ -32,7 +32,7 @@
       <table class="stable" style="text-align:left">
         <tr>
             <td>Student ID</td>
-            <td><input type="text" name="studentid">
+            <td>S<input type="text" name="studentid">
             </td>
         </tr>
         <tr>
