@@ -55,6 +55,10 @@
                 <option value="1">Book</option>
                 <option value="2">CD</option>
                 <option value="3">Casseette</option>
+                <option value="4">Kits</option>
+                <option value="5">Manuscripts</option>
+                <option value="6">Magazines</option>
+                <option value="7">Journals</option>
                 </select>
             </td>
         </tr>
@@ -65,6 +69,7 @@
                 <option value="-1">All</option>
                 <option value="1">Onloan</option>
                 <option value="2">OverDue</option>
+                <option value="3">Renew</option>
                
                 </select>
             </td>
@@ -75,7 +80,7 @@
     </form>
 
   </div>
-  <div style="margin:10px;  ">
+  <div style="margin:10px; height:660px; overflow-y: auto;">
   	
   	<table class="stable">
     	<tr >

@@ -1,6 +1,5 @@
 package controller;
 
-import java.awt.Checkbox;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -73,7 +72,8 @@ public class ItemsController extends HttpServlet {
 			break;
 		
 		case "/maintainsearch":
-			
+			if(checkLoginLib(request.getSession())){
+				
 			String i = request.getParameter("itemNumber");
 			String sts = request.getParameter("itemstatus");	
 			
@@ -109,7 +109,12 @@ public class ItemsController extends HttpServlet {
 			
 			request.setAttribute("itmlist", list1);
 			rd = request.getRequestDispatcher("../jsp/MaintainItem.jsp");
-			rd.forward(request, response);
+			rd.forward(request, response);}
+			else{
+				session.invalidate();
+				rd=request.getRequestDispatcher("../jsp/login.jsp");
+				rd.forward(request, response);
+			}
 			break;
 
 		case "/searchresult":	

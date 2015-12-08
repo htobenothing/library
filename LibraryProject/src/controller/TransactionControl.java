@@ -1,12 +1,9 @@
 package controller;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Set;
-
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -14,16 +11,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import javax.swing.plaf.synth.SynthSeparatorUI;
-import javax.websocket.Session;
-
-import org.apache.catalina.connector.Request;
-import org.apache.tomcat.dbcp.pool2.impl.GenericKeyedObjectPool;
 
 import biz.ItemsManager;
 import biz.TransactionManager;
 import biz.UserManager;
-import dao.tfactory;
 import dto.Items;
 import dto.TransactionWithEntity;
 import dto.Transcation;

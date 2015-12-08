@@ -133,7 +133,7 @@
         </c:forEach> 
     </table>
     </div>
-      <label style="color:red;"> ${message}</label>
+
     <label> Input student ID: <input type="text" name="sdutentID" > </label>
     <button type="submit" >Borrow</button>
     </form>

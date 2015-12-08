@@ -18,7 +18,7 @@ import dto.Transcation;
 public class ForTest {
 
 	public static void main(String[] args) throws Exception {
-		// TODO Auto-generated method stub
+		/*// TODO Auto-generated method stub
 		TransactionManager mt=new TransactionManager();
 //		TransactionDataAccess dao=new TransactionDataAccess();
 		Calendar calendar=Calendar.getInstance();
@@ -46,7 +46,7 @@ public class ForTest {
 		System.out.println(d1);
 		System.out.println(d3.getTime());
 		System.out.println((d1.getTime()/(24*60*60*1000))+"\n"+(d2.getTime()/(24*60*60*1000)));
-		System.out.println(d1.getTime()/(24*60*60*1000)-d2.getTime()/(24*60*60*1000));
+		System.out.println(d1.getTime()/(24*60*60*1000)-d2.getTime()/(24*60*60*1000));*/
 		
 	}
 

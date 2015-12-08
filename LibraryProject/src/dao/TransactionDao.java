@@ -3,8 +3,6 @@ package dao;
 import java.sql.Date;
 import java.util.ArrayList;
 
-import org.apache.taglibs.standard.lang.jstl.test.beans.PublicInterface2;
-
 import dto.Transcation;
 
 public interface TransactionDao {
