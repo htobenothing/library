@@ -1,7 +1,7 @@
-package controller;
+package dto;
 
 import java.sql.Date;
-import dto.Transcation;
+
 import biz.ItemsManager;
 import biz.UserManager;
 

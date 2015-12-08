@@ -25,6 +25,7 @@ import biz.TransactionManager;
 import biz.UserManager;
 import dao.tfactory;
 import dto.Items;
+import dto.TransactionWithEntity;
 import dto.Transcation;
 import dto.User;
 
