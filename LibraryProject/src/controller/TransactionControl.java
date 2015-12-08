@@ -61,6 +61,7 @@ public class TransactionControl extends HttpServlet {
 		User loguser;
 		ItemsManager IM=new ItemsManager();
 		int transactionID;
+		boolean isusercorrect=true;
 		loguser=(User)session.getAttribute("loginuser");
 		try{
 		
@@ -111,8 +112,16 @@ public class TransactionControl extends HttpServlet {
 			}
 			break;
 		case"/returnlib":
+			
 			if(checkLoginLib(request.getSession())){
 			String userID=request.getParameter("studentid");
+			
+			if(UM.getOneUser(userID).getUserId()==null){
+				isusercorrect=false;
+			}
+			System.out.println(isusercorrect);
+			if(isusercorrect){
+			
 			session=request.getSession();
 			session.setAttribute("stuid", userID);
 			try{
@@ -128,7 +137,13 @@ public class TransactionControl extends HttpServlet {
 			}
 			catch (Exception e) {
 				// TODO: handle exception
-			}}
+			}
+			}else{
+				request.setAttribute("isusercorrect", isusercorrect);
+				rd=request.getRequestDispatcher("../jsp/libreturn.jsp");
+				rd.forward(request, response);
+			}
+			}
 			else{
 				session.invalidate();
 				rd=request.getRequestDispatcher("../jsp/login.jsp");
@@ -434,8 +449,11 @@ public class TransactionControl extends HttpServlet {
 					{
 						ArrayList<Items> list=new ArrayList<Items>();
 						for(int i=0;i<lborrow.length;i++)
-						{
-							list.add(IM.getOneItems( Integer.parseInt(lborrow[i])));					
+						{	Items it = IM.getOneItems( Integer.parseInt(lborrow[i]));
+							if(it.getItemstatus().equals("1")){
+								list.add(it);
+							}
+												
 						}				
 						request.setAttribute("sblist", list);
 						
@@ -476,7 +494,11 @@ public class TransactionControl extends HttpServlet {
 			try{
 			for(int i=0;i<search.length;i++)
 			{
-				list.add(IM.getOneItems(Integer.parseInt(search[i])));
+				Items it = IM.getOneItems(Integer.parseInt(search[i]));
+				if(it.getItemstatus().equals("1")){
+					list.add(it);
+				}
+				
 			}
 			session.setAttribute("homelist", list);}
 			catch (Exception e) {

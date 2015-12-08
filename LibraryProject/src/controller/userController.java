@@ -226,8 +226,8 @@ public class userController extends HttpServlet {
 			System.out.println(request.getParameter("userid"));
 			User stu = usermgr.getOneUser(uid);
 			System.out.println(stu.toString());
+			
 			session.setAttribute("stu", stu);
-			/*request.setAttribute("stu", stu);*/
 			rd = request.getRequestDispatcher("../jsp/studetail.jsp");
 			rd.forward(request,response);
 			}else{
@@ -235,6 +235,7 @@ public class userController extends HttpServlet {
 				rd=request.getRequestDispatcher("../jsp/login.jsp");
 				rd.forward(request, response);
 			}
+			break;
 			
 		case "/updatestudent":
 			if(checkLoginLib(request.getSession())){
@@ -283,7 +284,7 @@ public class userController extends HttpServlet {
 				usermgr.updateStudent(updateuser);
 				rd =request.getRequestDispatcher("maintainstudent");
 				rd.forward(request,response);
-				break;
+				
 			}else{
 
 				request.setAttribute("ispasswordsame", ispasswordsame);
@@ -302,7 +303,7 @@ public class userController extends HttpServlet {
 				rd=request.getRequestDispatcher("../jsp/login.jsp");
 				rd.forward(request, response);
 			}
-
+			break;
 			
 		case "/createstudent":
 			if(checkLoginLib(request.getSession())){

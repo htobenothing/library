@@ -89,7 +89,7 @@
 				<td>${t.author}</td>
 				<td>${t.publisher}</td>
 				<c:choose>
-					<c:when test="${items.itemstatus != 0}">
+					<c:when test='${items.itemstatus != "0"}'>
 						<td>available</td>
 					</c:when>
 					<c:otherwise>
@@ -97,12 +97,10 @@
 					</c:otherwise>
 				</c:choose>	
 				<td>
-						<input type="checkbox" name="borrow" value= ${t.itemNumber } checked/>
+				<input type="checkbox" name="borrow" value= ${t.itemNumber } checked/>
 				</td>
 		</tr>
         </c:forEach>
-        
-        
         <c:forEach items="${itmlist}" var="items" varStatus="i">
 			<tr>
 				<td>${i.index+1}</td>

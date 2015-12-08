@@ -40,7 +40,7 @@
         <button type="submit">Search</button>
     </form>
    <div style="height:740px;">
-  
+  <c:if test="${isusercorrect==false}" ><label class="errorlabe">The User ID not correct</label></c:if>
         <table  class="stable" >
         <caption class="scaptain">Onloan Item</caption>
         	<tr>

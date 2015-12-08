@@ -34,7 +34,7 @@
   <div class="content">
  <div style="margin:10px;">
  	<form class="searchbar" action="/library/items/maintainsearch" method="post">
- 	<c:if test="${isNumber == false}"><label class="errorlabe">Item Number Incorrect!</label></c:if>
+ 
     <table>
     <tr>
     	<td>Item Number</td>
@@ -55,10 +55,11 @@
       </table>
     </form>
    <form>
-   <div style="height:740px;">
-   	<label></label>
+   <div style="height:740px; overflow:auto;">
   	<c:url var="create" value="items/add"/>
   	<a href="../jsp/CreateItem.jsp">Create New Item</a>
+  	<br>
+  	<c:if test="${isNumber == false}"><label class="errorlabe">Item Number Incorrect!</label></c:if>
         <table  class="stable">
             <tr >                
                 <th>SN</th>

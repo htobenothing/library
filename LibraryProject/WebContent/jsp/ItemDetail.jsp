@@ -69,12 +69,12 @@
         </tr>
         <tr>
         	<td>Isbn</td>
-        	<td>
+        	<td align="left">
         		<input type="hidden" value="${itmobj.isbn}" name="isbn">
         		${itmobj.isbn}
         	</td>
         </tr>
-		<tr >
+		<tr align="left">
             <td>Type</td>
 			<c:choose>
 				<c:when test='${itmobj.itemtypeID == 1}'>
@@ -100,11 +100,11 @@
 				</c:when>
 			</c:choose>
         </tr>        
-        <tr>
+        <tr align="left">
             <td >Status</td>            
 			<c:choose>
 				<c:when test='${itmobj.itemstatus == 1}'>
-				<td>
+				<td >
 					<select name="itemstatus">
             		<option selected="selected" value="1" >available</option>
             		<option value="0">unavailable</option>          
@@ -112,7 +112,7 @@
             	</td>
 				</c:when>				
 				<c:when test='${itmobj.itemstatus == 0}'>
-				<td>
+				<td >
 					<select name="itemstatus">
             		<!-- <option value="1">available</option> -->
             		<option selected="selected" value="0">unavailable</option>          

@@ -47,6 +47,7 @@ public class ItemsController extends HttpServlet {
 		UserManager UM=new UserManager();
 		User loguser;
 		User user;
+		
 		try{		
 		loguser=(User)session.getAttribute("loginuser");
 		user=UM.getOneUser(loguser.getUserId());
@@ -82,17 +83,30 @@ public class ItemsController extends HttpServlet {
 			
 			if(i.length() !=0 && sts.equals("-1")){
 				try{
+					System.out.println("1");
 					itm = mgr.getOneItems(Integer.parseInt(request.getParameter("itemNumber")));
-					HttpSession session1 = request.getSession();
-					session1.setAttribute("itmobj", itm);
-					rd = request.getRequestDispatcher("../jsp/ItemDetail.jsp");
+					System.out.println(itm.toString());
+					System.out.println(itm.getItemNumber());
+					if(itm.getItemNumber()!=0){
+						HttpSession session1 = request.getSession();
+						session1.setAttribute("itmobj", itm);
+						rd = request.getRequestDispatcher("../jsp/ItemDetail.jsp");
+						rd.forward(request, response);
+					}else{
+						boolean isNumber = false;
+						System.out.println("go here");
+						request.setAttribute("isNumber", isNumber);
+						rd = request.getRequestDispatcher("../jsp/MaintainItem.jsp");
+						rd.forward(request, response);
+					}
+					
 				}catch(Exception e){
 					System.out.println("Incorrect!");
 					boolean isNumber = false;
 					request.setAttribute("isNumber", isNumber);
 					rd = request.getRequestDispatcher("../jsp/MaintainItem.jsp");
+					rd.forward(request, response);
 				}				
-				rd.forward(request, response);
 				break;
 			}
 			ArrayList<Items> list1 = null;
@@ -181,15 +195,16 @@ public class ItemsController extends HttpServlet {
 			break;
 			
 		case "/edit":
-			
-			itm = mgr.getOneItems(Integer.parseInt(request.getParameter("itemNumber")));
-			System.out.println(itm.getAuthor());
-			//HttpSession session = request.getSession();
-			//session.setAttribute("itmobj", itm);
-			
-			request.setAttribute("itmobj", itm);
-			rd = request.getRequestDispatcher("../jsp/ItemDetail.jsp");
-			rd.forward(request, response);	
+			if(checkLoginLib(request.getSession())){
+				itm = mgr.getOneItems(Integer.parseInt(request.getParameter("itemNumber")));
+				request.setAttribute("itmobj", itm);
+				rd = request.getRequestDispatcher("../jsp/ItemDetail.jsp");
+				rd.forward(request, response);	
+			}else{
+				session.invalidate();
+				rd=request.getRequestDispatcher("../jsp/login.jsp");
+				rd.forward(request, response);
+			}
 			break;
 			
 		case "/update":
