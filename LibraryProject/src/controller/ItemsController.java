@@ -245,19 +245,19 @@ public class ItemsController extends HttpServlet {
 			}
 			
 			if(request.getParameter("year").length() != 0){
-				if(request.getParameter("year").length() == 4){
 					try{
 						Integer.parseInt(request.getParameter("year"));
 						isyearcorrect = true;
 					}catch(Exception e){
 						isyearcorrect = false;
 					}
-				}
+			}else{
+				isyearcorrect = true;
 			}
 			System.out.println(1);
 			itm = new Items();
-			System.out.println(!istitlenull && !isauthornull);
-			if (!istitlenull && !isauthornull) {
+			System.out.println(!istitlenull && !isauthornull&&isyearcorrect);
+			if (!istitlenull && !isauthornull&&isyearcorrect) {
 				System.out.println(2);
 				itm.setTitle(request.getParameter("title"));
 				itm.setAuthor(request.getParameter("author"));

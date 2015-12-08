@@ -84,8 +84,8 @@
       <c:if test="${isauthornull == true}"><br>
       	<label class="errorlabe">Author can not be empty</label>
       </c:if>
-      <c:if test="${isphonecorrect == false}"><br>
-      	<label class="errorlabe">Phone No must be 8 digit.</label>
+      <c:if test="${isyearcorrect == false}"><br>
+      	<label class="errorlabe">Year not correct</label>
       </c:if>      
       </form>
       <form action="../jsp/libsearch.jsp" method="post"><button type="submit">Cancel</button></form>
