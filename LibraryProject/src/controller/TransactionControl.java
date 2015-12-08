@@ -120,7 +120,9 @@ public class TransactionControl extends HttpServlet {
 			break;
 		case"/returnlib":
 			if(checkLoginLib(request.getSession())){
-			String userID=request.getParameter("studentid");			
+			String userID=request.getParameter("studentid");
+			session=request.getSession();
+			session.setAttribute("stuid", userID);
 			try{
 				ArrayList<Transcation> list=TM.findTransactionByUserIDandNOTStatus(userID, "0");
 	
@@ -169,6 +171,8 @@ public class TransactionControl extends HttpServlet {
 				rd=request.getRequestDispatcher("../jsp/login.jsp");
 				rd.forward(request, response);
 			}
+			break;
+			
 		case"/returnfinal":
 			transactionID=Integer.parseInt(request.getParameter("transactionid"));
 			session=request.getSession();
@@ -318,11 +322,14 @@ public class TransactionControl extends HttpServlet {
 			}
 			break;
 		case "/renew":
+			
 			if(checkLoginStu(request.getSession())){
 			session=request.getSession();
 			transactionID=Integer.parseInt(request.getParameter("transactionid"));
+			
 			try{
 				System.out.println("try");
+				System.out.println(TM.findTransactionByID(transactionID).toString());
 				TM.renewTransaction(TM.findTransactionByID(transactionID));
 				System.out.println("finish");
 				rd = request.getRequestDispatcher("/transaction/viewonloantransactionstu");
@@ -485,7 +492,11 @@ public class TransactionControl extends HttpServlet {
 			}
 			rd = request.getRequestDispatcher("../jsp/login.jsp");
 			rd.forward(request, response);	
+			break;
+		default:
+			throw new ServletException("404");
 		}
+		
 	}
 	protected boolean checkLoginStu(HttpSession session){
 		User loguser=(User)session.getAttribute("loginuser");

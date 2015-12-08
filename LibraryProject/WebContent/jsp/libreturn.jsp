@@ -36,7 +36,7 @@
  <div style="margin:10px;">
  	<form class="searchbar" action="/library/transaction/returnlib" method="post">
     	<label >Student ID</label>
-        <input type="text" name="studentid"  />
+        <input type="text" name="studentid"  value=${stuid}>
         <button type="submit">Search</button>
     </form>
    <div style="height:740px;">

@@ -176,6 +176,7 @@ public class ItemsController extends HttpServlet {
 			break;
 			
 		case "/edit":
+			
 			itm = mgr.getOneItems(Integer.parseInt(request.getParameter("itemNumber")));
 			System.out.println(itm.getAuthor());
 			//HttpSession session = request.getSession();
@@ -187,6 +188,8 @@ public class ItemsController extends HttpServlet {
 			break;
 			
 		case "/update":
+			if(checkLoginLib(request.getSession())){
+				
 			
 			itm = new Items();
 			itm.setItemNumber(Integer.parseInt(request.getParameter("itemNumber")));			
@@ -201,10 +204,16 @@ public class ItemsController extends HttpServlet {
 			result = mgr.updateItems(itm);
 			rd = request.getRequestDispatcher("../jsp/MaintainItem.jsp");
 			rd.forward(request, response);
+			}else{
+				session.invalidate();
+				rd=request.getRequestDispatcher("../jsp/login.jsp");
+				rd.forward(request, response);
+			}
 			break;
 			
 			
 		case "/add":
+			if(checkLoginLib(request.getSession())){
 			boolean isauthornull = false;
 			boolean isyearcorrect = false;
 
@@ -225,14 +234,19 @@ public class ItemsController extends HttpServlet {
 					}
 				}
 			}
+			System.out.println(1);
 			itm = new Items();
+			System.out.println(!istitlenull && !isauthornull);
 			if (!istitlenull && !isauthornull) {
-				// itm.setItemNumber(request.getParameter("itemnumber"));
+				System.out.println(2);
 				itm.setTitle(request.getParameter("title"));
 				itm.setAuthor(request.getParameter("author"));
+				
 				itm.setPublisher(request.getParameter("publisher"));
+				System.out.println(2);
 				itm.setYear(request.getParameter("year"));
 				itm.setDescription(request.getParameter("description"));
+				System.out.println(3);
 				itm.setIsbn(request.getParameter("isbn"));
 				itm.setItemtypeID(Integer.parseInt(request.getParameter("itemtypeID")));
 				itm.setItemstatus(request.getParameter("itemstatus"));
@@ -241,17 +255,27 @@ public class ItemsController extends HttpServlet {
 				rd = request.getRequestDispatcher("../jsp/libsearch.jsp");
 				rd.forward(request, response);
 				
-			} else {
+				} else {
+					System.out.println(3);
 				request.setAttribute("istitlenull", istitlenull);
 				request.setAttribute("isauthornull", isauthornull);
 				request.setAttribute("isyearcorrect", isyearcorrect);
+				System.out.println(4);
 				rd = request.getRequestDispatcher("../jsp/CreateItem.jsp");
+				System.out.println(5);
 				rd.forward(request, response);				
 			
-			}		
+			}
+			
+			}else{
+				session.invalidate();
+				rd=request.getRequestDispatcher("../jsp/login.jsp");
+				rd.forward(request, response);
+			}
+			break;
 	
 		default:
-			break;
+			throw new ServletException("404");
 		}
 	}
 

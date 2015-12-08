@@ -160,10 +160,9 @@ public class userController extends HttpServlet {
 		case "/logout":
 			
 			session.invalidate();
-			System.out.println("session destroy");
 			rd = request.getRequestDispatcher("../jsp/HomePage.jsp");
-			System.out.println("should go home");
 			rd.forward(request, response);
+			break;
 			
 		case "/maintainstudent":
 			User u;
@@ -407,7 +406,9 @@ public class userController extends HttpServlet {
 				rd=request.getRequestDispatcher("../jsp/login.jsp");
 				rd.forward(request, response);
 			}
-					
+			break;
+		default:
+			throw new ServletException("404");	
 				
 		}
 		
