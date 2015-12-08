@@ -25,7 +25,7 @@
   
   <div style="clear:both; height:10px;"></div>
   <div id="mainview" style="height:1000px; background:white;">
-  	<div class="homesearchbar">
+  	<div class="homesearchbar" >
     <form action="/library/items/update" method="post">
       <label>Item Detail</label>
       <input type="hidden" value="${itmobj.itemNumber}" name="itemNumber">
@@ -39,19 +39,19 @@
         <tr >
             <td >Title</td>
             <td >
-            	<input type="text" name="title" value="${itmobj.title}" style="width: 400px; "/>
+            	<input type="text" name="title" value="${itmobj.title}" style="width: 350px; "/>
             </td>
         </tr>        
         <tr >
             <td >Author</td>
             <td >
-            	<input type="text" name="author" value="${itmobj.author}" style="width: 400px; "/>
+            	<input type="text" name="author" value="${itmobj.author}" style="width: 350px; "/>
             </td>
         </tr>
         <tr >
             <td >Publisher</td>
             <td>
-            	<input type="text" name="publisher" value="${itmobj.publisher}" style="width: 400px; "/>
+            	<input type="text" name="publisher" value="${itmobj.publisher}" style="width: 350px; "/>
             </td>
         </tr>
          <tr >
@@ -64,7 +64,7 @@
         <tr>
         	<td>Description</td>
         	<td>
-        		<input value="${itmobj.description}" name="description">
+        		<input value="${itmobj.description}" name="description"style="width: 350px; ">
         	</td>
         </tr>
         <tr>

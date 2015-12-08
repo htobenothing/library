@@ -336,6 +336,7 @@ public class TransactionDataAccess implements TransactionDao {
 	}
 	@Override
 	public int renewTransaction(Transcation t) throws Exception {
+		if(t.getStatus()=="1"){
 		Connection conn=openConnection();
 		Statement stmt=(Statement) conn.createStatement();
 		int i=0;
@@ -353,7 +354,8 @@ public class TransactionDataAccess implements TransactionDao {
 			conn.close();
 			return i;
 		}
-		catch(Exception e){return i;}
+		catch(Exception e){return i;}}
+		return 0;
 	}
 
 }
