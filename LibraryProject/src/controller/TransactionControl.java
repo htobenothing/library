@@ -507,6 +507,7 @@ public class TransactionControl extends HttpServlet {
 			rd = request.getRequestDispatcher("../jsp/login.jsp");
 			rd.forward(request, response);	
 			break;
+			
 		default:
 			throw new ServletException("404");
 		}
